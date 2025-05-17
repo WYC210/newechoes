@@ -18,12 +18,12 @@ tags: ["编译器"]
 如果之前有安装过老版本 Clion, 需要先彻底卸载，以免两者冲突，导致破解失败。
 
 第三步: 开始安装 Clion 2023.2 版本
-1.安装包下载好后，双击安装包，即可开始安装 Clion 2023.2 版本，点击【Next】按钮进入下一步
-2.安装目录任意
-3.Create Desktop Shortaut:DcLion 勾选上是为创建桌面图标,其他默认
+1. 安装包下载好后，双击安装包，即可开始安装 Clion 2023.2 版本，点击【Next】按钮进入下一步
+2. 安装目录任意
+3. Create Desktop Shortaut:DcLion 勾选上是为创建桌面图标,其他默认
 Add launchers dir to the PATH 勾上是为添加环境变量
-4.安装完成后，勾选 Run Clion，点击 Finish 运行软件
-5.Clion 运行成功后，首先会弹出如下对话框，勾选默认的 Do not import settings 不导入任何配置，然后点击exit
+4. 安装完成后，勾选 Run Clion，点击 Finish 运行软件
+5. Clion 运行成功后，首先会弹出如下对话框，勾选默认的 Do not import settings 不导入任何配置，然后点击exit
 
 第四步：开始破解
 破解文件:https://lsy22.lanzouj.com/iVpse1dnvbrc
@@ -33,6 +33,7 @@ Add launchers dir to the PATH 勾上是为添加环境变量
 
 注意：补丁所属文件夹需单独存放，且放置的路径不要有中文与空格，以免 Clion 读取补丁错误。
 Windows 系统
+<br/>
 点击进入 /jetbra 补丁目录，再点击进入 /scripts 文件夹，双击执行install-all-users.vbs破解脚本
 会提示安装补丁需要等待数秒。点击【确定】按钮后，过程大概 10 - 30 秒，如看到弹框提示 Done 时，表示成功
 再执行install-current-user.vbs破解脚本
@@ -41,6 +42,7 @@ Windows 系统
 两个脚本都执行完代表成功
 
 Mac / Linux 系统
+<br/>
 Mac / Linux 系统与上面 Windows 系统一样，需将补丁所属文件 /jetbra 复制到某个路径，且路径不能包含空格与中文，之后，打开终端，进入到 /jetbra/scripts 文件夹， 执行 install.sh 脚本, 命令如下：
 
 sudo bash install.sh
@@ -94,18 +96,21 @@ endforeach ()
 
 
 中文乱码
+<br/>
 方法一:更换windows默认编码
 
 Windows11 部分程序中文乱码解决方案[通用解决Windows10]
 
 首先,打开控制面板.找到时钟和区域.选择区域.打开管理.选择非Unicode程序的语言.更改系统区域设置为中国.(...
+
 方法二:设置GBK编码
-1.设置GKB编码
+
+1. 设置GKB编码
 
 编辑器——文件编码
 将全局编码和项目编码和属性文件的默认编码都设置为GBK
 
-2.打开外部外部控制台
+2. 打开外部外部控制台
 
 调试右边三个点——编辑——开启在外部控制台中运行
 
