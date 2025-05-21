@@ -14,7 +14,6 @@ const normalizedPath =
       ? currentPath.slice(0, -1)
       : currentPath;
 
-// 定义导航链接
 
 // 在服务器端预先查找激活项
 let activeItem = null;
@@ -49,17 +48,8 @@ if (!activeSubItem) {
   }
 }
 
-// 样式变量 - 用于设置高亮背景的默认属性
-let primaryHighlightStyle = activeItem || activeGroupId ? "opacity: 1;" : "opacity: 0;";
-let secondaryHighlightStyle = activeSubItem ? "opacity: 1;" : "opacity: 0;";
-
-// 导航选择器样式设置
-const activeClass = "font-medium";
-const itemClass = "px-4 py-2 text-sm font-medium";
-const primaryHighlightClass = "bg-primary-100 dark:bg-primary-800/30 rounded-xl shadow-md backdrop-blur-sm";
-const secondaryHighlightClass = "bg-primary-300/80 dark:bg-primary-700/60 rounded-xl shadow-md backdrop-blur-sm";
-const transitionDuration = 300;
-const navSelectorClassName = "mr-4";
+// 计算活动状态
+const hasActiveNavItem = activeItem || activeGroupId || activeSubItem ? true : false;
 ---
 
 <header
@@ -92,14 +82,12 @@ const navSelectorClassName = "mr-4";
         <!-- 导航链接 - 集成NavSelector组件 -->
         <div class="hidden md:flex md:items-center md:space-x-4">
           <!-- 集成的NavSelector代码 -->
-          <nav class={`nav-selector relative ${navSelectorClassName}`} style="--primary-highlight-bg: transparent; --secondary-highlight-bg: transparent;" data-duration={transitionDuration} data-has-active={Boolean(activeItem || activeGroupId || activeSubItem).toString()}>
+          <nav class="nav-selector relative mr-4" data-duration="300" data-has-active={hasActiveNavItem.toString()}>
             <!-- 高亮背景元素 -->
             <div id="nav-primary-highlight" 
-                class={`absolute z-0 hover:shadow-lg rounded-xl ${primaryHighlightClass}`} 
-                style={primaryHighlightStyle}></div>
+                class={`absolute z-0 bg-primary-100 dark:bg-primary-800/30 rounded-xl shadow-md backdrop-blur-sm transition-all duration-300 ${hasActiveNavItem ? 'opacity-100' : 'opacity-0'}`}></div>
             <div id="nav-secondary-highlight" 
-                class={`absolute z-10 hover:shadow-lg rounded-xl ${secondaryHighlightClass}`}
-                style={secondaryHighlightStyle}></div>
+                class={`absolute z-10 bg-primary-300/80 dark:bg-primary-700/60 rounded-xl shadow-md backdrop-blur-sm transition-all duration-300 ${activeSubItem ? 'opacity-100' : 'opacity-0'}`}></div>
             
             <!-- 导航菜单项 -->
             <div class="flex items-center relative z-20 space-x-8">
@@ -109,7 +97,9 @@ const navSelectorClassName = "mr-4";
                     <!-- 单项导航 -->
                     <a 
                       href={item.href} 
-                      class={`nav-item relative flex items-center justify-center h-10 ${itemClass} ${activeItem && activeItem.id === item.id ? activeClass + ' active font-semibold text-primary-700 dark:text-primary-300' : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
+                      class={`nav-item relative flex items-center justify-center h-10 px-4 py-2 text-sm font-medium ${activeItem && activeItem.id === item.id 
+                        ? 'active font-semibold text-primary-700 dark:text-primary-300' 
+                        : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
                       data-item-id={item.id}
                       data-astro-prefetch="hover"
                     >
@@ -121,7 +111,9 @@ const navSelectorClassName = "mr-4";
                       <!-- 一级菜单按钮 -->
                       <button 
                         type="button"
-                        class={`nav-group-toggle relative flex items-center justify-center h-10 ${itemClass} ${activeGroupId === item.id ? 'menu-up font-semibold text-primary-700 dark:text-primary-300' : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
+                        class={`nav-group-toggle relative flex items-center justify-center h-10 px-4 py-2 text-sm font-medium ${activeGroupId === item.id 
+                          ? 'menu-up font-semibold text-primary-700 dark:text-primary-300' 
+                          : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
                         data-toggle-id={item.id}
                         data-height-reference="true"
                       >
@@ -134,7 +126,9 @@ const navSelectorClassName = "mr-4";
                           {item.items.map((subItem) => (
                             <a 
                               href={subItem.href} 
-                              class={`nav-subitem relative flex items-center justify-center h-10 ${itemClass} ${activeSubItem && activeSubItem.id === subItem.id ? activeClass + ' active font-semibold text-primary-700 dark:text-primary-300' : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
+                              class={`nav-subitem relative flex items-center justify-center h-10 px-4 py-2 text-sm font-medium ${activeSubItem && activeSubItem.id === subItem.id 
+                                ? 'active font-semibold text-primary-700 dark:text-primary-300' 
+                                : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
                               data-subitem-id={`${item.id}-${subItem.id}`}
                               data-parent-id={item.id}
                               data-astro-prefetch="hover"
@@ -193,36 +187,12 @@ const navSelectorClassName = "mr-4";
             aria-label="打开菜单"
           >
             <span class="sr-only">打开菜单</span>
-            <svg
-              class="h-6 w-6 block"
-              id="menu-open-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
-            <svg
-              class="h-6 w-6 hidden"
-              id="menu-close-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
+            <!-- 替换SVG图标为CSS汉堡菜单 -->
+            <div class="hamburger-menu">
+              <span class="hamburger-line line-1"></span>
+              <span class="hamburger-line line-2"></span>
+              <span class="hamburger-line line-3"></span>
+            </div>
           </button>
         </div>
       </div>
@@ -278,16 +248,18 @@ const navSelectorClassName = "mr-4";
                       data-mobile-menu-toggle={item.id}
                     >
                       <span>{item.text}</span>
-                      <svg 
-                        class="mobile-menu-arrow h-5 w-5 text-gray-500 dark:text-gray-400" 
-                        fill="none" 
-                        viewBox="0 0 24 24" 
-                        stroke="currentColor"
-                      >
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                      </svg>
+                      <div class="mobile-menu-icon w-5 h-5 flex items-center justify-center">
+                        <svg 
+                          class="mobile-menu-arrow w-4 h-4 text-gray-500 dark:text-gray-400" 
+                          fill="none" 
+                          viewBox="0 0 24 24" 
+                          stroke="currentColor"
+                        >
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </div>
                     </div>
-                    <div class="mobile-submenu pl-4 border-l-2 border-gray-200 dark:border-gray-700 hidden overflow-hidden" data-parent-id={item.id}>
+                    <div class="mobile-submenu pl-4 border-l-2 border-gray-200 dark:border-gray-700" data-parent-id={item.id}>
                       {item.items.map(subItem => (
                         <a
                           href={subItem.href}
@@ -330,7 +302,6 @@ const navSelectorClassName = "mr-4";
     </div>
   </nav>
 </header>
-
 
 <script is:inline>
 // 导航逻辑 - 自销毁模式
@@ -1000,18 +971,21 @@ const navSelectorClassName = "mr-4";
     // 设置激活的二级菜单项
     function setActiveSubItem(subItemId) {
       if (!subItemId) {
+        console.warn(`[导航日志] 无效的subItemId`);
         return;
       }
       
       // 查找目标项
       const targetItem = document.querySelector(`.nav-subitem[data-subitem-id="${subItemId}"]`);
       if (!targetItem) {
+        console.warn(`[导航日志] 未找到目标子菜单项: ${subItemId}`);
         return;
       }
       
       // 获取父组ID
       const parentId = targetItem.dataset.parentId;
       if (!parentId) {
+        console.warn(`[导航日志] 目标子菜单项没有父组ID: ${subItemId}`);
         return;
       }
       
@@ -1201,7 +1175,9 @@ const navSelectorClassName = "mr-4";
         activeGroupId = groupId;
         
         // 如果没有选中的二级菜单项，则选中第一个并模拟点击
-        if (!activeSubItemId || !activeSubItemId.startsWith(groupId)) {
+        const activeSubItemBelongsToGroup = activeSubItemId && new RegExp(`^${groupId}-`).test(activeSubItemId);
+        
+        if (!activeSubItemId || !activeSubItemBelongsToGroup) {
           const firstSubItem = targetGroup.querySelector('.nav-subitem');
           if (firstSubItem) {
             const subItemId = firstSubItem.dataset.subitemId;
@@ -1223,8 +1199,26 @@ const navSelectorClassName = "mr-4";
             
             // 直接模拟点击第一个子菜单项
             setTimeout(() => {
-              firstSubItem.click();
-            }, 10);
+              try {
+                // 检查元素是否仍然存在于DOM中
+                const currentFirstSubItem = document.querySelector(`.nav-subitem[data-subitem-id="${subItemId}"]`);
+                if (currentFirstSubItem) {
+                  // 使用事件分发而不是直接点击，可能更可靠
+                  const clickEvent = new MouseEvent('click', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                  });
+                  currentFirstSubItem.dispatchEvent(clickEvent);
+                } else {
+                  console.error(`[导航日志] 模拟点击失败，元素不再存在于DOM中`);
+                }
+              } catch (err) {
+                console.error(`[导航日志] 模拟点击出错: ${err.message}`);
+              }
+            }, 50); // 增加延迟时间以确保DOM已更新
+          } else {
+            console.warn(`[导航日志] 未找到子菜单项，无法选中第一项`);
           }
         } else {
           // 已有选中的二级菜单项，找到并重新设置高亮
@@ -1398,7 +1392,7 @@ const navSelectorClassName = "mr-4";
           if (submenu) {
             const parentId = submenu.getAttribute('data-parent-id');
             const toggle = document.querySelector(`[data-mobile-menu-toggle="${parentId}"]`);
-            if (toggle && submenu.classList.contains('hidden')) {
+            if (toggle && !submenu.classList.contains('menu-visible')) {
               // 展开子菜单
               toggleSubmenu(parentId, true);
             }
@@ -1415,22 +1409,31 @@ const navSelectorClassName = "mr-4";
     function toggleSubmenu(parentId, forceOpen = null) {
       const toggle = document.querySelector(`[data-mobile-menu-toggle="${parentId}"]`);
       const submenu = document.querySelector(`.mobile-submenu[data-parent-id="${parentId}"]`);
-      const arrow = toggle ? toggle.querySelector('.mobile-menu-arrow') : null;
+      const menuIcon = toggle ? toggle.querySelector('.mobile-menu-icon') : null;
+      const arrow = menuIcon ? menuIcon.querySelector('.mobile-menu-arrow') : null;
       
       if (!toggle || !submenu) return;
       
       // 确定是展开还是收起
-      const isHidden = submenu.classList.contains('hidden');
+      const isHidden = !submenu.classList.contains('menu-visible');
       const shouldOpen = forceOpen !== null ? forceOpen : isHidden;
       
       if (shouldOpen) {
-        // 展开子菜单
-        submenu.classList.remove('hidden');
-        if (arrow) arrow.style.transform = 'rotate(180deg)';
+        // 展开子菜单 - 移除hidden类已不需要，因为我们使用visibility控制
+        
+        // 使用requestAnimationFrame确保DOM更新后再添加过渡类
+        requestAnimationFrame(() => {
+          submenu.classList.add('menu-visible');
+          
+          // 设置图标动画
+          if (menuIcon) menuIcon.style.transform = 'rotate(180deg)';
+        });
       } else {
-        // 收起子菜单
-        submenu.classList.add('hidden');
-        if (arrow) arrow.style.transform = '';
+        // 收起子菜单 - 移除可见类触发过渡效果
+        submenu.classList.remove('menu-visible');
+        
+        // 重置图标动画
+        if (menuIcon) menuIcon.style.transform = '';
       }
     }
     
@@ -1440,7 +1443,13 @@ const navSelectorClassName = "mr-4";
       toggles.forEach(toggle => {
         const parentId = toggle.getAttribute('data-mobile-menu-toggle');
         if (parentId) {
-          toggleSubmenu(parentId, false);
+          const submenu = document.querySelector(`.mobile-submenu[data-parent-id="${parentId}"]`);
+          const menuIcon = toggle ? toggle.querySelector('.mobile-menu-icon') : null;
+          
+          if (submenu) {
+            submenu.classList.remove('menu-visible');
+            if (menuIcon) menuIcon.style.transform = '';
+          }
         }
       });
     }
@@ -1469,12 +1478,6 @@ const navSelectorClassName = "mr-4";
         
         if (mobileMenuButton) {
           mobileMenuButton.setAttribute('aria-expanded', 'false');
-          
-          // 重置菜单图标
-          if (menuOpenIcon && menuCloseIcon) {
-            menuOpenIcon.classList.remove('hidden');
-            menuCloseIcon.classList.add('hidden');
-          }
         }
         
         // 同时关闭所有子菜单
@@ -1501,12 +1504,6 @@ const navSelectorClassName = "mr-4";
         
         // 更新按钮状态
         mobileMenuButton.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-        
-        // 切换图标
-        if (menuOpenIcon && menuCloseIcon) {
-          menuOpenIcon.classList.toggle('hidden');
-          menuCloseIcon.classList.toggle('hidden');
-        }
         
         // 显示/隐藏菜单
         mobileMenu.classList.toggle('hidden');
