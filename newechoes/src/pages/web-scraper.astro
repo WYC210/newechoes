@@ -1,0 +1,318 @@
+---
+import Layout from "../components/Layout.astro";
+---
+
+<Layout
+  title="Web Scraper Demonstration"
+  description="Demonstrates web scraping for vegetable prices and weather data."
+>
+  <main>
+    <div class="container mx-auto px-4 py-8">
+      <h1
+        class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white"
+      >
+        爬虫在线演示
+      </h1>
+      <p class="mb-8 text-center text-gray-700 dark:text-gray-300">
+        这是获取北京地区菜价和天气的在线演示
+      </p>
+
+      <section
+        class="scraper-section p-6 bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700"
+      >
+        <h2>北京蔬菜价格</h2>
+        <form id="vegetable-form" class="scraper-form">
+          <label for="start-page">开始页:</label>
+          <input
+            type="number"
+            id="start-page"
+            value="1"
+            min="1"
+            class="input-field"
+          />
+          <label for="end-page">结束页:</label>
+          <input
+            type="number"
+            id="end-page"
+            value="2"
+            min="1"
+            class="input-field"
+          />
+          <button type="submit" class="scraper-button">
+            开始爬取蔬菜价格
+          </button>
+          <button
+            type="button"
+            id="pause-vegetable"
+            class="scraper-button secondary-button ml-2"
+            style="display: none;">暂停</button
+          >
+          <button
+            type="button"
+            id="resume-vegetable"
+            class="scraper-button secondary-button ml-2"
+            style="display: none;">继续</button
+          >
+        </form>
+        <div id="vegetable-results" class="scraper-results scraper-loading">
+        </div>
+      </section>
+
+      <section
+        class="scraper-section mt-10 p-6 bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700"
+      >
+        <h2>天气数据爬取</h2>
+        <div class="scraper-form mb-4">
+          <label for="province-id">省份ID (e.g., 北京, 上海):</label>
+          <input
+            type="text"
+            id="province-id"
+            placeholder="Enter province name"
+            class="input-field"
+          />
+        </div>
+        <button id="fetch-weather" class="scraper-button">
+          获取天气数据
+        </button>
+        <button
+          type="button"
+          id="pause-weather"
+          class="scraper-button secondary-button ml-2"
+          style="display: none;">暂停</button
+        >
+        <button
+          type="button"
+          id="resume-weather"
+          class="scraper-button secondary-button ml-2"
+          style="display: none;">继续</button
+        >
+        <div id="weather-results" class="scraper-results scraper-loading"></div>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const vegetableForm = document.getElementById("vegetable-form");
+    const vegetableResults = document.getElementById("vegetable-results");
+    const fetchWeatherButton = document.getElementById("fetch-weather");
+    const weatherResults = document.getElementById("weather-results");
+    const provinceIdInput = document.getElementById("province-id");
+
+    const pauseVegetableButton = document.getElementById("pause-vegetable");
+    const resumeVegetableButton = document.getElementById("resume-vegetable");
+    const pauseWeatherButton = document.getElementById("pause-weather");
+    const resumeWeatherButton = document.getElementById("resume-weather");
+
+    let vegetableAbortController = null; // For canceling vegetable fetch
+    let weatherAbortController = null; // For canceling weather fetch
+    let isVegetablePaused = false;
+    let isWeatherPaused = false;
+
+    // Initial state for results display
+    vegetableResults.innerHTML =
+      "<p class=\"scraper-loading\">输入页码并点击'开始爬取蔬菜价格'.</p>";
+    weatherResults.innerHTML =
+      "<p class=\"scraper-loading\">点击'获取天气数据'获取天气信息, 可选过滤省份.</p>";
+
+    // Helper to show/hide buttons
+    function showButton(button) {
+      button.style.display = "inline-block";
+    }
+    function hideButton(button) {
+      button.style.display = "none";
+    }
+
+    // Function to scrape vegetable data
+    vegetableForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      vegetableResults.innerHTML = '<p class="scraper-loading">Loading...</p>';
+      hideButton(vegetableForm.querySelector('button[type="submit"]'));
+      showButton(pauseVegetableButton);
+      hideButton(resumeVegetableButton);
+
+      isVegetablePaused = false;
+      vegetableAbortController = new AbortController();
+      const signal = vegetableAbortController.signal;
+
+      let currentVegetablePage = parseInt(
+        document.getElementById("start-page").value
+      );
+      const endPage = parseInt(document.getElementById("end-page").value);
+
+      let allVegetableData = [];
+
+      const scrapeVegetablePage = async (page) => {
+        if (isVegetablePaused) return; // Do not proceed if paused
+        if (signal.aborted) {
+          // Check if aborted by user
+          vegetableResults.innerHTML =
+            '<p class="error-message">Vegetable scraping cancelled.</p>';
+          hideButton(pauseVegetableButton);
+          showButton(vegetableForm.querySelector('button[type="submit"]'));
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/vegetable-scraper", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ startPage: page, endPage: page }),
+            signal: signal,
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.details || "Unknown error");
+          }
+
+          const result = await response.json();
+          return result.data;
+        } catch (error) {
+          if (error.name === "AbortError") {
+            vegetableResults.innerHTML =
+              '<p class="scraper-loading">Vegetable scraping paused.</p>';
+            return null; // Indicate that it was paused, not an error
+          } else {
+            console.error("Error fetching vegetable data:", error);
+            vegetableResults.innerHTML = `<p class=\"error-message\">Error fetching vegetable data: ${error.message}. Please check the console for more details.</p>`;
+            hideButton(pauseVegetableButton);
+            hideButton(resumeVegetableButton);
+            showButton(vegetableForm.querySelector('button[type="submit"]'));
+            throw error; // Re-throw to stop further scraping
+          }
+        }
+      };
+
+      const runVegetableScraping = async () => {
+        while (currentVegetablePage <= endPage && !isVegetablePaused) {
+          const data = await scrapeVegetablePage(currentVegetablePage);
+          if (data === null) {
+            // Was paused
+            break;
+          }
+          allVegetableData = allVegetableData.concat(data);
+          currentVegetablePage++;
+
+          if (allVegetableData.length > 0) {
+            let html = "<h3>Results:</h3><ul>";
+            allVegetableData.forEach((item) => {
+              html += `<li><strong>${item.prodName}</strong>: Min ${item.lowPrice}, Max ${item.highPrice}, Avg ${item.avgPrice}, Spec ${item.specInfo}, Place ${item.place}, Unit ${item.unitInfo}, Date ${item.pubDate}</li>`;
+            });
+            html += "</ul>";
+            vegetableResults.innerHTML = html;
+          } else {
+            vegetableResults.innerHTML =
+              "<p>No vegetable data found for the specified pages.</p>";
+          }
+          await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay between requests
+        }
+
+        if (!isVegetablePaused) {
+          vegetableResults.innerHTML =
+            '<p class="scraper-loading">Vegetable scraping complete!</p>';
+          hideButton(pauseVegetableButton);
+          hideButton(resumeVegetableButton);
+          showButton(vegetableForm.querySelector('button[type="submit"]'));
+        }
+      };
+
+      runVegetableScraping();
+    });
+
+    pauseVegetableButton.addEventListener("click", () => {
+      if (vegetableAbortController) {
+        vegetableAbortController.abort();
+        isVegetablePaused = true;
+        hideButton(pauseVegetableButton);
+        showButton(resumeVegetableButton);
+        vegetableResults.innerHTML =
+          '<p class="scraper-loading">Vegetable scraping paused.</p>';
+      }
+    });
+
+    resumeVegetableButton.addEventListener("click", () => {
+      isVegetablePaused = false;
+      hideButton(resumeVegetableButton);
+      showButton(pauseVegetableButton);
+      // To resume, we need to re-trigger the scraping from the current page
+      // Set the start page to the current page + 1 (since current page was already processed)
+      document.getElementById("start-page").value = currentVegetablePage;
+      vegetableForm.dispatchEvent(new Event("submit")); // Re-trigger the form submission
+    });
+
+    // Function to scrape weather data
+    fetchWeatherButton.addEventListener("click", async () => {
+      weatherResults.innerHTML = '<p class="scraper-loading">Loading...</p>';
+      hideButton(fetchWeatherButton);
+      showButton(pauseWeatherButton);
+      hideButton(resumeWeatherButton);
+
+      isWeatherPaused = false;
+      weatherAbortController = new AbortController();
+      const signal = weatherAbortController.signal;
+
+      const provinceId = provinceIdInput.value.trim();
+      let url = "/api/weather-scraper";
+      if (provinceId) {
+        url += `?provinceId=${encodeURIComponent(provinceId)}`;
+      }
+
+      try {
+        const response = await fetch(url, { signal: signal });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.details || "Unknown error");
+        }
+
+        const result = await response.json();
+        const weatherData = result.data;
+
+        if (weatherData.length > 0) {
+          let html = "<h3>Results:</h3><ul>";
+          weatherData.forEach((item) => {
+            html += `<li><strong>${item.cityName}</strong>: ${item.weatherInfo}</li>`;
+          });
+          html += "</ul>";
+          weatherResults.innerHTML = html;
+        } else {
+          weatherResults.innerHTML = "<p>No weather data found.</p>";
+        }
+      } catch (error) {
+        if (error.name === "AbortError") {
+          weatherResults.innerHTML =
+            '<p class="scraper-loading">Weather scraping paused.</p>';
+        } else {
+          console.error("Error fetching weather data:", error);
+          weatherResults.innerHTML = `<p class=\"error-message\">Error fetching weather data: ${error.message}. Please check the console for more details.</p>`;
+        }
+      }
+      hideButton(pauseWeatherButton);
+      hideButton(resumeWeatherButton);
+      showButton(fetchWeatherButton);
+    });
+
+    pauseWeatherButton.addEventListener("click", () => {
+      if (weatherAbortController) {
+        weatherAbortController.abort();
+        isWeatherPaused = true;
+        hideButton(pauseWeatherButton);
+        showButton(resumeWeatherButton);
+        weatherResults.innerHTML =
+          '<p class="scraper-loading">Weather scraping paused.</p>';
+      }
+    });
+
+    resumeWeatherButton.addEventListener("click", () => {
+      isWeatherPaused = false;
+      hideButton(resumeWeatherButton);
+      showButton(pauseWeatherButton);
+      // Re-trigger the weather fetch
+      fetchWeatherButton.click();
+    });
+  });
+</script>

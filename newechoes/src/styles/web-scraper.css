@@ -1,0 +1,87 @@
+.scraper-container {
+  @apply p-6 bg-white rounded-lg shadow-md;
+  border: 1px solid var(--color-gray-200);
+  margin-bottom: 1.5rem;
+}
+
+[data-theme='dark'] .scraper-container {
+  background-color: var(--color-gray-800);
+  border-color: var(--color-gray-700);
+}
+
+.scraper-section h2 {
+  @apply text-2xl font-bold mb-4 text-gray-800;
+}
+
+[data-theme='dark'] .scraper-section h2 {
+  color: var(--color-gray-100);
+}
+
+.scraper-form label {
+  @apply block text-gray-700 text-sm font-bold mb-2;
+}
+
+[data-theme='dark'] .scraper-form label {
+  color: var(--color-gray-300);
+}
+
+.scraper-form input.input-field {
+  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 mb-4;
+  border-color: var(--color-gray-300);
+  background-color: var(--color-gray-50);
+}
+
+[data-theme='dark'] .scraper-form input.input-field {
+  border-color: var(--color-gray-600);
+  background-color: var(--color-gray-700);
+  color: var(--color-gray-100);
+}
+
+.scraper-form button,
+.scraper-button {
+  @apply bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors duration-200;
+}
+
+[data-theme='dark'] .scraper-form button,
+[data-theme='dark'] .scraper-button {
+  background-color: var(--color-primary-500);
+}
+
+[data-theme='dark'] .scraper-form button:hover,
+[data-theme='dark'] .scraper-button:hover {
+  background-color: var(--color-primary-600);
+}
+
+.scraper-results {
+  @apply mt-4 p-4 bg-gray-50 rounded border border-gray-200 text-gray-700 max-h-96 overflow-y-auto;
+}
+
+[data-theme='dark'] .scraper-results {
+  background-color: var(--color-gray-700);
+  border-color: var(--color-gray-600);
+  color: var(--color-gray-200);
+}
+
+.scraper-results ul {
+  @apply list-disc pl-5;
+}
+
+.scraper-results li {
+  @apply mb-2 last:mb-0;
+}
+
+.scraper-results p.error-message {
+  @apply text-red-600 font-semibold;
+}
+
+[data-theme='dark'] .scraper-results p.error-message {
+  @apply text-red-400;
+}
+
+.scraper-loading {
+  @apply text-center text-gray-500 italic;
+}
+
+[data-theme='dark'] .scraper-loading {
+  @apply text-gray-400;
+} 
