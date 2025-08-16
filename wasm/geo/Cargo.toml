@@ -1,0 +1,25 @@
+[package]
+name = "geo-wasm"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+default = []
+wee_alloc = ["dep:wee_alloc"]
+
+
+[dependencies]
+wasm-bindgen = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+geojson = { workspace = true }
+geo = { workspace = true }
+geo-types = { workspace = true }
+js-sys = { workspace = true }
+kdtree = { workspace = true }
+console_error_panic_hook = { workspace = true }
+serde-wasm-bindgen = { workspace = true }
+wee_alloc = { workspace = true, optional = true }
