@@ -1,0 +1,2146 @@
+---
+import Layout from "@/components/Layout.astro";
+---
+
+<Layout
+  title="工具中心"
+  description="在线工具集合 - 游戏娱乐与爬虫演示"
+  skipSrTitle={false}
+  transparentNav={true}
+>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+  </head>
+
+  <div
+    class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800"
+  >
+    <div class="container mx-auto px-4 py-8">
+      <!-- 页面标题 -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+          🛠️ 工具中心
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          选择你需要的工具 - 游戏娱乐或实用演示
+        </p>
+        <div
+          class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 max-w-2xl mx-auto"
+        >
+          <p class="text-sm text-blue-700 dark:text-blue-300">
+            💡 <strong>使用提示：</strong
+            >游戏支持键盘和触屏操作，爬虫演示需要网络连接。所有功能都在浏览器中运行，无需安装任何软件(由于浏览器兼容问题，如点击没反应请先刷新页面再尝试点击)。
+          </p>
+        </div>
+      </div>
+
+      <!-- 分类选择器 -->
+      <div class="flex justify-center mb-8">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-2 flex space-x-2"
+        >
+          <button
+            id="tab-games"
+            class="tab-button active px-6 py-3 rounded-lg font-semibold transition-all duration-300 bg-blue-500 text-white"
+          >
+            🎮 游戏娱乐
+          </button>
+          <button
+            id="tab-scrapers"
+            class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            🕷️ 爬虫演示
+          </button>
+        </div>
+      </div>
+
+      <div class="max-w-6xl mx-auto">
+        <!-- 游戏区域 -->
+        <div id="games-section" class="section-content">
+          <!-- 游戏列表 -->
+          <div
+            id="games-list"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <!-- 贪吃蛇游戏卡片 -->
+            <div
+              class="game-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105"
+              data-game="snake"
+            >
+              <div class="text-center">
+                <div class="text-6xl mb-4">🐍</div>
+                <h3
+                  class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2"
+                >
+                  贪吃蛇
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                  经典贪吃蛇游戏，挑战你的反应速度
+                </p>
+                <div class="flex flex-wrap gap-2 justify-center">
+                  <span
+                    class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs"
+                    >单人模式</span
+                  >
+                  <span
+                    class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs"
+                    >双人模式</span
+                  >
+                  <span
+                    class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-xs"
+                    >闯关模式</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- 五子棋游戏卡片 -->
+            <div
+              class="game-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105"
+              data-game="gomoku"
+            >
+              <div class="text-center">
+                <div class="text-6xl mb-4">⚫</div>
+                <h3
+                  class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2"
+                >
+                  五子棋
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                  经典五子棋游戏，先连成五子者获胜
+                </p>
+                <div class="flex flex-wrap gap-2 justify-center">
+                  <span
+                    class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs"
+                    >人机对战</span
+                  >
+                  <span
+                    class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs"
+                    >双人对战</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- 更多游戏占位符 -->
+            <div
+              class="game-card bg-gray-100 dark:bg-gray-700 rounded-xl shadow-lg p-6 cursor-not-allowed opacity-50"
+            >
+              <div class="text-center">
+                <div class="text-6xl mb-4">🎮</div>
+                <h3
+                  class="text-2xl font-bold text-gray-600 dark:text-gray-400 mb-2"
+                >
+                  更多游戏
+                </h3>
+                <p class="text-gray-500 dark:text-gray-500 mb-4">敬请期待...</p>
+                <span
+                  class="px-2 py-1 bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400 rounded-full text-xs"
+                  >即将推出</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- 贪吃蛇游戏界面 -->
+          <div id="snake-game-container" class="game-container hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                  <div class="text-3xl mr-4">🐍</div>
+                  <div>
+                    <h2
+                      class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                    >
+                      贪吃蛇
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      选择游戏模式开始游戏
+                    </p>
+                  </div>
+                </div>
+                <button
+                  id="back-to-games"
+                  class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                >
+                  ← 返回游戏列表
+                </button>
+              </div>
+
+              <div id="snake-mode-selection" class="text-center mb-6">
+                <div
+                  class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto"
+                >
+                  <button
+                    id="snake-single"
+                    class="p-4 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition-colors flex flex-col items-center space-y-2"
+                  >
+                    <span class="text-2xl">👤</span>
+                    <span>单人模式</span>
+                  </button>
+                  <button
+                    id="snake-double"
+                    class="p-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex flex-col items-center space-y-2"
+                  >
+                    <span class="text-2xl">👥</span>
+                    <span>双人模式</span>
+                  </button>
+                  <button
+                    id="snake-challenge"
+                    class="p-4 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold transition-colors flex flex-col items-center space-y-2"
+                  >
+                    <span class="text-2xl">🏆</span>
+                    <span>闯关模式</span>
+                  </button>
+                </div>
+              </div>
+
+              <div id="snake-game-area" class="hidden text-center">
+                <div class="flex justify-center mb-4">
+                  <canvas
+                    id="snake-canvas"
+                    width="600"
+                    height="400"
+                    class="border-2 border-gray-300 dark:border-gray-600 bg-black rounded-lg max-w-full"
+                  ></canvas>
+                </div>
+                <div id="snake-controls">
+                  <p class="text-lg text-gray-600 dark:text-gray-400 mb-2">
+                    得分: <span
+                      id="snake-score"
+                      class="font-bold text-2xl text-green-600">0</span
+                    >
+                  </p>
+                  <div
+                    id="snake-control-info"
+                    class="text-sm text-gray-500 dark:text-gray-400 mb-4"
+                  >
+                    <!-- 控制说明将通过JavaScript动态添加 -->
+                  </div>
+                  <div
+                    id="snake-buttons"
+                    class="flex justify-center space-x-2 mb-4"
+                  >
+                    <button
+                      id="snake-up"
+                      class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors"
+                      >↑</button
+                    >
+                    <div class="flex flex-col space-y-1">
+                      <button
+                        id="snake-left"
+                        class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors"
+                        >←</button
+                      >
+                      <button
+                        id="snake-right"
+                        class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors"
+                        >→</button
+                      >
+                    </div>
+                    <button
+                      id="snake-down"
+                      class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors"
+                      >↓</button
+                    >
+                  </div>
+                  <button
+                    id="snake-back"
+                    class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                    >返回模式选择</button
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 五子棋游戏界面 -->
+          <div id="gomoku-game-container" class="game-container hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                  <div class="text-3xl mr-4">⚫</div>
+                  <div>
+                    <h2
+                      class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                    >
+                      五子棋
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      选择对战模式开始游戏
+                    </p>
+                  </div>
+                </div>
+                <button
+                  id="back-to-games-gomoku"
+                  class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                >
+                  ← 返回游戏列表
+                </button>
+              </div>
+
+              <div id="gomoku-mode-selection" class="text-center mb-6">
+                <div
+                  class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto"
+                >
+                  <button
+                    id="gomoku-single"
+                    class="p-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex flex-col items-center space-y-2"
+                  >
+                    <span class="text-2xl">🤖</span>
+                    <span>人机对战</span>
+                  </button>
+                  <button
+                    id="gomoku-double"
+                    class="p-4 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition-colors flex flex-col items-center space-y-2"
+                  >
+                    <span class="text-2xl">👥</span>
+                    <span>双人对战</span>
+                  </button>
+                </div>
+              </div>
+
+              <div id="gomoku-game-area" class="hidden text-center">
+                <div class="flex justify-center mb-4">
+                  <canvas
+                    id="gomoku-canvas"
+                    width="560"
+                    height="560"
+                    class="border-2 border-gray-300 dark:border-gray-600 bg-yellow-100 dark:bg-yellow-900 rounded-lg max-w-full"
+                  ></canvas>
+                </div>
+                <div id="gomoku-info">
+                  <p class="text-lg text-gray-600 dark:text-gray-400 mb-4">
+                    当前玩家: <span
+                      id="current-player"
+                      class="font-bold text-xl">黑子</span
+                    >
+                  </p>
+                  <div class="space-x-2">
+                    <button
+                      id="gomoku-restart"
+                      class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
+                      >重新开始</button
+                    >
+                    <button
+                      id="gomoku-back"
+                      class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                      >返回模式选择</button
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 爬虫演示区域 -->
+        <div id="scrapers-section" class="section-content hidden">
+          <!-- 爬虫列表 -->
+          <div
+            id="scrapers-list"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <!-- 蔬菜价格爬虫卡片 -->
+            <div
+              class="scraper-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105"
+              data-scraper="vegetable"
+            >
+              <div class="text-center">
+                <div class="text-6xl mb-4">🥬</div>
+                <h3
+                  class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2"
+                >
+                  蔬菜价格
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                  实时获取北京地区蔬菜价格信息
+                </p>
+                <div class="flex flex-wrap gap-2 justify-center">
+                  <span
+                    class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs"
+                    >实时数据</span
+                  >
+                  <span
+                    class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs"
+                    >分页爬取</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- 天气数据爬虫卡片 -->
+            <div
+              class="scraper-card bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105"
+              data-scraper="weather"
+            >
+              <div class="text-center">
+                <div class="text-6xl mb-4">🌤️</div>
+                <h3
+                  class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2"
+                >
+                  天气数据
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                  获取指定省份的天气信息
+                </p>
+                <div class="flex flex-wrap gap-2 justify-center">
+                  <span
+                    class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs"
+                    >省份筛选</span
+                  >
+                  <span
+                    class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-xs"
+                    >实时天气</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- 更多爬虫占位符 -->
+            <div
+              class="scraper-card bg-gray-100 dark:bg-gray-700 rounded-xl shadow-lg p-6 cursor-not-allowed opacity-50"
+            >
+              <div class="text-center">
+                <div class="text-6xl mb-4">🕷️</div>
+                <h3
+                  class="text-2xl font-bold text-gray-600 dark:text-gray-400 mb-2"
+                >
+                  更多爬虫
+                </h3>
+                <p class="text-gray-500 dark:text-gray-500 mb-4">敬请期待...</p>
+                <span
+                  class="px-2 py-1 bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400 rounded-full text-xs"
+                  >即将推出</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- 蔬菜价格爬虫界面 -->
+          <div
+            id="vegetable-scraper-container"
+            class="scraper-container hidden"
+          >
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                  <div class="text-3xl mr-4">🥬</div>
+                  <div>
+                    <h2
+                      class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                    >
+                      北京蔬菜价格爬取
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      设置爬取参数并开始获取数据
+                    </p>
+                  </div>
+                </div>
+                <button
+                  id="back-to-scrapers"
+                  class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                >
+                  ← 返回爬虫列表
+                </button>
+              </div>
+
+              <form id="vegetable-form" class="mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label
+                      for="start-page"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      >开始页码:</label
+                    >
+                    <input
+                      type="number"
+                      id="start-page"
+                      value="1"
+                      min="1"
+                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="end-page"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      >结束页码:</label
+                    >
+                    <input
+                      type="number"
+                      id="end-page"
+                      value="2"
+                      min="1"
+                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    />
+                  </div>
+                </div>
+                <div class="flex space-x-3">
+                  <button
+                    type="submit"
+                    class="flex-1 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition-colors"
+                  >
+                    🚀 开始爬取蔬菜价格
+                  </button>
+                  <button
+                    type="button"
+                    id="pause-vegetable"
+                    class="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-colors"
+                    style="display: none;"
+                  >
+                    ⏸️ 暂停
+                  </button>
+                  <button
+                    type="button"
+                    id="resume-vegetable"
+                    class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
+                    style="display: none;"
+                  >
+                    ▶️ 继续
+                  </button>
+                </div>
+              </form>
+
+              <div
+                id="vegetable-results"
+                class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 min-h-[400px] overflow-y-auto"
+              >
+                <p class="text-gray-500 dark:text-gray-400 text-center">
+                  设置页码范围并点击开始爬取按钮
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 天气数据爬虫界面 -->
+          <div id="weather-scraper-container" class="scraper-container hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                  <div class="text-3xl mr-4">🌤️</div>
+                  <div>
+                    <h2
+                      class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                    >
+                      天气数据爬取
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      输入省份名称获取天气信息
+                    </p>
+                  </div>
+                </div>
+                <button
+                  id="back-to-scrapers-weather"
+                  class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                >
+                  ← 返回爬虫列表
+                </button>
+              </div>
+
+              <div class="mb-6">
+                <div class="mb-4">
+                  <label
+                    for="province-id"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >省份名称:</label
+                  >
+                  <input
+                    type="text"
+                    id="province-id"
+                    placeholder="例如：北京、上海、广东"
+                    value="北京"
+                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  />
+                </div>
+                <div class="flex space-x-3">
+                  <button
+                    id="fetch-weather"
+                    class="flex-1 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
+                  >
+                    🌍 获取天气数据
+                  </button>
+                  <button
+                    type="button"
+                    id="pause-weather"
+                    class="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-colors"
+                    style="display: none;"
+                  >
+                    ⏸️ 暂停
+                  </button>
+                  <button
+                    type="button"
+                    id="resume-weather"
+                    class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
+                    style="display: none;"
+                  >
+                    ▶️ 继续
+                  </button>
+                </div>
+              </div>
+
+              <div
+                id="weather-results"
+                class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 min-h-[400px] overflow-y-auto"
+              >
+                <p class="text-gray-500 dark:text-gray-400 text-center">
+                  输入省份名称并点击获取天气数据按钮
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .tab-button.active {
+    background-color: #3b82f6;
+    color: white;
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .section-content {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .section-content.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .game-card,
+  .scraper-card {
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .game-card:hover,
+  .scraper-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-4px);
+  }
+
+  .game-container,
+  .scraper-container {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .weather-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  .weather-card {
+    background: linear-gradient(135deg, #e0e7ff 0%, #f0fdfa 100%);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    padding: 1rem 1.5rem;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 1.1rem;
+    color: #222;
+    border: 1px solid #c7d2fe;
+    transition: box-shadow 0.2s;
+  }
+
+  .weather-card:hover {
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+  }
+
+  .weather-city {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+    color: #2563eb;
+  }
+
+  .weather-info {
+    color: #374151;
+  }
+
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    #snake-canvas,
+    #gomoku-canvas {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .grid.grid-cols-1.lg\\:grid-cols-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .tab-button {
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .grid.grid-cols-1.md\\:grid-cols-3 {
+      grid-template-columns: 1fr;
+    }
+
+    .grid.grid-cols-1.md\\:grid-cols-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .grid.grid-cols-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* 加载动画 */
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .loading {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+</style>
+
+<script is:inline>
+  // 全局变量
+  let currentGame = null;
+  let vegetableAbortController = null;
+  let weatherAbortController = null;
+  let isVegetablePaused = false;
+  let isWeatherPaused = false;
+  let currentVegetablePage = 1;
+
+  // 主要导航和初始化
+  document.addEventListener("DOMContentLoaded", () => {
+    const tabGames = document.getElementById("tab-games");
+    const tabScrapers = document.getElementById("tab-scrapers");
+    const gamesSection = document.getElementById("games-section");
+    const scrapersSection = document.getElementById("scrapers-section");
+
+    function switchTab(activeTab, activeSection, inactiveTab, inactiveSection) {
+      // 更新标签样式
+      activeTab.classList.add("active", "bg-blue-500", "text-white");
+      activeTab.classList.remove(
+        "text-gray-600",
+        "dark:text-gray-400",
+        "hover:bg-gray-100",
+        "dark:hover:bg-gray-700"
+      );
+
+      inactiveTab.classList.remove("active", "bg-blue-500", "text-white");
+      inactiveTab.classList.add(
+        "text-gray-600",
+        "dark:text-gray-400",
+        "hover:bg-gray-100",
+        "dark:hover:bg-gray-700"
+      );
+
+      // 切换内容区域
+      activeSection.classList.remove("hidden");
+      inactiveSection.classList.add("hidden");
+
+      // 重置到列表视图
+      resetToListView();
+    }
+
+    tabGames.addEventListener("click", () => {
+      switchTab(tabGames, gamesSection, tabScrapers, scrapersSection);
+    });
+
+    tabScrapers.addEventListener("click", () => {
+      switchTab(tabScrapers, scrapersSection, tabGames, gamesSection);
+    });
+
+    // 初始化所有功能
+    initializeNavigation();
+    initializeGames();
+    initializeScrapers();
+  });
+
+  // 重置到列表视图
+  function resetToListView() {
+    // 停止当前游戏
+    stopCurrentGame();
+
+    // 隐藏所有游戏容器
+    document.querySelectorAll(".game-container").forEach((container) => {
+      container.classList.add("hidden");
+    });
+
+    // 隐藏所有爬虫容器
+    document.querySelectorAll(".scraper-container").forEach((container) => {
+      container.classList.add("hidden");
+    });
+
+    // 显示列表
+    const gamesList = document.getElementById("games-list");
+    const scrapersList = document.getElementById("scrapers-list");
+    if (gamesList) gamesList.classList.remove("hidden");
+    if (scrapersList) scrapersList.classList.remove("hidden");
+  }
+
+  // 初始化导航功能
+  function initializeNavigation() {
+    // 游戏卡片点击事件
+    document.querySelectorAll(".game-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const gameType = card.dataset.game;
+        if (gameType && gameType !== "placeholder") {
+          showGameContainer(gameType);
+        }
+      });
+    });
+
+    // 爬虫卡片点击事件
+    document.querySelectorAll(".scraper-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const scraperType = card.dataset.scraper;
+        if (scraperType && scraperType !== "placeholder") {
+          showScraperContainer(scraperType);
+        }
+      });
+    });
+
+    // 返回按钮事件
+    document.getElementById("back-to-games")?.addEventListener("click", () => {
+      resetToListView();
+    });
+
+    document
+      .getElementById("back-to-games-gomoku")
+      ?.addEventListener("click", () => {
+        resetToListView();
+      });
+
+    document
+      .getElementById("back-to-scrapers")
+      ?.addEventListener("click", () => {
+        resetToListView();
+      });
+
+    document
+      .getElementById("back-to-scrapers-weather")
+      ?.addEventListener("click", () => {
+        resetToListView();
+      });
+  }
+
+  // 显示游戏容器
+  function showGameContainer(gameType) {
+    // 隐藏游戏列表
+    document.getElementById("games-list")?.classList.add("hidden");
+
+    // 显示对应的游戏容器
+    const container = document.getElementById(`${gameType}-game-container`);
+    if (container) {
+      container.classList.remove("hidden");
+    }
+  }
+
+  // 显示爬虫容器
+  function showScraperContainer(scraperType) {
+    // 隐藏爬虫列表
+    document.getElementById("scrapers-list")?.classList.add("hidden");
+
+    // 显示对应的爬虫容器
+    const container = document.getElementById(
+      `${scraperType}-scraper-container`
+    );
+    if (container) {
+      container.classList.remove("hidden");
+    }
+  }
+
+  // 贪吃蛇游戏类
+  class SnakeGame {
+    constructor(canvas, mode) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext("2d");
+      this.mode = mode;
+      this.gridSize = 20;
+      this.lastInputTime1 = 0; // 玩家1防止快速按键
+      this.lastInputTime2 = 0; // 玩家2防止快速按键
+      this.inputDelay = 100; // 最小输入间隔(毫秒)
+
+      if (mode === "double") {
+        // 双人模式：两条蛇
+        this.snake1 = [{ x: 100, y: 200 }];
+        this.snake2 = [{ x: 500, y: 200 }];
+        this.direction1 = "right";
+        this.direction2 = "left";
+        this.nextDirection1 = "right"; // 防止快速按键
+        this.nextDirection2 = "left";
+        this.score1 = 0;
+        this.score2 = 0;
+      } else {
+        // 单人模式
+        this.snake = [{ x: 200, y: 200 }];
+        this.direction = "right";
+        this.nextDirection = "right"; // 防止快速按键
+        this.score = 0;
+      }
+
+      this.food = this.generateFood();
+      this.gameLoop = null;
+      this.speed = 150;
+      this.isGameOver = false;
+
+      this.bindControls();
+    }
+
+    generateFood() {
+      let x, y;
+      let attempts = 0;
+      const maxAttempts = 100;
+
+      do {
+        x =
+          Math.floor(Math.random() * (this.canvas.width / this.gridSize)) *
+          this.gridSize;
+        y =
+          Math.floor(Math.random() * (this.canvas.height / this.gridSize)) *
+          this.gridSize;
+        attempts++;
+      } while (this.isFoodOnSnake(x, y) && attempts < maxAttempts);
+
+      return { x, y };
+    }
+
+    isFoodOnSnake(x, y) {
+      if (this.mode === "double") {
+        return (
+          this.snake1.some((segment) => segment.x === x && segment.y === y) ||
+          this.snake2.some((segment) => segment.x === x && segment.y === y)
+        );
+      } else {
+        return this.snake.some((segment) => segment.x === x && segment.y === y);
+      }
+    }
+
+    bindControls() {
+      document.addEventListener("keydown", (e) => {
+        if (this.isGameOver) return; // 游戏结束时不响应按键
+        
+        const currentTime = Date.now();
+        
+        const keys = [
+          "ArrowUp",
+          "ArrowDown",
+          "ArrowLeft",
+          "ArrowRight",
+          "w",
+          "W",
+          "s",
+          "S",
+          "a",
+          "A",
+          "d",
+          "D",
+        ];
+        if (keys.includes(e.key)) {
+          e.preventDefault();
+        }
+
+        if (this.mode === "double") {
+          // 双人模式控制 - 分别检查每个玩家的输入限制
+          switch (e.key) {
+            // 玩家1 (WASD) - 检查玩家1的输入限制
+            case "w":
+            case "W":
+              if (currentTime - this.lastInputTime1 < this.inputDelay) return;
+              if (this.direction1 !== "down") this.nextDirection1 = "up";
+              this.lastInputTime1 = currentTime;
+              break;
+            case "s":
+            case "S":
+              if (currentTime - this.lastInputTime1 < this.inputDelay) return;
+              if (this.direction1 !== "up") this.nextDirection1 = "down";
+              this.lastInputTime1 = currentTime;
+              break;
+            case "a":
+            case "A":
+              if (currentTime - this.lastInputTime1 < this.inputDelay) return;
+              if (this.direction1 !== "right") this.nextDirection1 = "left";
+              this.lastInputTime1 = currentTime;
+              break;
+            case "d":
+            case "D":
+              if (currentTime - this.lastInputTime1 < this.inputDelay) return;
+              if (this.direction1 !== "left") this.nextDirection1 = "right";
+              this.lastInputTime1 = currentTime;
+              break;
+            // 玩家2 (方向键) - 检查玩家2的输入限制
+            case "ArrowUp":
+              if (currentTime - this.lastInputTime2 < this.inputDelay) return;
+              if (this.direction2 !== "down") this.nextDirection2 = "up";
+              this.lastInputTime2 = currentTime;
+              break;
+            case "ArrowDown":
+              if (currentTime - this.lastInputTime2 < this.inputDelay) return;
+              if (this.direction2 !== "up") this.nextDirection2 = "down";
+              this.lastInputTime2 = currentTime;
+              break;
+            case "ArrowLeft":
+              if (currentTime - this.lastInputTime2 < this.inputDelay) return;
+              if (this.direction2 !== "right") this.nextDirection2 = "left";
+              this.lastInputTime2 = currentTime;
+              break;
+            case "ArrowRight":
+              if (currentTime - this.lastInputTime2 < this.inputDelay) return;
+              if (this.direction2 !== "left") this.nextDirection2 = "right";
+              this.lastInputTime2 = currentTime;
+              break;
+          }
+        } else {
+          // 单人模式控制 - 使用玩家1的输入限制
+          if (currentTime - this.lastInputTime1 < this.inputDelay) {
+            return; // 防止快速按键
+          }
+          this.lastInputTime1 = currentTime;
+
+          switch (e.key) {
+            case "ArrowUp":
+            case "w":
+            case "W":
+              if (this.direction !== "down") this.nextDirection = "up";
+              break;
+            case "ArrowDown":
+            case "s":
+            case "S":
+              if (this.direction !== "up") this.nextDirection = "down";
+              break;
+            case "ArrowLeft":
+            case "a":
+            case "A":
+              if (this.direction !== "right") this.nextDirection = "left";
+              break;
+            case "ArrowRight":
+            case "d":
+            case "D":
+              if (this.direction !== "left") this.nextDirection = "right";
+              break;
+          }
+        }
+      });
+
+      // 绑定按钮控制（仅单人模式）
+      if (this.mode !== "double") {
+        document.getElementById("snake-up")?.addEventListener("click", () => {
+          if (this.isGameOver) return;
+          if (this.direction !== "down") this.nextDirection = "up";
+        });
+        document.getElementById("snake-down")?.addEventListener("click", () => {
+          if (this.isGameOver) return;
+          if (this.direction !== "up") this.nextDirection = "down";
+        });
+        document.getElementById("snake-left")?.addEventListener("click", () => {
+          if (this.isGameOver) return;
+          if (this.direction !== "right") this.nextDirection = "left";
+        });
+        document
+          .getElementById("snake-right")
+          ?.addEventListener("click", () => {
+            if (this.isGameOver) return;
+            if (this.direction !== "left") this.nextDirection = "right";
+          });
+      }
+    }
+
+    update() {
+      if (this.mode === "double") {
+        this.updateDoubleMode();
+      } else {
+        this.updateSingleMode();
+      }
+    }
+
+    updateSingleMode() {
+      // 更新方向
+      this.direction = this.nextDirection;
+      
+      const head = { ...this.snake[0] };
+
+      switch (this.direction) {
+        case "up":
+          head.y -= this.gridSize;
+          break;
+        case "down":
+          head.y += this.gridSize;
+          break;
+        case "left":
+          head.x -= this.gridSize;
+          break;
+        case "right":
+          head.x += this.gridSize;
+          break;
+      }
+
+      if (
+        head.x < 0 ||
+        head.x >= this.canvas.width ||
+        head.y < 0 ||
+        head.y >= this.canvas.height ||
+        this.snake.some(
+          (segment) => segment.x === head.x && segment.y === head.y
+        )
+      ) {
+        this.gameOver();
+        return;
+      }
+
+      this.snake.unshift(head);
+
+      if (head.x === this.food.x && head.y === this.food.y) {
+        this.score += 10;
+        const scoreElement = document.getElementById("snake-score");
+        if (scoreElement) scoreElement.textContent = this.score.toString();
+        this.food = this.generateFood();
+        this.speed = Math.max(50, this.speed - 2);
+      } else {
+        this.snake.pop();
+      }
+    }
+
+    updateDoubleMode() {
+      // 更新方向
+      this.direction1 = this.nextDirection1;
+      this.direction2 = this.nextDirection2;
+      
+      // 更新玩家1
+      const head1 = { ...this.snake1[0] };
+      switch (this.direction1) {
+        case "up":
+          head1.y -= this.gridSize;
+          break;
+        case "down":
+          head1.y += this.gridSize;
+          break;
+        case "left":
+          head1.x -= this.gridSize;
+          break;
+        case "right":
+          head1.x += this.gridSize;
+          break;
+      }
+
+      // 更新玩家2
+      const head2 = { ...this.snake2[0] };
+      switch (this.direction2) {
+        case "up":
+          head2.y -= this.gridSize;
+          break;
+        case "down":
+          head2.y += this.gridSize;
+          break;
+        case "left":
+          head2.x -= this.gridSize;
+          break;
+        case "right":
+          head2.x += this.gridSize;
+          break;
+      }
+
+      // 检查碰撞
+      const player1Dead = this.checkCollision(head1, this.snake1, this.snake2);
+      const player2Dead = this.checkCollision(head2, this.snake2, this.snake1);
+
+      if (player1Dead && player2Dead) {
+        this.gameOver("平局！");
+        return;
+      } else if (player1Dead) {
+        this.gameOver("玩家2获胜！");
+        return;
+      } else if (player2Dead) {
+        this.gameOver("玩家1获胜！");
+        return;
+      }
+
+      // 移动蛇
+      this.snake1.unshift(head1);
+      this.snake2.unshift(head2);
+
+      // 检查食物
+      let foodEaten = false;
+      if (head1.x === this.food.x && head1.y === this.food.y) {
+        this.score1 += 10;
+        foodEaten = true;
+      } else {
+        this.snake1.pop();
+      }
+
+      if (head2.x === this.food.x && head2.y === this.food.y) {
+        this.score2 += 10;
+        foodEaten = true;
+      } else {
+        this.snake2.pop();
+      }
+
+      if (foodEaten) {
+        this.food = this.generateFood();
+        const scoreElement = document.getElementById("snake-score");
+        if (scoreElement)
+          scoreElement.textContent = `玩家1: ${this.score1} | 玩家2: ${this.score2}`;
+      }
+    }
+
+    checkCollision(head, ownSnake, otherSnake) {
+      // 检查边界碰撞
+      if (
+        head.x < 0 ||
+        head.x >= this.canvas.width ||
+        head.y < 0 ||
+        head.y >= this.canvas.height
+      ) {
+        return true;
+      }
+
+      // 检查自身碰撞
+      if (
+        ownSnake.some((segment) => segment.x === head.x && segment.y === head.y)
+      ) {
+        return true;
+      }
+
+      // 检查与对方蛇的碰撞
+      if (
+        otherSnake.some(
+          (segment) => segment.x === head.x && segment.y === head.y
+        )
+      ) {
+        return true;
+      }
+
+      return false;
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      if (this.mode === "double") {
+        // 绘制玩家1的蛇（绿色）
+        this.snake1.forEach((segment, index) => {
+          if (index === 0) {
+            this.ctx.fillStyle = "#2E7D32"; // 深绿色头部
+          } else {
+            this.ctx.fillStyle = "#4CAF50"; // 浅绿色身体
+          }
+          this.ctx.fillRect(
+            segment.x,
+            segment.y,
+            this.gridSize - 1,
+            this.gridSize - 1
+          );
+        });
+
+        // 绘制玩家2的蛇（蓝色）
+        this.snake2.forEach((segment, index) => {
+          if (index === 0) {
+            this.ctx.fillStyle = "#1565C0"; // 深蓝色头部
+          } else {
+            this.ctx.fillStyle = "#2196F3"; // 浅蓝色身体
+          }
+          this.ctx.fillRect(
+            segment.x,
+            segment.y,
+            this.gridSize - 1,
+            this.gridSize - 1
+          );
+        });
+      } else {
+        // 单人模式
+        this.snake.forEach((segment, index) => {
+          if (index === 0) {
+            this.ctx.fillStyle = "#2E7D32";
+          } else {
+            this.ctx.fillStyle = "#4CAF50";
+          }
+          this.ctx.fillRect(
+            segment.x,
+            segment.y,
+            this.gridSize - 1,
+            this.gridSize - 1
+          );
+        });
+      }
+
+      // 绘制食物
+      this.ctx.fillStyle = "#FF5722";
+      this.ctx.fillRect(
+        this.food.x,
+        this.food.y,
+        this.gridSize - 1,
+        this.gridSize - 1
+      );
+    }
+
+    gameOver(message) {
+      if (this.gameLoop) {
+        clearInterval(this.gameLoop);
+        this.gameLoop = null;
+      }
+      
+      this.isGameOver = true;
+
+      let finalMessage;
+      if (this.mode === "double") {
+        finalMessage = message || `游戏结束！玩家1得分: ${this.score1}, 玩家2得分: ${this.score2}`;
+      } else {
+        finalMessage = `游戏结束！得分: ${this.score}`;
+      }
+
+      // 显示游戏结束弹窗，询问是否重新开始
+      setTimeout(() => {
+        const restart = confirm(`${finalMessage}\n\n是否重新开始游戏？`);
+        if (restart) {
+          this.restart();
+        } else {
+          // 返回模式选择
+          this.backToModeSelection();
+        }
+      }, 100);
+    }
+
+    restart() {
+      // 重置游戏状态
+      this.isGameOver = false;
+      
+      if (this.mode === "double") {
+        this.snake1 = [{ x: 100, y: 200 }];
+        this.snake2 = [{ x: 500, y: 200 }];
+        this.direction1 = "right";
+        this.direction2 = "left";
+        this.nextDirection1 = "right";
+        this.nextDirection2 = "left";
+        this.score1 = 0;
+        this.score2 = 0;
+        const scoreElement = document.getElementById("snake-score");
+        if (scoreElement) scoreElement.textContent = "玩家1: 0 | 玩家2: 0";
+      } else {
+        this.snake = [{ x: 200, y: 200 }];
+        this.direction = "right";
+        this.nextDirection = "right";
+        this.score = 0;
+        const scoreElement = document.getElementById("snake-score");
+        if (scoreElement) scoreElement.textContent = "0";
+      }
+      
+      this.food = this.generateFood();
+      this.speed = 150;
+      this.start();
+    }
+
+    backToModeSelection() {
+      this.stop();
+      document.getElementById("snake-game-area")?.classList.add("hidden");
+      document.getElementById("snake-mode-selection")?.classList.remove("hidden");
+    }
+
+    start() {
+      this.gameLoop = setInterval(() => {
+        this.update();
+        this.draw();
+      }, this.speed);
+    }
+
+    stop() {
+      if (this.gameLoop) {
+        clearInterval(this.gameLoop);
+        this.gameLoop = null;
+      }
+    }
+  }
+
+  // 五子棋游戏类
+  class GomokuGame {
+    constructor(canvas, mode) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext("2d");
+      this.mode = mode;
+      this.boardSize = 15;
+      this.cellSize = Math.floor(
+        (Math.min(canvas.width, canvas.height) - 40) / this.boardSize
+      );
+      this.board = Array(this.boardSize)
+        .fill(null)
+        .map(() => Array(this.boardSize).fill(null));
+      this.currentPlayer = "black";
+      this.gameOver = false;
+
+      this.drawBoard();
+      this.bindEvents();
+    }
+
+    drawBoard() {
+      // 清空画布
+      this.ctx.fillStyle = "#F4A460";
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+      this.ctx.strokeStyle = "#000";
+      this.ctx.lineWidth = 1;
+
+      const margin = 20; // 边距
+
+      // 绘制横线
+      for (let i = 0; i < this.boardSize; i++) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(margin, margin + i * this.cellSize);
+        this.ctx.lineTo(
+          margin + (this.boardSize - 1) * this.cellSize,
+          margin + i * this.cellSize
+        );
+        this.ctx.stroke();
+      }
+
+      // 绘制竖线
+      for (let i = 0; i < this.boardSize; i++) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(margin + i * this.cellSize, margin);
+        this.ctx.lineTo(
+          margin + i * this.cellSize,
+          margin + (this.boardSize - 1) * this.cellSize
+        );
+        this.ctx.stroke();
+      }
+
+      // 绘制星位
+      const stars = [3, 7, 11];
+      for (let i of stars) {
+        for (let j of stars) {
+          this.drawStar(i, j, margin);
+        }
+      }
+    }
+
+    drawStar(x, y, margin) {
+      this.ctx.fillStyle = "#000";
+      this.ctx.beginPath();
+      this.ctx.arc(
+        margin + x * this.cellSize,
+        margin + y * this.cellSize,
+        3,
+        0,
+        2 * Math.PI
+      );
+      this.ctx.fill();
+    }
+
+    drawStar(x, y) {
+      this.ctx.fillStyle = "#000";
+      this.ctx.beginPath();
+      this.ctx.arc(
+        (x + 1) * this.cellSize,
+        (y + 1) * this.cellSize,
+        2,
+        0,
+        2 * Math.PI
+      );
+      this.ctx.fill();
+    }
+
+    drawPiece(x, y, color) {
+      const margin = 20;
+      const centerX = margin + x * this.cellSize;
+      const centerY = margin + y * this.cellSize;
+      const radius = this.cellSize * 0.4;
+
+      this.ctx.fillStyle = color;
+      this.ctx.beginPath();
+      this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+      this.ctx.fill();
+
+      this.ctx.strokeStyle = color === "black" ? "#333" : "#666";
+      this.ctx.lineWidth = 2;
+      this.ctx.stroke();
+    }
+
+    bindEvents() {
+      this.canvas.addEventListener("click", (e) => {
+        if (this.gameOver) return;
+
+        const rect = this.canvas.getBoundingClientRect();
+        const margin = 20;
+        const x = Math.round((e.clientX - rect.left - margin) / this.cellSize);
+        const y = Math.round((e.clientY - rect.top - margin) / this.cellSize);
+
+        if (
+          x >= 0 &&
+          x < this.boardSize &&
+          y >= 0 &&
+          y < this.boardSize &&
+          !this.board[y][x]
+        ) {
+          this.makeMove(x, y);
+        }
+      });
+
+      document
+        .getElementById("gomoku-restart")
+        ?.addEventListener("click", () => {
+          this.restart();
+        });
+    }
+
+    makeMove(x, y) {
+      this.board[y][x] = this.currentPlayer;
+      this.drawPiece(x, y, this.currentPlayer);
+
+      if (this.checkWin(x, y)) {
+        this.gameOver = true;
+        setTimeout(() => {
+          alert(`${this.currentPlayer === "black" ? "黑子" : "白子"}获胜！`);
+        }, 100);
+        return;
+      }
+
+      this.currentPlayer = this.currentPlayer === "black" ? "white" : "black";
+      const currentPlayerElement = document.getElementById("current-player");
+      if (currentPlayerElement) {
+        currentPlayerElement.textContent =
+          this.currentPlayer === "black" ? "黑子" : "白子";
+      }
+
+      if (this.mode === "single" && this.currentPlayer === "white") {
+        setTimeout(() => {
+          this.makeAIMove();
+        }, 500);
+      }
+    }
+
+    makeAIMove() {
+      // 基于C语言AI逻辑的智能AI
+      const scoreBoard = Array(this.boardSize).fill(null).map(() => Array(this.boardSize).fill(0));
+      
+      // 评估每个空位的分数
+      for (let y = 0; y < this.boardSize; y++) {
+        for (let x = 0; x < this.boardSize; x++) {
+          if (!this.board[y][x]) {
+            scoreBoard[y][x] = this.evaluatePosition(x, y);
+          }
+        }
+      }
+      
+      // 找到最高分的位置
+      let maxScore = -1;
+      let bestMoves = [];
+      
+      for (let y = 0; y < this.boardSize; y++) {
+        for (let x = 0; x < this.boardSize; x++) {
+          if (!this.board[y][x] && scoreBoard[y][x] > maxScore) {
+            maxScore = scoreBoard[y][x];
+            bestMoves = [[x, y]];
+          } else if (!this.board[y][x] && scoreBoard[y][x] === maxScore) {
+            bestMoves.push([x, y]);
+          }
+        }
+      }
+      
+      if (bestMoves.length > 0) {
+        const [x, y] = bestMoves[Math.floor(Math.random() * bestMoves.length)];
+        this.makeMove(x, y);
+      }
+    }
+
+    // 评估位置分数的核心函数
+    evaluatePosition(x, y) {
+      let score = 0;
+      
+      // 基础中心位置加分
+      const centerX = Math.floor(this.boardSize / 2);
+      const centerY = Math.floor(this.boardSize / 2);
+      const distanceFromCenter = Math.abs(x - centerX) + Math.abs(y - centerY);
+      score += Math.max(0, 10 - distanceFromCenter);
+      
+      // 检查四个方向：水平、垂直、主对角线、副对角线
+      const directions = [
+        [1, 0],   // 水平
+        [0, 1],   // 垂直  
+        [1, 1],   // 主对角线
+        [1, -1]   // 副对角线
+      ];
+      
+      for (const [dx, dy] of directions) {
+        // 检查AI(白子)的机会
+        score += this.evaluateDirection(x, y, dx, dy, "white");
+        // 检查玩家(黑子)的威胁并防守
+        score += this.evaluateDirection(x, y, dx, dy, "black") * 1.1; // 防守稍微重要一些
+      }
+      
+      return score;
+    }
+
+    // 评估特定方向的分数
+    evaluateDirection(x, y, dx, dy, player) {
+      let score = 0;
+      
+      // 检查该位置在这个方向上的棋型
+      const line = this.getLine(x, y, dx, dy, 9); // 获取9个位置的线段
+      const centerIndex = 4; // 中心位置索引
+      
+      // 模拟在此位置下子
+      line[centerIndex] = player;
+      
+      // 检查各种棋型并给分
+      score += this.checkPatterns(line, centerIndex, player);
+      
+      return score;
+    }
+
+    // 获取指定方向的线段
+    getLine(x, y, dx, dy, length) {
+      const line = new Array(length).fill(null);
+      const startIndex = Math.floor(length / 2);
+      
+      for (let i = 0; i < length; i++) {
+        const offset = i - startIndex;
+        const nx = x + offset * dx;
+        const ny = y + offset * dy;
+        
+        if (nx >= 0 && nx < this.boardSize && ny >= 0 && ny < this.boardSize) {
+          line[i] = this.board[ny][nx];
+        } else {
+          line[i] = "boundary"; // 边界标记
+        }
+      }
+      
+      return line;
+    }
+
+    // 检查棋型模式并给分
+    checkPatterns(line, centerIndex, player) {
+      let score = 0;
+      const opponent = player === "black" ? "white" : "black";
+      
+      // 转换为字符串便于模式匹配
+      const lineStr = line.map(cell => {
+        if (cell === player) return "O";
+        if (cell === opponent) return "X"; 
+        if (cell === null) return "-";
+        return "B"; // boundary
+      }).join("");
+      
+      // 五连 - 必胜
+      if (lineStr.includes("OOOOO")) {
+        score += 100000;
+      }
+      
+      // 活四 - 两端都能成五
+      if (lineStr.includes("-OOOO-")) {
+        score += 10000;
+      }
+      
+      // 冲四 - 一端能成五
+      if (lineStr.includes("XOOOO-") || lineStr.includes("-OOOOX") || 
+          lineStr.includes("BOOOO-") || lineStr.includes("-OOOOB")) {
+        score += 1000;
+      }
+      
+      // 活三 - 两端都能成五的三子
+      if (lineStr.includes("-OOO-") || lineStr.includes("--OOO--")) {
+        score += 1000;
+      }
+      
+      // 眠三 - 一端被堵的三子
+      if (lineStr.includes("XOOO-") || lineStr.includes("-OOOX") ||
+          lineStr.includes("BOOO-") || lineStr.includes("-OOOB")) {
+        score += 100;
+      }
+      
+      // 活二 - 两端都能发展的二子
+      if (lineStr.includes("-OO-") || lineStr.includes("--OO--")) {
+        score += 100;
+      }
+      
+      // 眠二 - 一端被堵的二子  
+      if (lineStr.includes("XOO-") || lineStr.includes("-OOX") ||
+          lineStr.includes("BOO-") || lineStr.includes("-OOB")) {
+        score += 10;
+      }
+      
+      // 活一 - 单子周围有空间
+      if (lineStr.includes("-O-")) {
+        score += 10;
+      }
+      
+      // 特殊防守模式 - 防止对方形成危险棋型
+      if (player === "black") { // 当我们在评估防守黑子时
+        // 防四连
+        if (lineStr.includes("-XXXX-")) {
+          score += 9000; // 高优先级防守
+        }
+        if (lineStr.includes("BXXXX-") || lineStr.includes("-XXXXB")) {
+          score += 5000;
+        }
+        
+        // 防活三
+        if (lineStr.includes("-XXX-")) {
+          score += 3000;
+        }
+        
+        // 防跳活三
+        if (lineStr.includes("-XX-X-") || lineStr.includes("-X-XX-")) {
+          score += 2000;
+        }
+      }
+      
+      return score;
+    }
+
+    checkWin(x, y) {
+      const directions = [
+        [
+          [0, 1],
+          [0, -1],
+        ],
+        [
+          [1, 0],
+          [-1, 0],
+        ],
+        [
+          [1, 1],
+          [-1, -1],
+        ],
+        [
+          [1, -1],
+          [-1, 1],
+        ],
+      ];
+
+      const player = this.board[y][x];
+
+      for (const [dir1, dir2] of directions) {
+        let count = 1;
+
+        for (let i = 1; i <= 4; i++) {
+          const newX = x + dir1[0] * i;
+          const newY = y + dir1[1] * i;
+          if (
+            newX < 0 ||
+            newX >= this.boardSize ||
+            newY < 0 ||
+            newY >= this.boardSize ||
+            this.board[newY][newX] !== player
+          )
+            break;
+          count++;
+        }
+
+        for (let i = 1; i <= 4; i++) {
+          const newX = x + dir2[0] * i;
+          const newY = y + dir2[1] * i;
+          if (
+            newX < 0 ||
+            newX >= this.boardSize ||
+            newY < 0 ||
+            newY >= this.boardSize ||
+            this.board[newY][newX] !== player
+          )
+            break;
+          count++;
+        }
+
+        if (count >= 5) return true;
+      }
+
+      return false;
+    }
+
+    restart() {
+      this.board = Array(this.boardSize)
+        .fill(null)
+        .map(() => Array(this.boardSize).fill(null));
+      this.currentPlayer = "black";
+      this.gameOver = false;
+      const currentPlayerElement = document.getElementById("current-player");
+      if (currentPlayerElement) {
+        currentPlayerElement.textContent = "黑子";
+      }
+      this.drawBoard();
+    }
+
+    start() {
+      // 游戏已经开始，不需要额外操作
+    }
+
+    stop() {
+      this.gameOver = true;
+    }
+  }
+
+  // 初始化游戏功能
+  function initializeGames() {
+    // 贪吃蛇模式选择
+    document.getElementById("snake-single")?.addEventListener("click", () => {
+      startSnakeGame("single");
+    });
+
+    document.getElementById("snake-double")?.addEventListener("click", () => {
+      startSnakeGame("double");
+    });
+
+    document
+      .getElementById("snake-challenge")
+      ?.addEventListener("click", () => {
+        startSnakeGame("challenge");
+      });
+
+    // 五子棋模式选择
+    document.getElementById("gomoku-single")?.addEventListener("click", () => {
+      startGomokuGame("single");
+    });
+
+    document.getElementById("gomoku-double")?.addEventListener("click", () => {
+      startGomokuGame("double");
+    });
+
+    // 游戏内返回按钮
+    document.getElementById("snake-back")?.addEventListener("click", () => {
+      stopCurrentGame();
+      document.getElementById("snake-game-area")?.classList.add("hidden");
+      document
+        .getElementById("snake-mode-selection")
+        ?.classList.remove("hidden");
+    });
+
+    document.getElementById("gomoku-back")?.addEventListener("click", () => {
+      stopCurrentGame();
+      document.getElementById("gomoku-game-area")?.classList.add("hidden");
+      document
+        .getElementById("gomoku-mode-selection")
+        ?.classList.remove("hidden");
+    });
+  }
+
+  function startSnakeGame(mode) {
+    stopCurrentGame();
+
+    // 隐藏模式选择，显示游戏区域
+    document.getElementById("snake-mode-selection")?.classList.add("hidden");
+    const gameArea = document.getElementById("snake-game-area");
+    const canvas = document.getElementById("snake-canvas");
+
+    if (gameArea && canvas) {
+      gameArea.classList.remove("hidden");
+
+      // 设置控制说明和分数显示
+      const scoreElement = document.getElementById("snake-score");
+      const controlInfo = document.getElementById("snake-control-info");
+      const buttonsArea = document.getElementById("snake-buttons");
+
+      if (mode === "double") {
+        if (scoreElement) scoreElement.textContent = "玩家1: 0 | 玩家2: 0";
+        if (controlInfo)
+          controlInfo.innerHTML =
+            "🎮 玩家1: WASD键控制 (绿蛇) | 玩家2: 方向键控制 (蓝蛇)";
+        if (buttonsArea) buttonsArea.style.display = "none"; // 隐藏按钮控制
+      } else {
+        if (scoreElement) scoreElement.textContent = "0";
+        if (controlInfo)
+          controlInfo.innerHTML = "🎮 使用 WASD 或方向键控制，或点击下方按钮";
+        if (buttonsArea) buttonsArea.style.display = "flex"; // 显示按钮控制
+      }
+
+      currentGame = new SnakeGame(canvas, mode);
+      currentGame.start();
+    }
+  }
+
+  function startGomokuGame(mode) {
+    stopCurrentGame();
+
+    // 隐藏模式选择，显示游戏区域
+    document.getElementById("gomoku-mode-selection")?.classList.add("hidden");
+    const gameArea = document.getElementById("gomoku-game-area");
+    const canvas = document.getElementById("gomoku-canvas");
+
+    if (gameArea && canvas) {
+      gameArea.classList.remove("hidden");
+      // 重置玩家显示
+      const currentPlayerElement = document.getElementById("current-player");
+      if (currentPlayerElement) currentPlayerElement.textContent = "黑子";
+
+      currentGame = new GomokuGame(canvas, mode);
+      currentGame.start();
+    }
+  }
+
+  function stopCurrentGame() {
+    if (currentGame) {
+      currentGame.stop();
+      currentGame = null;
+    }
+  }
+
+  // 初始化爬虫功能
+  function initializeScrapers() {
+    const vegetableForm = document.getElementById("vegetable-form");
+    const vegetableResults = document.getElementById("vegetable-results");
+    const fetchWeatherButton = document.getElementById("fetch-weather");
+    const weatherResults = document.getElementById("weather-results");
+    const provinceIdInput = document.getElementById("province-id");
+
+    const pauseVegetableButton = document.getElementById("pause-vegetable");
+    const resumeVegetableButton = document.getElementById("resume-vegetable");
+    const pauseWeatherButton = document.getElementById("pause-weather");
+    const resumeWeatherButton = document.getElementById("resume-weather");
+
+    // 蔬菜价格爬取
+    vegetableForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      vegetableResults.innerHTML =
+        '<p class="text-gray-500 dark:text-gray-400 text-center loading">🔄 正在爬取蔬菜价格数据...</p>';
+      hideButton(vegetableForm.querySelector('button[type="submit"]'));
+      showButton(pauseVegetableButton);
+      hideButton(resumeVegetableButton);
+
+      isVegetablePaused = false;
+      vegetableAbortController = new AbortController();
+      const signal = vegetableAbortController.signal;
+
+      currentVegetablePage = parseInt(
+        document.getElementById("start-page").value
+      );
+      const endPage = parseInt(document.getElementById("end-page").value);
+
+      let allVegetableData = [];
+
+      const scrapeVegetablePage = async (page) => {
+        if (isVegetablePaused) return;
+        if (signal.aborted) {
+          vegetableResults.innerHTML =
+            '<p class="text-red-500 text-center">蔬菜爬取已取消</p>';
+          hideButton(pauseVegetableButton);
+          showButton(vegetableForm.querySelector('button[type="submit"]'));
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/vegetable-scraper", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ startPage: page, endPage: page }),
+            signal: signal,
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.details || "Unknown error");
+          }
+
+          const result = await response.json();
+          return result.data;
+        } catch (error) {
+          if (error.name === "AbortError") {
+            vegetableResults.innerHTML =
+              '<p class="text-yellow-500 text-center">蔬菜爬取已暂停</p>';
+            return null;
+          } else {
+            console.error("Error fetching vegetable data:", error);
+            vegetableResults.innerHTML = `<p class="text-red-500 text-center">获取蔬菜数据出错: ${error.message}</p>`;
+            hideButton(pauseVegetableButton);
+            hideButton(resumeVegetableButton);
+            showButton(vegetableForm.querySelector('button[type="submit"]'));
+            throw error;
+          }
+        }
+      };
+
+      const runVegetableScraping = async () => {
+        while (currentVegetablePage <= endPage && !isVegetablePaused) {
+          const data = await scrapeVegetablePage(currentVegetablePage);
+          if (data === null) {
+            break;
+          }
+          allVegetableData = allVegetableData.concat(data);
+          currentVegetablePage++;
+
+          if (allVegetableData.length > 0) {
+            let html = `<div class='mb-4'><h3 class='text-xl font-bold text-gray-800 dark:text-gray-200 mb-2'>🥬 爬取结果 (共 ${allVegetableData.length} 条)</h3></div>`;
+            html += "<div class='space-y-3'>";
+            allVegetableData.forEach((item, index) => {
+              html += `
+                <div class='p-4 bg-white dark:bg-gray-600 rounded-lg border border-gray-200 dark:border-gray-500 hover:shadow-md transition-shadow'>
+                  <div class='flex items-start justify-between'>
+                    <div class='flex-1'>
+                      <h4 class='font-bold text-lg text-green-600 dark:text-green-400 mb-2'>${item.prodName}</h4>
+                      <div class='grid grid-cols-2 md:grid-cols-3 gap-2 text-sm'>
+                        <div><span class='text-gray-500'>最低价:</span> <span class='font-semibold text-red-600'>${item.lowPrice}</span></div>
+                        <div><span class='text-gray-500'>最高价:</span> <span class='font-semibold text-red-600'>${item.highPrice}</span></div>
+                        <div><span class='text-gray-500'>均价:</span> <span class='font-semibold text-blue-600'>${item.avgPrice}</span></div>
+                        <div><span class='text-gray-500'>规格:</span> ${item.specInfo || "-"}</div>
+                        <div><span class='text-gray-500'>产地:</span> ${item.place || "-"}</div>
+                        <div><span class='text-gray-500'>单位:</span> ${item.unitInfo || "-"}</div>
+                      </div>
+                      <div class='mt-2 text-xs text-gray-400'>日期: ${item.pubDate}</div>
+                    </div>
+                    <div class='ml-4 text-xs text-gray-400'>#${index + 1}</div>
+                  </div>
+                </div>
+              `;
+            });
+            html += "</div>";
+            vegetableResults.innerHTML = html;
+          } else {
+            vegetableResults.innerHTML =
+              "<div class='text-center py-8'><div class='text-4xl mb-2'>🤷‍♂️</div><p class='text-gray-500'>未找到蔬菜数据</p></div>";
+          }
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+
+        if (!isVegetablePaused) {
+          hideButton(pauseVegetableButton);
+          hideButton(resumeVegetableButton);
+          showButton(vegetableForm.querySelector('button[type="submit"]'));
+        }
+      };
+
+      runVegetableScraping();
+    });
+
+    // 天气数据爬取
+    fetchWeatherButton?.addEventListener("click", async () => {
+      weatherResults.innerHTML =
+        '<p class="text-gray-500 dark:text-gray-400 text-center loading">🌤️ 正在获取天气数据...</p>';
+      hideButton(fetchWeatherButton);
+      showButton(pauseWeatherButton);
+      hideButton(resumeWeatherButton);
+
+      isWeatherPaused = false;
+      weatherAbortController = new AbortController();
+      const signal = weatherAbortController.signal;
+
+      const provinceId = provinceIdInput.value.trim();
+      let url = "/api/weather-scraper";
+      if (provinceId) {
+        url += `?provinceId=${encodeURIComponent(provinceId)}`;
+      }
+
+      try {
+        const response = await fetch(url, { signal: signal });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.details || "Unknown error");
+        }
+
+        const result = await response.json();
+        const weatherData = result.data;
+
+        if (weatherData.length > 0) {
+          let html = `<div class='mb-4'><h3 class='text-xl font-bold text-gray-800 dark:text-gray-200 mb-2'>🌤️ 天气结果 (共 ${weatherData.length} 个城市)</h3></div>`;
+          html += '<div class="weather-list">';
+          weatherData.forEach((item, index) => {
+            html += `
+              <div class="weather-card">
+                <div class="weather-city">${item.cityName}</div>
+                <div class="weather-info">${item.weatherInfo}</div>
+                <div class="text-xs text-gray-400 mt-1">#${index + 1}</div>
+              </div>
+            `;
+          });
+          html += "</div>";
+          weatherResults.innerHTML = html;
+        } else {
+          weatherResults.innerHTML =
+            "<div class='text-center py-8'><div class='text-4xl mb-2'>🌧️</div><p class='text-gray-500'>未找到天气数据</p></div>";
+        }
+      } catch (error) {
+        if (error.name === "AbortError") {
+          weatherResults.innerHTML =
+            '<p class="text-yellow-500 text-center">天气爬取已暂停</p>';
+        } else {
+          console.error("Error fetching weather data:", error);
+          weatherResults.innerHTML = `<p class="text-red-500 text-center">获取天气数据出错: ${error.message}</p>`;
+        }
+      }
+      hideButton(pauseWeatherButton);
+      hideButton(resumeWeatherButton);
+      showButton(fetchWeatherButton);
+    });
+
+    // 暂停和继续按钮
+    pauseVegetableButton?.addEventListener("click", () => {
+      if (vegetableAbortController) {
+        vegetableAbortController.abort();
+        isVegetablePaused = true;
+        hideButton(pauseVegetableButton);
+        showButton(resumeVegetableButton);
+        vegetableResults.innerHTML =
+          '<p class="text-yellow-500 text-center">蔬菜爬取已暂停</p>';
+      }
+    });
+
+    resumeVegetableButton?.addEventListener("click", () => {
+      isVegetablePaused = false;
+      hideButton(resumeVegetableButton);
+      showButton(pauseVegetableButton);
+      document.getElementById("start-page").value = currentVegetablePage;
+      vegetableForm.dispatchEvent(new Event("submit"));
+    });
+
+    pauseWeatherButton?.addEventListener("click", () => {
+      if (weatherAbortController) {
+        weatherAbortController.abort();
+        isWeatherPaused = true;
+        hideButton(pauseWeatherButton);
+        showButton(resumeWeatherButton);
+        weatherResults.innerHTML =
+          '<p class="text-yellow-500 text-center">天气爬取已暂停</p>';
+      }
+    });
+
+    resumeWeatherButton?.addEventListener("click", () => {
+      isWeatherPaused = false;
+      hideButton(resumeWeatherButton);
+      showButton(pauseWeatherButton);
+      fetchWeatherButton.click();
+    });
+  }
+
+  // 辅助函数
+  function showButton(button) {
+    if (button) button.style.display = "inline-block";
+  }
+
+  function hideButton(button) {
+    if (button) button.style.display = "none";
+  }
+</script>
