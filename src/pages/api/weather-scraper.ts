@@ -9,10 +9,11 @@ export const GET: APIRoute = async ({ request }) => {
   try {
     const url = new URL(request.url);
     const provinceId = url.searchParams.get('provinceId'); // Get the optional provinceId
-
+    const clientUserAgent = request.headers.get('User-Agent');
+    const userAgent = clientUserAgent || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0";
     const headers = {
       "referer": "https://www.weather.com.cn/",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0"
+      "User-Agent": userAgent
     };
 
     // 读取 public/city.json

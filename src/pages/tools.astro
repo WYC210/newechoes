@@ -909,17 +909,24 @@ import Layout from "@/components/Layout.astro";
         this.nextDirection2 = "left";
         this.score1 = 0;
         this.score2 = 0;
+        // 存储上一帧的蛇位置，用于插值
+        this.previousSnake1 = JSON.parse(JSON.stringify(this.snake1));
+        this.previousSnake2 = JSON.parse(JSON.stringify(this.snake2));
       } else {
         // 单人模式
         this.snake = [{ x: 200, y: 200 }];
         this.direction = "right";
         this.nextDirection = "right"; // 防止快速按键
         this.score = 0;
+        // 存储上一帧的蛇位置，用于插值
+        this.previousSnake = JSON.parse(JSON.stringify(this.snake));
       }
 
       this.food = this.generateFood();
-      this.gameLoop = null;
-      this.speed = 150;
+      this.logicInterval = null; // 用于逻辑更新的 setInterval
+      this.animationFrameId = null; // 用于渲染的 requestAnimationFrame
+      this.logicSpeed = 150; // 逻辑更新速度 (毫秒)，即蛇移动一格所需时间
+      this.lastLogicUpdateTime = 0; // 上次逻辑更新的时间戳
       this.isGameOver = false;
 
       this.bindControls();
@@ -957,9 +964,9 @@ import Layout from "@/components/Layout.astro";
     bindControls() {
       document.addEventListener("keydown", (e) => {
         if (this.isGameOver) return; // 游戏结束时不响应按键
-        
+
         const currentTime = Date.now();
-        
+
         const keys = [
           "ArrowUp",
           "ArrowDown",
@@ -1085,16 +1092,19 @@ import Layout from "@/components/Layout.astro";
 
     update() {
       if (this.mode === "double") {
-        this.updateDoubleMode();
+        this.updateDoubleModeLogic();
       } else {
-        this.updateSingleMode();
+        this.updateSingleModeLogic();
       }
     }
 
-    updateSingleMode() {
-      // 更新方向
+    updateSingleModeLogic() {
+      // 在更新当前蛇位置之前，保存当前蛇的位置作为 previousSnake
+      this.previousSnake = JSON.parse(JSON.stringify(this.snake));
+
+      // 应用待定的方向
       this.direction = this.nextDirection;
-      
+
       const head = { ...this.snake[0] };
 
       switch (this.direction) {
@@ -1132,17 +1142,30 @@ import Layout from "@/components/Layout.astro";
         const scoreElement = document.getElementById("snake-score");
         if (scoreElement) scoreElement.textContent = this.score.toString();
         this.food = this.generateFood();
-        this.speed = Math.max(50, this.speed - 2);
+        // 速度调整影响逻辑更新间隔
+        this.logicSpeed = Math.max(50, this.logicSpeed - 2);
+        // 重新设置 setInterval 以应用新的速度
+        clearInterval(this.logicInterval);
+        this.logicInterval = setInterval(() => {
+          if (!this.isGameOver) {
+            this.update();
+            this.lastLogicUpdateTime = Date.now(); // 更新逻辑时间戳
+          }
+        }, this.logicSpeed);
       } else {
         this.snake.pop();
       }
     }
 
-    updateDoubleMode() {
-      // 更新方向
+    updateDoubleModeLogic() {
+      // 在更新当前蛇位置之前，保存当前蛇的位置作为 previousSnake
+      this.previousSnake1 = JSON.parse(JSON.stringify(this.snake1));
+      this.previousSnake2 = JSON.parse(JSON.stringify(this.snake2));
+
+      // 应用待定的方向
       this.direction1 = this.nextDirection1;
       this.direction2 = this.nextDirection2;
-      
+
       // 更新玩家1
       const head1 = { ...this.snake1[0] };
       switch (this.direction1) {
@@ -1232,8 +1255,11 @@ import Layout from "@/components/Layout.astro";
       }
 
       // 检查自身碰撞
+      // 注意：这里需要从第二个段开始检查，因为头部总是会和它自己重叠
       if (
-        ownSnake.some((segment) => segment.x === head.x && segment.y === head.y)
+        ownSnake
+          .slice(1)
+          .some((segment) => segment.x === head.x && segment.y === head.y)
       ) {
         return true;
       }
@@ -1250,57 +1276,47 @@ import Layout from "@/components/Layout.astro";
       return false;
     }
 
-    draw() {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      if (this.mode === "double") {
-        // 绘制玩家1的蛇（绿色）
-        this.snake1.forEach((segment, index) => {
-          if (index === 0) {
-            this.ctx.fillStyle = "#2E7D32"; // 深绿色头部
-          } else {
-            this.ctx.fillStyle = "#4CAF50"; // 浅绿色身体
-          }
-          this.ctx.fillRect(
-            segment.x,
-            segment.y,
-            this.gridSize - 1,
-            this.gridSize - 1
-          );
-        });
-
-        // 绘制玩家2的蛇（蓝色）
-        this.snake2.forEach((segment, index) => {
-          if (index === 0) {
-            this.ctx.fillStyle = "#1565C0"; // 深蓝色头部
-          } else {
-            this.ctx.fillStyle = "#2196F3"; // 浅蓝色身体
-          }
-          this.ctx.fillRect(
-            segment.x,
-            segment.y,
-            this.gridSize - 1,
-            this.gridSize - 1
-          );
-        });
-      } else {
-        // 单人模式
-        this.snake.forEach((segment, index) => {
-          if (index === 0) {
-            this.ctx.fillStyle = "#2E7D32";
-          } else {
-            this.ctx.fillStyle = "#4CAF50";
-          }
-          this.ctx.fillRect(
-            segment.x,
-            segment.y,
-            this.gridSize - 1,
-            this.gridSize - 1
-          );
-        });
+    // 渲染函数，由 requestAnimationFrame 调用
+    render() {
+      if (this.isGameOver) {
+        cancelAnimationFrame(this.animationFrameId);
+        return;
       }
 
-      // 绘制食物
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      const currentTime = Date.now();
+      // 计算插值进度 (0 到 1)
+      // progress = (当前时间 - 上次逻辑更新时间) / 逻辑更新间隔
+      let progress = (currentTime - this.lastLogicUpdateTime) / this.logicSpeed;
+      progress = Math.min(1, Math.max(0, progress)); // 确保进度在 0 到 1 之间
+
+      if (this.mode === "double") {
+        this.drawInterpolatedSnake(
+          this.snake1,
+          this.previousSnake1,
+          progress,
+          "#2E7D32",
+          "#4CAF50"
+        ); // 玩家1 (绿色)
+        this.drawInterpolatedSnake(
+          this.snake2,
+          this.previousSnake2,
+          progress,
+          "#1565C0",
+          "#2196F3"
+        ); // 玩家2 (蓝色)
+      } else {
+        this.drawInterpolatedSnake(
+          this.snake,
+          this.previousSnake,
+          progress,
+          "#2E7D32",
+          "#4CAF50"
+        ); // 单人模式 (绿色)
+      }
+
+      // 绘制食物 (食物不需要插值)
       this.ctx.fillStyle = "#FF5722";
       this.ctx.fillRect(
         this.food.x,
@@ -1308,19 +1324,56 @@ import Layout from "@/components/Layout.astro";
         this.gridSize - 1,
         this.gridSize - 1
       );
+
+      // 请求下一帧动画
+      this.animationFrameId = requestAnimationFrame(this.render.bind(this));
+    }
+
+    // 辅助函数：绘制插值后的蛇
+    drawInterpolatedSnake(
+      snake,
+      previousSnake,
+      progress,
+      headColor,
+      bodyColor
+    ) {
+      snake.forEach((segment, index) => {
+        let interpolatedX, interpolatedY;
+
+        // 对于已经存在的蛇身段，进行插值
+        if (index < previousSnake.length) {
+          const prevSegment = previousSnake[index];
+          interpolatedX =
+            prevSegment.x + (segment.x - prevSegment.x) * progress;
+          interpolatedY =
+            prevSegment.y + (segment.y - prevSegment.y) * progress;
+        } else {
+          // 对于新增加的蛇头（吃食物后），直接绘制在当前位置
+          // 理论上也可以插值，但需要更复杂的逻辑来追踪新段的“前一个”位置
+          interpolatedX = segment.x;
+          interpolatedY = segment.y;
+        }
+
+        this.ctx.fillStyle = index === 0 ? headColor : bodyColor; // 头部和身体颜色不同
+        this.ctx.fillRect(
+          interpolatedX,
+          interpolatedY,
+          this.gridSize - 1,
+          this.gridSize - 1
+        );
+      });
     }
 
     gameOver(message) {
-      if (this.gameLoop) {
-        clearInterval(this.gameLoop);
-        this.gameLoop = null;
-      }
-      
+      this.stop(); // 停止所有循环
+
       this.isGameOver = true;
 
       let finalMessage;
       if (this.mode === "double") {
-        finalMessage = message || `游戏结束！玩家1得分: ${this.score1}, 玩家2得分: ${this.score2}`;
+        finalMessage =
+          message ||
+          `游戏结束！玩家1得分: ${this.score1}, 玩家2得分: ${this.score2}`;
       } else {
         finalMessage = `游戏结束！得分: ${this.score}`;
       }
@@ -1340,7 +1393,8 @@ import Layout from "@/components/Layout.astro";
     restart() {
       // 重置游戏状态
       this.isGameOver = false;
-      
+      this.stop(); // 确保停止所有旧的循环
+
       if (this.mode === "double") {
         this.snake1 = [{ x: 100, y: 200 }];
         this.snake2 = [{ x: 500, y: 200 }];
@@ -1350,6 +1404,8 @@ import Layout from "@/components/Layout.astro";
         this.nextDirection2 = "left";
         this.score1 = 0;
         this.score2 = 0;
+        this.previousSnake1 = JSON.parse(JSON.stringify(this.snake1));
+        this.previousSnake2 = JSON.parse(JSON.stringify(this.snake2));
         const scoreElement = document.getElementById("snake-score");
         if (scoreElement) scoreElement.textContent = "玩家1: 0 | 玩家2: 0";
       } else {
@@ -1357,32 +1413,45 @@ import Layout from "@/components/Layout.astro";
         this.direction = "right";
         this.nextDirection = "right";
         this.score = 0;
+        this.previousSnake = JSON.parse(JSON.stringify(this.snake));
         const scoreElement = document.getElementById("snake-score");
         if (scoreElement) scoreElement.textContent = "0";
       }
-      
+
       this.food = this.generateFood();
-      this.speed = 150;
+      this.logicSpeed = 150;
       this.start();
     }
 
     backToModeSelection() {
       this.stop();
       document.getElementById("snake-game-area")?.classList.add("hidden");
-      document.getElementById("snake-mode-selection")?.classList.remove("hidden");
+      document
+        .getElementById("snake-mode-selection")
+        ?.classList.remove("hidden");
     }
 
     start() {
-      this.gameLoop = setInterval(() => {
-        this.update();
-        this.draw();
-      }, this.speed);
+      this.lastLogicUpdateTime = Date.now(); // 记录首次逻辑更新时间
+      this.logicInterval = setInterval(() => {
+        if (!this.isGameOver) {
+          this.update(); // 执行逻辑更新
+          this.lastLogicUpdateTime = Date.now(); // 更新逻辑更新时间戳
+        }
+      }, this.logicSpeed);
+
+      // 启动渲染循环
+      this.animationFrameId = requestAnimationFrame(this.render.bind(this));
     }
 
     stop() {
-      if (this.gameLoop) {
-        clearInterval(this.gameLoop);
-        this.gameLoop = null;
+      if (this.logicInterval) {
+        clearInterval(this.logicInterval);
+        this.logicInterval = null;
+      }
+      if (this.animationFrameId) {
+        cancelAnimationFrame(this.animationFrameId);
+        this.animationFrameId = null;
       }
     }
   }
@@ -1545,8 +1614,10 @@ import Layout from "@/components/Layout.astro";
 
     makeAIMove() {
       // 基于C语言AI逻辑的智能AI
-      const scoreBoard = Array(this.boardSize).fill(null).map(() => Array(this.boardSize).fill(0));
-      
+      const scoreBoard = Array(this.boardSize)
+        .fill(null)
+        .map(() => Array(this.boardSize).fill(0));
+
       // 评估每个空位的分数
       for (let y = 0; y < this.boardSize; y++) {
         for (let x = 0; x < this.boardSize; x++) {
@@ -1555,11 +1626,11 @@ import Layout from "@/components/Layout.astro";
           }
         }
       }
-      
+
       // 找到最高分的位置
       let maxScore = -1;
       let bestMoves = [];
-      
+
       for (let y = 0; y < this.boardSize; y++) {
         for (let x = 0; x < this.boardSize; x++) {
           if (!this.board[y][x] && scoreBoard[y][x] > maxScore) {
@@ -1570,7 +1641,7 @@ import Layout from "@/components/Layout.astro";
           }
         }
       }
-      
+
       if (bestMoves.length > 0) {
         const [x, y] = bestMoves[Math.floor(Math.random() * bestMoves.length)];
         this.makeMove(x, y);
@@ -1580,45 +1651,45 @@ import Layout from "@/components/Layout.astro";
     // 评估位置分数的核心函数
     evaluatePosition(x, y) {
       let score = 0;
-      
+
       // 基础中心位置加分
       const centerX = Math.floor(this.boardSize / 2);
       const centerY = Math.floor(this.boardSize / 2);
       const distanceFromCenter = Math.abs(x - centerX) + Math.abs(y - centerY);
       score += Math.max(0, 10 - distanceFromCenter);
-      
+
       // 检查四个方向：水平、垂直、主对角线、副对角线
       const directions = [
-        [1, 0],   // 水平
-        [0, 1],   // 垂直  
-        [1, 1],   // 主对角线
-        [1, -1]   // 副对角线
+        [1, 0], // 水平
+        [0, 1], // 垂直
+        [1, 1], // 主对角线
+        [1, -1], // 副对角线
       ];
-      
+
       for (const [dx, dy] of directions) {
         // 检查AI(白子)的机会
         score += this.evaluateDirection(x, y, dx, dy, "white");
         // 检查玩家(黑子)的威胁并防守
         score += this.evaluateDirection(x, y, dx, dy, "black") * 1.1; // 防守稍微重要一些
       }
-      
+
       return score;
     }
 
     // 评估特定方向的分数
     evaluateDirection(x, y, dx, dy, player) {
       let score = 0;
-      
+
       // 检查该位置在这个方向上的棋型
       const line = this.getLine(x, y, dx, dy, 9); // 获取9个位置的线段
       const centerIndex = 4; // 中心位置索引
-      
+
       // 模拟在此位置下子
       line[centerIndex] = player;
-      
+
       // 检查各种棋型并给分
       score += this.checkPatterns(line, centerIndex, player);
-      
+
       return score;
     }
 
@@ -1626,19 +1697,19 @@ import Layout from "@/components/Layout.astro";
     getLine(x, y, dx, dy, length) {
       const line = new Array(length).fill(null);
       const startIndex = Math.floor(length / 2);
-      
+
       for (let i = 0; i < length; i++) {
         const offset = i - startIndex;
         const nx = x + offset * dx;
         const ny = y + offset * dy;
-        
+
         if (nx >= 0 && nx < this.boardSize && ny >= 0 && ny < this.boardSize) {
           line[i] = this.board[ny][nx];
         } else {
           line[i] = "boundary"; // 边界标记
         }
       }
-      
+
       return line;
     }
 
@@ -1646,60 +1717,75 @@ import Layout from "@/components/Layout.astro";
     checkPatterns(line, centerIndex, player) {
       let score = 0;
       const opponent = player === "black" ? "white" : "black";
-      
+
       // 转换为字符串便于模式匹配
-      const lineStr = line.map(cell => {
-        if (cell === player) return "O";
-        if (cell === opponent) return "X"; 
-        if (cell === null) return "-";
-        return "B"; // boundary
-      }).join("");
-      
+      const lineStr = line
+        .map((cell) => {
+          if (cell === player) return "O";
+          if (cell === opponent) return "X";
+          if (cell === null) return "-";
+          return "B"; // boundary
+        })
+        .join("");
+
       // 五连 - 必胜
       if (lineStr.includes("OOOOO")) {
         score += 100000;
       }
-      
+
       // 活四 - 两端都能成五
       if (lineStr.includes("-OOOO-")) {
         score += 10000;
       }
-      
+
       // 冲四 - 一端能成五
-      if (lineStr.includes("XOOOO-") || lineStr.includes("-OOOOX") || 
-          lineStr.includes("BOOOO-") || lineStr.includes("-OOOOB")) {
+      if (
+        lineStr.includes("XOOOO-") ||
+        lineStr.includes("-OOOOX") ||
+        lineStr.includes("BOOOO-") ||
+        lineStr.includes("-OOOOB")
+      ) {
         score += 1000;
       }
-      
+
       // 活三 - 两端都能成五的三子
       if (lineStr.includes("-OOO-") || lineStr.includes("--OOO--")) {
         score += 1000;
       }
-      
+
       // 眠三 - 一端被堵的三子
-      if (lineStr.includes("XOOO-") || lineStr.includes("-OOOX") ||
-          lineStr.includes("BOOO-") || lineStr.includes("-OOOB")) {
+      if (
+        lineStr.includes("XOOO-") ||
+        lineStr.includes("-OOOX") ||
+        lineStr.includes("BOOO-") ||
+        lineStr.includes("-OOOB")
+      ) {
         score += 100;
       }
-      
+
       // 活二 - 两端都能发展的二子
       if (lineStr.includes("-OO-") || lineStr.includes("--OO--")) {
         score += 100;
       }
-      
-      // 眠二 - 一端被堵的二子  
-      if (lineStr.includes("XOO-") || lineStr.includes("-OOX") ||
-          lineStr.includes("BOO-") || lineStr.includes("-OOB")) {
+
+      // 眠二 - 一端被堵的二子
+      if (
+        lineStr.includes("XOO-") ||
+        lineStr.includes("-OOX") ||
+        lineStr.includes("BOO-") ||
+        lineStr.includes("-OOB")
+      ) {
         score += 10;
       }
-      
+
       // 活一 - 单子周围有空间
       if (lineStr.includes("-O-")) {
         score += 10;
       }
-      
+
       // 特殊防守模式 - 防止对方形成危险棋型
-      if (player === "black") { // 当我们在评估防守黑子时
+      if (player === "black") {
+        // 当我们在评估防守黑子时
         // 防四连
         if (lineStr.includes("-XXXX-")) {
           score += 9000; // 高优先级防守
@@ -1707,18 +1793,18 @@ import Layout from "@/components/Layout.astro";
         if (lineStr.includes("BXXXX-") || lineStr.includes("-XXXXB")) {
           score += 5000;
         }
-        
+
         // 防活三
         if (lineStr.includes("-XXX-")) {
           score += 3000;
         }
-        
+
         // 防跳活三
         if (lineStr.includes("-XX-X-") || lineStr.includes("-X-XX-")) {
           score += 2000;
         }
       }
-      
+
       return score;
     }
 
