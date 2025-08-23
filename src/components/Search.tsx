@@ -135,6 +135,55 @@ const Search: React.FC<SearchProps> = ({
   const error = loadingState.error;
   const isIndexLoaded = indexData !== null;
 
+  // 预加载工具页面脚本的函数
+  const preloadToolsPageScripts = () => {
+    // 检查是否已经预加载过
+    if ((window as any).toolsPagePreloaded) return;
+
+    (window as any).toolsPagePreloaded = true;
+
+    // 预加载标记
+    sessionStorage.setItem("tools_preloaded", "true");
+
+    // 预定义所有工具页面需要的函数和变量
+    (window as any).toolsPageReady = {
+      initialized: false,
+      functions: {},
+      classes: {},
+      variables: {},
+    };
+
+    // 预加载核心游戏类定义
+    try {
+      // 预定义贪吃蛇游戏类的基本结构
+      (window as any).toolsPageReady.classes.SnakeGame = function (canvas: any, mode: any) {
+        this.canvas = canvas;
+        this.mode = mode;
+        this.preloaded = true;
+      };
+
+      // 预定义五子棋游戏类的基本结构
+      (window as any).toolsPageReady.classes.GomokuGame = function (canvas: any, mode: any) {
+        this.canvas = canvas;
+        this.mode = mode;
+        this.preloaded = true;
+      };
+
+      // 预定义核心变量
+      (window as any).toolsPageReady.variables = {
+        currentGame: null,
+        vegetableAbortController: null,
+        weatherAbortController: null,
+        isVegetablePaused: false,
+        isWeatherPaused: false,
+        currentVegetablePage: 1,
+      };
+
+    } catch (error) {
+      // 静默处理错误
+    }
+  };
+
   // 加载 WASM 模块
   useEffect(() => {
     const loadWasmModule = async () => {
@@ -208,6 +257,9 @@ const Search: React.FC<SearchProps> = ({
 
         setIndexData(data);
         setLoadingState((prev) => ({ ...prev, status: "success" }));
+
+        // 搜索索引加载完成后，预加载工具页面脚本
+        preloadToolsPageScripts();
       } catch (err) {
         // 检查组件是否仍然挂载
         if (!isMountedRef.current) return;

@@ -23,41 +23,43 @@ import Layout from "@/components/Layout.astro";
   </head>
 
   <div
-    class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800"
+    class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 no-zoom"
   >
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-6 md:py-8">
       <!-- 页面标题 -->
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+      <div class="text-center mb-6 md:mb-8">
+        <h1
+          class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-200 mb-2"
+        >
           🛠️ 工具中心
         </h1>
-        <p class="text-gray-600 dark:text-gray-400 mb-4">
+        <p class="text-gray-600 dark:text-gray-400 mb-4 px-4">
           选择你需要的工具 - 游戏娱乐或实用演示
         </p>
         <div
-          class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 max-w-2xl mx-auto"
+          class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 md:p-4 max-w-2xl mx-auto mx-4"
         >
-          <p class="text-sm text-blue-700 dark:text-blue-300">
+          <p class="text-xs md:text-sm text-blue-700 dark:text-blue-300">
             💡 <strong>使用提示：</strong
-            >游戏支持键盘和触屏操作，爬虫演示需要网络连接。所有功能都在浏览器中运行，无需安装任何软件(由于浏览器兼容问题，如点击没反应请先刷新页面再尝试点击)。
+            >由于浏览器兼容问题，如点击没反应请先刷新页面再尝试点击。
           </p>
         </div>
       </div>
 
       <!-- 分类选择器 -->
-      <div class="flex justify-center mb-8">
+      <div class="flex justify-center mb-6 md:mb-8 px-4">
         <div
-          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-2 flex space-x-2"
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-1 md:p-2 flex space-x-1 md:space-x-2 w-full max-w-md"
         >
           <button
             id="tab-games"
-            class="tab-button active px-6 py-3 rounded-lg font-semibold transition-all duration-300 bg-blue-500 text-white"
+            class="tab-button active flex-1 px-3 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition-all duration-300 bg-blue-500 text-white text-sm md:text-base"
           >
             🎮 游戏娱乐
           </button>
           <button
             id="tab-scrapers"
-            class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+            class="tab-button flex-1 px-3 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition-all duration-300 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm md:text-base"
           >
             🕷️ 爬虫演示
           </button>
@@ -155,25 +157,27 @@ import Layout from "@/components/Layout.astro";
           <!-- 贪吃蛇游戏界面 -->
           <div id="snake-game-container" class="game-container hidden">
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center justify-between mb-4 md:mb-6">
                 <div class="flex items-center">
-                  <div class="text-3xl mr-4">🐍</div>
+                  <div class="text-2xl md:text-3xl mr-2 md:mr-4">🐍</div>
                   <div>
                     <h2
-                      class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                      class="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200"
                     >
                       贪吃蛇
                     </h2>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p
+                      class="text-sm md:text-base text-gray-600 dark:text-gray-400"
+                    >
                       选择游戏模式开始游戏
                     </p>
                   </div>
                 </div>
                 <button
                   id="back-to-games"
-                  class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                  class="px-2 md:px-4 py-1 md:py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm md:text-base"
                 >
-                  ← 返回游戏列表
+                  ← 返回
                 </button>
               </div>
 
@@ -211,52 +215,65 @@ import Layout from "@/components/Layout.astro";
                     id="snake-canvas"
                     width="600"
                     height="400"
-                    class="border-2 border-gray-300 dark:border-gray-600 bg-black rounded-lg max-w-full"
-                  ></canvas>
+                    class="border-2 border-gray-300 dark:border-gray-600 bg-black rounded-lg max-w-full h-auto touch-manipulation"
+                    style="max-height: 60vh;"></canvas>
                 </div>
                 <div id="snake-controls">
-                  <p class="text-lg text-gray-600 dark:text-gray-400 mb-2">
+                  <p
+                    class="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-2"
+                  >
                     得分: <span
                       id="snake-score"
-                      class="font-bold text-2xl text-green-600">0</span
+                      class="font-bold text-xl md:text-2xl text-green-600"
+                      >0</span
                     >
                   </p>
                   <div
                     id="snake-control-info"
-                    class="text-sm text-gray-500 dark:text-gray-400 mb-4"
+                    class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4 px-2"
                   >
                     <!-- 控制说明将通过JavaScript动态添加 -->
                   </div>
+                  <!-- 移动端触屏控制按钮 -->
                   <div
                     id="snake-buttons"
-                    class="flex justify-center space-x-2 mb-4"
+                    class="grid grid-cols-3 gap-2 max-w-xs mx-auto mb-4 md:hidden"
                   >
+                    <div></div>
                     <button
                       id="snake-up"
-                      class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors"
+                      class="px-4 py-3 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white rounded-lg transition-colors text-lg font-bold touch-manipulation"
                       >↑</button
                     >
-                    <div class="flex flex-col space-y-1">
-                      <button
-                        id="snake-left"
-                        class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors"
-                        >←</button
-                      >
-                      <button
-                        id="snake-right"
-                        class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors"
-                        >→</button
-                      >
-                    </div>
+                    <div></div>
+                    <button
+                      id="snake-left"
+                      class="px-4 py-3 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white rounded-lg transition-colors text-lg font-bold touch-manipulation"
+                      >←</button
+                    >
+                    <div></div>
+                    <button
+                      id="snake-right"
+                      class="px-4 py-3 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white rounded-lg transition-colors text-lg font-bold touch-manipulation"
+                      >→</button
+                    >
+                    <div></div>
                     <button
                       id="snake-down"
-                      class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors"
+                      class="px-4 py-3 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white rounded-lg transition-colors text-lg font-bold touch-manipulation"
                       >↓</button
                     >
+                    <div></div>
+                  </div>
+                  <!-- 桌面端控制说明 -->
+                  <div
+                    class="hidden md:block text-sm text-gray-500 dark:text-gray-400 mb-4"
+                  >
+                    使用方向键或WASD控制蛇的移动
                   </div>
                   <button
                     id="snake-back"
-                    class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                    class="px-4 md:px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm md:text-base"
                     >返回模式选择</button
                   >
                 </div>
@@ -266,26 +283,30 @@ import Layout from "@/components/Layout.astro";
 
           <!-- 五子棋游戏界面 -->
           <div id="gomoku-game-container" class="game-container hidden">
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <div class="flex items-center justify-between mb-6">
+            <div
+              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 md:p-6"
+            >
+              <div class="flex items-center justify-between mb-4 md:mb-6">
                 <div class="flex items-center">
-                  <div class="text-3xl mr-4">⚫</div>
+                  <div class="text-2xl md:text-3xl mr-2 md:mr-4">⚫</div>
                   <div>
                     <h2
-                      class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                      class="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200"
                     >
                       五子棋
                     </h2>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p
+                      class="text-sm md:text-base text-gray-600 dark:text-gray-400"
+                    >
                       选择对战模式开始游戏
                     </p>
                   </div>
                 </div>
                 <button
                   id="back-to-games-gomoku"
-                  class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                  class="px-2 md:px-4 py-1 md:py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm md:text-base"
                 >
-                  ← 返回游戏列表
+                  ← 返回
                 </button>
               </div>
 
@@ -316,25 +337,29 @@ import Layout from "@/components/Layout.astro";
                     id="gomoku-canvas"
                     width="560"
                     height="560"
-                    class="border-2 border-gray-300 dark:border-gray-600 bg-yellow-100 dark:bg-yellow-900 rounded-lg max-w-full"
-                  ></canvas>
+                    class="border-2 border-gray-300 dark:border-gray-600 bg-yellow-100 dark:bg-yellow-900 rounded-lg max-w-full h-auto touch-manipulation"
+                    style="max-height: 70vh;"></canvas>
                 </div>
                 <div id="gomoku-info">
-                  <p class="text-lg text-gray-600 dark:text-gray-400 mb-4">
+                  <p
+                    class="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-4"
+                  >
                     当前玩家: <span
                       id="current-player"
-                      class="font-bold text-xl">黑子</span
+                      class="font-bold text-lg md:text-xl">黑子</span
                     >
                   </p>
-                  <div class="space-x-2">
+                  <div
+                    class="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center"
+                  >
                     <button
                       id="gomoku-restart"
-                      class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
+                      class="px-4 md:px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm md:text-base"
                       >重新开始</button
                     >
                     <button
                       id="gomoku-back"
-                      class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                      class="px-4 md:px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm md:text-base"
                       >返回模式选择</button
                     >
                   </div>
@@ -432,35 +457,41 @@ import Layout from "@/components/Layout.astro";
             id="vegetable-scraper-container"
             class="scraper-container hidden"
           >
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <div class="flex items-center justify-between mb-6">
+            <div
+              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 md:p-6"
+            >
+              <div class="flex items-center justify-between mb-4 md:mb-6">
                 <div class="flex items-center">
-                  <div class="text-3xl mr-4">🥬</div>
+                  <div class="text-2xl md:text-3xl mr-2 md:mr-4">🥬</div>
                   <div>
                     <h2
-                      class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                      class="text-lg md:text-2xl font-bold text-gray-800 dark:text-gray-200"
                     >
                       北京蔬菜价格爬取
                     </h2>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p
+                      class="text-sm md:text-base text-gray-600 dark:text-gray-400"
+                    >
                       设置爬取参数并开始获取数据
                     </p>
                   </div>
                 </div>
                 <button
                   id="back-to-scrapers"
-                  class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                  class="px-2 md:px-4 py-1 md:py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm md:text-base"
                 >
-                  ← 返回爬虫列表
+                  ← 返回
                 </button>
               </div>
 
-              <form id="vegetable-form" class="mb-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <form id="vegetable-form" class="mb-4 md:mb-6">
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4"
+                >
                   <div>
                     <label
                       for="start-page"
-                      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      class="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                       >开始页码:</label
                     >
                     <input
@@ -468,13 +499,13 @@ import Layout from "@/components/Layout.astro";
                       id="start-page"
                       value="1"
                       min="1"
-                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      class="w-full px-3 md:px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm md:text-base"
                     />
                   </div>
                   <div>
                     <label
                       for="end-page"
-                      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      class="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                       >结束页码:</label
                     >
                     <input
@@ -482,21 +513,21 @@ import Layout from "@/components/Layout.astro";
                       id="end-page"
                       value="2"
                       min="1"
-                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      class="w-full px-3 md:px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm md:text-base"
                     />
                   </div>
                 </div>
-                <div class="flex space-x-3">
+                <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <button
                     type="submit"
-                    class="flex-1 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition-colors"
+                    class="flex-1 px-4 md:px-6 py-2 md:py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition-colors text-sm md:text-base"
                   >
                     🚀 开始爬取蔬菜价格
                   </button>
                   <button
                     type="button"
                     id="pause-vegetable"
-                    class="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-colors"
+                    class="px-4 md:px-6 py-2 md:py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-colors text-sm md:text-base"
                     style="display: none;"
                   >
                     ⏸️ 暂停
@@ -504,7 +535,7 @@ import Layout from "@/components/Layout.astro";
                   <button
                     type="button"
                     id="resume-vegetable"
-                    class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
+                    class="px-4 md:px-6 py-2 md:py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors text-sm md:text-base"
                     style="display: none;"
                   >
                     ▶️ 继续
@@ -514,9 +545,11 @@ import Layout from "@/components/Layout.astro";
 
               <div
                 id="vegetable-results"
-                class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 min-h-[400px] overflow-y-auto"
+                class="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 md:p-6 min-h-[300px] md:min-h-[400px] overflow-y-auto smooth-scroll"
               >
-                <p class="text-gray-500 dark:text-gray-400 text-center">
+                <p
+                  class="text-gray-500 dark:text-gray-400 text-center text-sm md:text-base"
+                >
                   设置页码范围并点击开始爬取按钮
                 </p>
               </div>
@@ -525,34 +558,38 @@ import Layout from "@/components/Layout.astro";
 
           <!-- 天气数据爬虫界面 -->
           <div id="weather-scraper-container" class="scraper-container hidden">
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <div class="flex items-center justify-between mb-6">
+            <div
+              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 md:p-6"
+            >
+              <div class="flex items-center justify-between mb-4 md:mb-6">
                 <div class="flex items-center">
-                  <div class="text-3xl mr-4">🌤️</div>
+                  <div class="text-2xl md:text-3xl mr-2 md:mr-4">🌤️</div>
                   <div>
                     <h2
-                      class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                      class="text-lg md:text-2xl font-bold text-gray-800 dark:text-gray-200"
                     >
                       天气数据爬取
                     </h2>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p
+                      class="text-sm md:text-base text-gray-600 dark:text-gray-400"
+                    >
                       输入省份名称获取天气信息
                     </p>
                   </div>
                 </div>
                 <button
                   id="back-to-scrapers-weather"
-                  class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                  class="px-2 md:px-4 py-1 md:py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm md:text-base"
                 >
-                  ← 返回爬虫列表
+                  ← 返回
                 </button>
               </div>
 
-              <div class="mb-6">
+              <div class="mb-4 md:mb-6">
                 <div class="mb-4">
                   <label
                     for="province-id"
-                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    class="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                     >省份名称:</label
                   >
                   <input
@@ -560,20 +597,20 @@ import Layout from "@/components/Layout.astro";
                     id="province-id"
                     placeholder="例如：北京、上海、广东"
                     value="北京"
-                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    class="w-full px-3 md:px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm md:text-base"
                   />
                 </div>
-                <div class="flex space-x-3">
+                <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <button
                     id="fetch-weather"
-                    class="flex-1 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
+                    class="flex-1 px-4 md:px-6 py-2 md:py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors text-sm md:text-base"
                   >
                     🌍 获取天气数据
                   </button>
                   <button
                     type="button"
                     id="pause-weather"
-                    class="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-colors"
+                    class="px-4 md:px-6 py-2 md:py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-colors text-sm md:text-base"
                     style="display: none;"
                   >
                     ⏸️ 暂停
@@ -581,7 +618,7 @@ import Layout from "@/components/Layout.astro";
                   <button
                     type="button"
                     id="resume-weather"
-                    class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
+                    class="px-4 md:px-6 py-2 md:py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors text-sm md:text-base"
                     style="display: none;"
                   >
                     ▶️ 继续
@@ -591,9 +628,11 @@ import Layout from "@/components/Layout.astro";
 
               <div
                 id="weather-results"
-                class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 min-h-[400px] overflow-y-auto"
+                class="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 md:p-6 min-h-[300px] md:min-h-[400px] overflow-y-auto smooth-scroll"
               >
-                <p class="text-gray-500 dark:text-gray-400 text-center">
+                <p
+                  class="text-gray-500 dark:text-gray-400 text-center text-sm md:text-base"
+                >
                   输入省份名称并点击获取天气数据按钮
                 </p>
               </div>
@@ -692,6 +731,11 @@ import Layout from "@/components/Layout.astro";
 
   /* 响应式调整 */
   @media (max-width: 768px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
     #snake-canvas,
     #gomoku-canvas {
       max-width: 100%;
@@ -706,9 +750,41 @@ import Layout from "@/components/Layout.astro";
       font-size: 0.875rem;
       padding: 0.5rem 1rem;
     }
+
+    /* 游戏卡片移动端优化 */
+    .game-card,
+    .scraper-card {
+      padding: 1rem;
+    }
+
+    .game-card h3,
+    .scraper-card h3 {
+      font-size: 1.25rem;
+    }
+
+    .game-card .text-6xl,
+    .scraper-card .text-6xl {
+      font-size: 3rem;
+    }
+
+    /* 天气卡片移动端优化 */
+    .weather-card {
+      min-width: 180px;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+    }
+
+    .weather-city {
+      font-size: 1.1rem;
+    }
   }
 
   @media (max-width: 640px) {
+    .container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
     .grid.grid-cols-1.md\\:grid-cols-3 {
       grid-template-columns: 1fr;
     }
@@ -719,6 +795,69 @@ import Layout from "@/components/Layout.astro";
 
     .grid.grid-cols-2 {
       grid-template-columns: 1fr;
+    }
+
+    /* 移动端触屏优化 */
+    .touch-manipulation {
+      touch-action: manipulation;
+    }
+
+    /* 按钮间距优化 */
+    .game-card,
+    .scraper-card {
+      margin-bottom: 1rem;
+    }
+
+    /* 表单元素移动端优化 */
+    input[type="number"],
+    input[type="text"] {
+      font-size: 16px; /* 防止iOS缩放 */
+    }
+
+    /* 天气列表移动端优化 */
+    .weather-list {
+      gap: 0.75rem;
+    }
+
+    .weather-card {
+      min-width: 160px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .weather-city {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* 超小屏幕优化 */
+    .text-3xl {
+      font-size: 1.5rem;
+    }
+
+    .text-4xl {
+      font-size: 1.75rem;
+    }
+
+    .game-card .text-6xl,
+    .scraper-card .text-6xl {
+      font-size: 2.5rem;
+    }
+
+    /* Canvas 超小屏幕适配 */
+    #snake-canvas {
+      max-height: 50vh;
+    }
+
+    #gomoku-canvas {
+      max-height: 60vh;
+    }
+
+    /* 结果区域高度调整 */
+    #vegetable-results,
+    #weather-results {
+      min-height: 250px;
     }
   }
 
@@ -736,837 +875,1411 @@ import Layout from "@/components/Layout.astro";
   .loading {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+
+  /* 触屏优化 */
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 移动端按钮激活状态 */
+  @media (hover: none) and (pointer: coarse) {
+    .game-card:active,
+    .scraper-card:active {
+      transform: scale(0.98);
+      transition: transform 0.1s ease;
+    }
+
+    button:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+  }
+
+  /* 防止移动端双击缩放 */
+  .no-zoom {
+    touch-action: pan-x pan-y;
+  }
+
+  /* 移动端滚动优化 */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
 </style>
 
 <script is:inline>
-  // 全局变量
-  let currentGame = null;
-  let vegetableAbortController = null;
-  let weatherAbortController = null;
-  let isVegetablePaused = false;
-  let isWeatherPaused = false;
-  let currentVegetablePage = 1;
+  // 全局预加载脚本 - 在任何页面都会执行
+  (function () {
+    // 工具页面预加载标识
+    window.toolsPagePreloaded = window.toolsPagePreloaded || false;
 
-  // 主要导航和初始化
-  document.addEventListener("DOMContentLoaded", () => {
-    const tabGames = document.getElementById("tab-games");
-    const tabScrapers = document.getElementById("tab-scrapers");
-    const gamesSection = document.getElementById("games-section");
-    const scrapersSection = document.getElementById("scrapers-section");
+    // 预加载工具页面脚本的函数
+    function preloadToolsPageScripts() {
+      if (window.toolsPagePreloaded) return;
 
-    function switchTab(activeTab, activeSection, inactiveTab, inactiveSection) {
-      // 更新标签样式
-      activeTab.classList.add("active", "bg-blue-500", "text-white");
-      activeTab.classList.remove(
-        "text-gray-600",
-        "dark:text-gray-400",
-        "hover:bg-gray-100",
-        "dark:hover:bg-gray-700"
+      window.toolsPagePreloaded = true;
+
+      // 预加载标记
+      sessionStorage.setItem("tools_preloaded", "true");
+
+      // 预定义所有工具页面需要的函数和变量
+      window.toolsPageReady = {
+        initialized: false,
+        functions: {},
+        classes: {},
+        variables: {},
+      };
+
+      // 预加载核心游戏类定义
+      try {
+        // 预定义贪吃蛇游戏类的基本结构
+        window.toolsPageReady.classes.SnakeGame = function (canvas, mode) {
+          this.canvas = canvas;
+          this.mode = mode;
+          this.preloaded = true;
+        };
+
+        // 预定义五子棋游戏类的基本结构
+        window.toolsPageReady.classes.GomokuGame = function (canvas, mode) {
+          this.canvas = canvas;
+          this.mode = mode;
+          this.preloaded = true;
+        };
+
+        // 预定义核心变量
+        window.toolsPageReady.variables = {
+          currentGame: null,
+          vegetableAbortController: null,
+          weatherAbortController: null,
+          isVegetablePaused: false,
+          isWeatherPaused: false,
+          currentVegetablePage: 1,
+        };
+      } catch (error) {
+        // 静默处理错误
+      }
+    }
+
+    // 查找工具中心链接并添加预加载事件
+    function setupToolsPreloading() {
+      // 如果已经在工具页面，不需要设置预加载
+      if (window.location.pathname === "/tools") {
+        return;
+      }
+
+      // 查找所有指向 /tools 的链接
+      const toolsLinks = document.querySelectorAll(
+        'a[href="/tools"], a[href*="/tools"]'
       );
 
-      inactiveTab.classList.remove("active", "bg-blue-500", "text-white");
-      inactiveTab.classList.add(
-        "text-gray-600",
-        "dark:text-gray-400",
-        "hover:bg-gray-100",
-        "dark:hover:bg-gray-700"
+      toolsLinks.forEach((link) => {
+        // 避免重复绑定
+        if (link.dataset.toolsPreloadBound) return;
+        link.dataset.toolsPreloadBound = "true";
+
+        // 鼠标悬浮预加载
+        link.addEventListener("mouseenter", preloadToolsPageScripts, {
+          once: true,
+        });
+
+        // 触屏设备的触摸预加载
+        link.addEventListener("touchstart", preloadToolsPageScripts, {
+          once: true,
+        });
+
+        // 焦点预加载（键盘导航）
+        link.addEventListener("focus", preloadToolsPageScripts, { once: true });
+      });
+
+      // 查找导航菜单中的"其他"分组
+      const otherGroupToggle = document.querySelector(
+        '[data-toggle-id="other"]'
       );
+      if (otherGroupToggle && !otherGroupToggle.dataset.toolsPreloadBound) {
+        otherGroupToggle.dataset.toolsPreloadBound = "true";
 
-      // 切换内容区域
-      activeSection.classList.remove("hidden");
-      inactiveSection.classList.add("hidden");
+        // 当用户悬浮或点击"其他"分组时也预加载
+        otherGroupToggle.addEventListener(
+          "mouseenter",
+          preloadToolsPageScripts,
+          { once: true }
+        );
+        otherGroupToggle.addEventListener("click", preloadToolsPageScripts, {
+          once: true,
+        });
+      }
 
-      // 重置到列表视图
-      resetToListView();
+      // 查找移动端菜单中的工具链接
+      const mobileToolsLinks = document.querySelectorAll(
+        '#mobile-menu a[href="/tools"], #mobile-menu a[href*="/tools"]'
+      );
+      mobileToolsLinks.forEach((link) => {
+        if (link.dataset.toolsPreloadBound) return;
+        link.dataset.toolsPreloadBound = "true";
+
+        link.addEventListener("touchstart", preloadToolsPageScripts, {
+          once: true,
+        });
+        link.addEventListener("focus", preloadToolsPageScripts, { once: true });
+      });
     }
 
-    tabGames.addEventListener("click", () => {
-      switchTab(tabGames, gamesSection, tabScrapers, scrapersSection);
-    });
+    // 页面加载完成后设置预加载
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupToolsPreloading);
+    } else {
+      setupToolsPreloading();
+    }
 
-    tabScrapers.addEventListener("click", () => {
-      switchTab(tabScrapers, scrapersSection, tabGames, gamesSection);
-    });
+    // 监听页面切换事件，重新设置预加载
+    document.addEventListener("astro:page-load", setupToolsPreloading);
+    document.addEventListener("page-transition", setupToolsPreloading);
 
-    // 初始化所有功能
-    initializeNavigation();
-    initializeGames();
-    initializeScrapers();
-  });
+    // 延迟设置，确保动态内容也被覆盖
+    setTimeout(setupToolsPreloading, 1000);
+  })();
+</script>
 
-  // 重置到列表视图
-  function resetToListView() {
-    // 停止当前游戏
-    stopCurrentGame();
-
-    // 隐藏所有游戏容器
-    document.querySelectorAll(".game-container").forEach((container) => {
-      container.classList.add("hidden");
-    });
-
-    // 隐藏所有爬虫容器
-    document.querySelectorAll(".scraper-container").forEach((container) => {
-      container.classList.add("hidden");
-    });
-
-    // 显示列表
-    const gamesList = document.getElementById("games-list");
-    const scrapersList = document.getElementById("scrapers-list");
-    if (gamesList) gamesList.classList.remove("hidden");
-    if (scrapersList) scrapersList.classList.remove("hidden");
+<script is:inline>
+  // 全局变量 - 使用条件声明避免重复声明错误
+  if (typeof currentGame === "undefined") {
+    var currentGame = null;
+    var vegetableAbortController = null;
+    var weatherAbortController = null;
+    var isVegetablePaused = false;
+    var isWeatherPaused = false;
+    var currentVegetablePage = 1;
   }
 
-  // 初始化导航功能
-  function initializeNavigation() {
-    // 游戏卡片点击事件
-    document.querySelectorAll(".game-card").forEach((card) => {
-      card.addEventListener("click", () => {
-        const gameType = card.dataset.game;
-        if (gameType && gameType !== "placeholder") {
-          showGameContainer(gameType);
+  // 初始化函数 - 避免重复声明
+  if (typeof initializeToolsPage === "undefined") {
+    var initializeToolsPage = function () {
+      // 检查是否已经初始化过
+      if (window.toolsPageReady && window.toolsPageReady.initialized) {
+        // 重置初始化状态，允许重新初始化
+        window.toolsPageReady.initialized = false;
+      }
+
+      const tabGames = document.getElementById("tab-games");
+      const tabScrapers = document.getElementById("tab-scrapers");
+      const gamesSection = document.getElementById("games-section");
+      const scrapersSection = document.getElementById("scrapers-section");
+
+      // 检查元素是否存在，如果不存在则稍后重试
+      if (!tabGames || !tabScrapers || !gamesSection || !scrapersSection) {
+        setTimeout(initializeToolsPage, 100);
+        return;
+      }
+
+      // 如果有预加载的变量，合并它们（但不覆盖已存在的值）
+      if (window.toolsPageReady && window.toolsPageReady.variables) {
+        const preloadedVars = window.toolsPageReady.variables;
+        // 只在变量未定义时使用预加载的值
+        if (typeof currentGame === "undefined")
+          currentGame = preloadedVars.currentGame;
+        if (typeof vegetableAbortController === "undefined")
+          vegetableAbortController = preloadedVars.vegetableAbortController;
+        if (typeof weatherAbortController === "undefined")
+          weatherAbortController = preloadedVars.weatherAbortController;
+        if (typeof isVegetablePaused === "undefined")
+          isVegetablePaused = preloadedVars.isVegetablePaused;
+        if (typeof isWeatherPaused === "undefined")
+          isWeatherPaused = preloadedVars.isWeatherPaused;
+        if (typeof currentVegetablePage === "undefined")
+          currentVegetablePage = preloadedVars.currentVegetablePage;
+      }
+
+      function switchTab(
+        activeTab,
+        activeSection,
+        inactiveTab,
+        inactiveSection
+      ) {
+        // 更新标签样式
+        activeTab.classList.add("active", "bg-blue-500", "text-white");
+        activeTab.classList.remove(
+          "text-gray-600",
+          "dark:text-gray-400",
+          "hover:bg-gray-100",
+          "dark:hover:bg-gray-700"
+        );
+
+        inactiveTab.classList.remove("active", "bg-blue-500", "text-white");
+        inactiveTab.classList.add(
+          "text-gray-600",
+          "dark:text-gray-400",
+          "hover:bg-gray-100",
+          "dark:hover:bg-gray-700"
+        );
+
+        // 切换内容区域
+        activeSection.classList.remove("hidden");
+        inactiveSection.classList.add("hidden");
+
+        // 重置到列表视图
+        resetToListView();
+      }
+
+      // 移除之前的事件监听器（如果存在）
+      const newTabGames = tabGames.cloneNode(true);
+      const newTabScrapers = tabScrapers.cloneNode(true);
+      tabGames.parentNode.replaceChild(newTabGames, tabGames);
+      tabScrapers.parentNode.replaceChild(newTabScrapers, tabScrapers);
+
+      newTabGames.addEventListener("click", () => {
+        switchTab(newTabGames, gamesSection, newTabScrapers, scrapersSection);
+      });
+
+      newTabScrapers.addEventListener("click", () => {
+        switchTab(newTabScrapers, scrapersSection, newTabGames, gamesSection);
+      });
+
+      // 初始化所有功能
+      initializeNavigation();
+      initializeGames();
+      initializeScrapers();
+
+      // 标记初始化完成
+      if (window.toolsPageReady) {
+        window.toolsPageReady.initialized = true;
+      }
+    };
+  }
+
+  // 无感刷新功能 - 避免重复声明
+  if (typeof hasAutoRefreshed === "undefined") {
+    var hasAutoRefreshed = false;
+    var initializationAttempts = 0;
+    var maxInitializationAttempts = 3;
+  }
+
+  // 避免重复声明所有函数
+  if (typeof performSilentRefresh === "undefined") {
+    var performSilentRefresh = function () {
+      if (hasAutoRefreshed) return;
+
+      hasAutoRefreshed = true;
+      console.log("🔄 执行无感刷新以确保工具页面正常工作");
+
+      // 显示一个简短的加载提示
+      const loadingDiv = document.createElement("div");
+      loadingDiv.innerHTML = `
+      <div style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(59, 130, 246, 0.9);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        z-index: 9999;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      ">
+        🔄 正在优化页面...
+      </div>
+    `;
+      document.body.appendChild(loadingDiv);
+
+      // 使用 location.replace 进行无感刷新（不会在历史记录中留下记录）
+      setTimeout(() => {
+        window.location.replace(window.location.href);
+      }, 300);
+    };
+
+    var checkAndInitialize = function () {
+      initializationAttempts++;
+
+      const tabGames = document.getElementById("tab-games");
+      const tabScrapers = document.getElementById("tab-scrapers");
+      const gamesSection = document.getElementById("games-section");
+      const scrapersSection = document.getElementById("scrapers-section");
+
+      // 检查关键元素是否存在且可交互
+      const elementsReady =
+        tabGames && tabScrapers && gamesSection && scrapersSection;
+
+      if (elementsReady) {
+        // 创建一个测试点击事件
+        const testEvent = new Event("click", { bubbles: true });
+        let testPassed = false;
+
+        // 临时监听器来测试事件系统
+        const testListener = () => {
+          testPassed = true;
+        };
+        tabGames.addEventListener("click", testListener);
+        tabGames.dispatchEvent(testEvent);
+        tabGames.removeEventListener("click", testListener);
+
+        if (testPassed) {
+          console.log("✅ 页面元素和事件系统正常，开始初始化");
+          initializeToolsPage();
+        } else if (initializationAttempts < maxInitializationAttempts) {
+          console.log(
+            `⚠️ 事件系统未就绪，尝试 ${initializationAttempts}/${maxInitializationAttempts}`
+          );
+          setTimeout(checkAndInitialize, 200);
+        } else {
+          console.log("🔄 初始化多次失败，执行无感刷新");
+          performSilentRefresh();
         }
-      });
-    });
+      } else if (initializationAttempts < maxInitializationAttempts) {
+        console.log(
+          `⏳ DOM元素未就绪，尝试 ${initializationAttempts}/${maxInitializationAttempts}`
+        );
+        setTimeout(checkAndInitialize, 200);
+      } else {
+        console.log("🔄 DOM元素加载失败，执行无感刷新");
+        performSilentRefresh();
+      }
+    };
 
-    // 爬虫卡片点击事件
-    document.querySelectorAll(".scraper-card").forEach((card) => {
-      card.addEventListener("click", () => {
-        const scraperType = card.dataset.scraper;
-        if (scraperType && scraperType !== "placeholder") {
-          showScraperContainer(scraperType);
+    // 检测页面状态和预加载情况
+    const urlParams = new URLSearchParams(window.location.search);
+    const isRefreshed =
+      urlParams.has("_refreshed") || sessionStorage.getItem("tools_refreshed");
+    const isPreloaded = sessionStorage.getItem("tools_preloaded") === "true";
+
+    if (isRefreshed || isPreloaded) {
+      // 如果是刷新后的页面或已预加载，直接初始化
+      hasAutoRefreshed = true;
+      sessionStorage.removeItem("tools_refreshed");
+
+      // 清理URL参数
+      if (urlParams.has("_refreshed")) {
+        urlParams.delete("_refreshed");
+        const newUrl =
+          window.location.pathname +
+          (urlParams.toString() ? "?" + urlParams.toString() : "");
+        window.history.replaceState({}, "", newUrl);
+      }
+
+      // 快速初始化 - 给DOM更多时间准备
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => {
+          setTimeout(initializeToolsPage, 100);
+        });
+      } else {
+        // 延迟初始化，确保DOM完全准备好
+        setTimeout(initializeToolsPage, 200);
+      }
+
+      // 为Astro页面导航添加支持
+      document.addEventListener("astro:page-load", () => {
+        console.log("🔄 astro:page-load 事件触发，重新初始化工具页面");
+        setTimeout(initializeToolsPage, 100);
+      });
+
+      // 添加 astro:after-swap 事件支持（页面内容替换后）
+      document.addEventListener("astro:after-swap", () => {
+        console.log("🔄 astro:after-swap 事件触发，重新初始化工具页面");
+        setTimeout(initializeToolsPage, 150);
+      });
+
+      // 备用初始化（延迟执行）
+      setTimeout(initializeToolsPage, 500);
+    } else {
+      // 首次访问且未预加载，进行快速检查
+
+      // 更短的延迟，快速检查
+      setTimeout(() => {
+        const tabGames = document.getElementById("tab-games");
+        const tabScrapers = document.getElementById("tab-scrapers");
+
+        if (tabGames && tabScrapers) {
+          // 简单检查元素是否可交互
+          const elementsInteractive =
+            tabGames.offsetParent !== null && tabScrapers.offsetParent !== null;
+
+          if (elementsInteractive) {
+            initializeToolsPage();
+          } else {
+            sessionStorage.setItem("tools_refreshed", "true");
+            setTimeout(checkAndInitialize, 100);
+          }
+        } else {
+          sessionStorage.setItem("tools_refreshed", "true");
+          setTimeout(checkAndInitialize, 100);
         }
-      });
-    });
-
-    // 返回按钮事件
-    document.getElementById("back-to-games")?.addEventListener("click", () => {
-      resetToListView();
-    });
-
-    document
-      .getElementById("back-to-games-gomoku")
-      ?.addEventListener("click", () => {
-        resetToListView();
-      });
-
-    document
-      .getElementById("back-to-scrapers")
-      ?.addEventListener("click", () => {
-        resetToListView();
-      });
-
-    document
-      .getElementById("back-to-scrapers-weather")
-      ?.addEventListener("click", () => {
-        resetToListView();
-      });
-  }
-
-  // 显示游戏容器
-  function showGameContainer(gameType) {
-    // 隐藏游戏列表
-    document.getElementById("games-list")?.classList.add("hidden");
-
-    // 显示对应的游戏容器
-    const container = document.getElementById(`${gameType}-game-container`);
-    if (container) {
-      container.classList.remove("hidden");
+      }, 300); // 减少延迟时间
     }
-  }
 
-  // 显示爬虫容器
-  function showScraperContainer(scraperType) {
-    // 隐藏爬虫列表
-    document.getElementById("scrapers-list")?.classList.add("hidden");
+    // 重置到列表视图
+    var resetToListView = function () {
+      // 停止当前游戏
+      stopCurrentGame();
 
-    // 显示对应的爬虫容器
-    const container = document.getElementById(
-      `${scraperType}-scraper-container`
-    );
-    if (container) {
-      container.classList.remove("hidden");
-    }
-  }
+      // 隐藏所有游戏容器
+      document.querySelectorAll(".game-container").forEach((container) => {
+        container.classList.add("hidden");
+      });
 
-  // 贪吃蛇游戏类
-  class SnakeGame {
-    constructor(canvas, mode) {
-      this.canvas = canvas;
-      this.ctx = canvas.getContext("2d");
-      this.mode = mode;
-      this.gridSize = 20;
-      this.lastInputTime1 = 0; // 玩家1防止快速按键
-      this.lastInputTime2 = 0; // 玩家2防止快速按键
-      this.inputDelay = 100; // 最小输入间隔(毫秒)
+      // 隐藏所有爬虫容器
+      document.querySelectorAll(".scraper-container").forEach((container) => {
+        container.classList.add("hidden");
+      });
 
-      if (mode === "double") {
-        // 双人模式：两条蛇
-        this.snake1 = [{ x: 100, y: 200 }];
-        this.snake2 = [{ x: 500, y: 200 }];
-        this.direction1 = "right";
-        this.direction2 = "left";
-        this.nextDirection1 = "right"; // 防止快速按键
-        this.nextDirection2 = "left";
-        this.score1 = 0;
-        this.score2 = 0;
-        // 存储上一帧的蛇位置，用于插值
+      // 显示列表
+      const gamesList = document.getElementById("games-list");
+      const scrapersList = document.getElementById("scrapers-list");
+      if (gamesList) gamesList.classList.remove("hidden");
+      if (scrapersList) scrapersList.classList.remove("hidden");
+    };
+
+    // 初始化导航功能
+    var initializeNavigation = function () {
+      // 移除之前的事件监听器并重新绑定游戏卡片点击事件
+      const gameCards = document.querySelectorAll(".game-card");
+
+      gameCards.forEach((card) => {
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+
+        newCard.addEventListener("click", () => {
+          const gameType = newCard.dataset.game;
+          if (gameType && gameType !== "placeholder") {
+            showGameContainer(gameType);
+          }
+        });
+      });
+
+      // 移除之前的事件监听器并重新绑定爬虫卡片点击事件
+      const scraperCards = document.querySelectorAll(".scraper-card");
+
+      scraperCards.forEach((card) => {
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+
+        newCard.addEventListener("click", () => {
+          const scraperType = newCard.dataset.scraper;
+          if (scraperType && scraperType !== "placeholder") {
+            showScraperContainer(scraperType);
+          }
+        });
+      });
+
+      // 返回按钮事件 - 使用一次性事件监听器
+      const backToGames = document.getElementById("back-to-games");
+      if (backToGames) {
+        const newBackToGames = backToGames.cloneNode(true);
+        backToGames.parentNode.replaceChild(newBackToGames, backToGames);
+        newBackToGames.addEventListener("click", resetToListView);
+      }
+
+      const backToGamesGomoku = document.getElementById("back-to-games-gomoku");
+      if (backToGamesGomoku) {
+        const newBackToGamesGomoku = backToGamesGomoku.cloneNode(true);
+        backToGamesGomoku.parentNode.replaceChild(
+          newBackToGamesGomoku,
+          backToGamesGomoku
+        );
+        newBackToGamesGomoku.addEventListener("click", resetToListView);
+      }
+
+      const backToScrapers = document.getElementById("back-to-scrapers");
+      if (backToScrapers) {
+        const newBackToScrapers = backToScrapers.cloneNode(true);
+        backToScrapers.parentNode.replaceChild(
+          newBackToScrapers,
+          backToScrapers
+        );
+        newBackToScrapers.addEventListener("click", resetToListView);
+      }
+
+      const backToScrapersWeather = document.getElementById(
+        "back-to-scrapers-weather"
+      );
+      if (backToScrapersWeather) {
+        const newBackToScrapersWeather = backToScrapersWeather.cloneNode(true);
+        backToScrapersWeather.parentNode.replaceChild(
+          newBackToScrapersWeather,
+          backToScrapersWeather
+        );
+        newBackToScrapersWeather.addEventListener("click", resetToListView);
+      }
+    };
+
+    // 显示游戏容器
+    var showGameContainer = function (gameType) {
+      // 隐藏游戏列表
+      document.getElementById("games-list")?.classList.add("hidden");
+
+      // 显示对应的游戏容器
+      const container = document.getElementById(`${gameType}-game-container`);
+      if (container) {
+        container.classList.remove("hidden");
+      }
+    };
+
+    // 显示爬虫容器
+    var showScraperContainer = function (scraperType) {
+      // 隐藏爬虫列表
+      document.getElementById("scrapers-list")?.classList.add("hidden");
+
+      // 显示对应的爬虫容器
+      const container = document.getElementById(
+        `${scraperType}-scraper-container`
+      );
+      if (container) {
+        container.classList.remove("hidden");
+      }
+    };
+
+    // 贪吃蛇游戏类
+    class SnakeGame {
+      constructor(canvas, mode) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext("2d");
+        this.mode = mode;
+        this.gridSize = 20;
+        this.lastInputTime1 = 0; // 玩家1防止快速按键
+        this.lastInputTime2 = 0; // 玩家2防止快速按键
+        this.inputDelay = 100; // 最小输入间隔(毫秒)
+
+        if (mode === "double") {
+          // 双人模式：两条蛇
+          this.snake1 = [{ x: 100, y: 200 }];
+          this.snake2 = [{ x: 500, y: 200 }];
+          this.direction1 = "right";
+          this.direction2 = "left";
+          this.nextDirection1 = "right"; // 防止快速按键
+          this.nextDirection2 = "left";
+          this.score1 = 0;
+          this.score2 = 0;
+          // 存储上一帧的蛇位置，用于插值
+          this.previousSnake1 = JSON.parse(JSON.stringify(this.snake1));
+          this.previousSnake2 = JSON.parse(JSON.stringify(this.snake2));
+        } else {
+          // 单人模式
+          this.snake = [{ x: 200, y: 200 }];
+          this.direction = "right";
+          this.nextDirection = "right"; // 防止快速按键
+          this.score = 0;
+          // 存储上一帧的蛇位置，用于插值
+          this.previousSnake = JSON.parse(JSON.stringify(this.snake));
+        }
+
+        this.food = this.generateFood();
+        this.logicInterval = null; // 用于逻辑更新的 setInterval
+        this.animationFrameId = null; // 用于渲染的 requestAnimationFrame
+        this.logicSpeed = 150; // 逻辑更新速度 (毫秒)，即蛇移动一格所需时间
+        this.lastLogicUpdateTime = 0; // 上次逻辑更新的时间戳
+        this.isGameOver = false;
+
+        this.bindControls();
+      }
+
+      generateFood() {
+        let x, y;
+        let attempts = 0;
+        const maxAttempts = 100;
+
+        do {
+          x =
+            Math.floor(Math.random() * (this.canvas.width / this.gridSize)) *
+            this.gridSize;
+          y =
+            Math.floor(Math.random() * (this.canvas.height / this.gridSize)) *
+            this.gridSize;
+          attempts++;
+        } while (this.isFoodOnSnake(x, y) && attempts < maxAttempts);
+
+        return { x, y };
+      }
+
+      isFoodOnSnake(x, y) {
+        if (this.mode === "double") {
+          return (
+            this.snake1.some((segment) => segment.x === x && segment.y === y) ||
+            this.snake2.some((segment) => segment.x === x && segment.y === y)
+          );
+        } else {
+          return this.snake.some(
+            (segment) => segment.x === x && segment.y === y
+          );
+        }
+      }
+
+      bindControls() {
+        // 键盘控制
+        document.addEventListener("keydown", (e) => {
+          if (this.isGameOver) return; // 游戏结束时不响应按键
+
+          const currentTime = Date.now();
+
+          const keys = [
+            "ArrowUp",
+            "ArrowDown",
+            "ArrowLeft",
+            "ArrowRight",
+            "w",
+            "W",
+            "s",
+            "S",
+            "a",
+            "A",
+            "d",
+            "D",
+          ];
+          if (keys.includes(e.key)) {
+            e.preventDefault();
+          }
+
+          if (this.mode === "double") {
+            // 双人模式控制 - 分别检查每个玩家的输入限制
+            switch (e.key) {
+              // 玩家1 (WASD) - 检查玩家1的输入限制
+              case "w":
+              case "W":
+                if (currentTime - this.lastInputTime1 < this.inputDelay) return;
+                if (this.direction1 !== "down") this.nextDirection1 = "up";
+                this.lastInputTime1 = currentTime;
+                break;
+              case "s":
+              case "S":
+                if (currentTime - this.lastInputTime1 < this.inputDelay) return;
+                if (this.direction1 !== "up") this.nextDirection1 = "down";
+                this.lastInputTime1 = currentTime;
+                break;
+              case "a":
+              case "A":
+                if (currentTime - this.lastInputTime1 < this.inputDelay) return;
+                if (this.direction1 !== "right") this.nextDirection1 = "left";
+                this.lastInputTime1 = currentTime;
+                break;
+              case "d":
+              case "D":
+                if (currentTime - this.lastInputTime1 < this.inputDelay) return;
+                if (this.direction1 !== "left") this.nextDirection1 = "right";
+                this.lastInputTime1 = currentTime;
+                break;
+              // 玩家2 (方向键) - 检查玩家2的输入限制
+              case "ArrowUp":
+                if (currentTime - this.lastInputTime2 < this.inputDelay) return;
+                if (this.direction2 !== "down") this.nextDirection2 = "up";
+                this.lastInputTime2 = currentTime;
+                break;
+              case "ArrowDown":
+                if (currentTime - this.lastInputTime2 < this.inputDelay) return;
+                if (this.direction2 !== "up") this.nextDirection2 = "down";
+                this.lastInputTime2 = currentTime;
+                break;
+              case "ArrowLeft":
+                if (currentTime - this.lastInputTime2 < this.inputDelay) return;
+                if (this.direction2 !== "right") this.nextDirection2 = "left";
+                this.lastInputTime2 = currentTime;
+                break;
+              case "ArrowRight":
+                if (currentTime - this.lastInputTime2 < this.inputDelay) return;
+                if (this.direction2 !== "left") this.nextDirection2 = "right";
+                this.lastInputTime2 = currentTime;
+                break;
+            }
+          } else {
+            // 单人模式控制 - 使用玩家1的输入限制
+            if (currentTime - this.lastInputTime1 < this.inputDelay) {
+              return; // 防止快速按键
+            }
+            this.lastInputTime1 = currentTime;
+
+            switch (e.key) {
+              case "ArrowUp":
+              case "w":
+              case "W":
+                if (this.direction !== "down") this.nextDirection = "up";
+                break;
+              case "ArrowDown":
+              case "s":
+              case "S":
+                if (this.direction !== "up") this.nextDirection = "down";
+                break;
+              case "ArrowLeft":
+              case "a":
+              case "A":
+                if (this.direction !== "right") this.nextDirection = "left";
+                break;
+              case "ArrowRight":
+              case "d":
+              case "D":
+                if (this.direction !== "left") this.nextDirection = "right";
+                break;
+            }
+          }
+        });
+
+        // 绑定按钮控制（仅单人模式）
+        if (this.mode !== "double") {
+          document.getElementById("snake-up")?.addEventListener("click", () => {
+            if (this.isGameOver) return;
+            if (this.direction !== "down") this.nextDirection = "up";
+          });
+          document
+            .getElementById("snake-down")
+            ?.addEventListener("click", () => {
+              if (this.isGameOver) return;
+              if (this.direction !== "up") this.nextDirection = "down";
+            });
+          document
+            .getElementById("snake-left")
+            ?.addEventListener("click", () => {
+              if (this.isGameOver) return;
+              if (this.direction !== "right") this.nextDirection = "left";
+            });
+          document
+            .getElementById("snake-right")
+            ?.addEventListener("click", () => {
+              if (this.isGameOver) return;
+              if (this.direction !== "left") this.nextDirection = "right";
+            });
+        }
+
+        // 添加触屏滑动控制
+        this.addTouchControls();
+      }
+
+      addTouchControls() {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        const minSwipeDistance = 30; // 最小滑动距离
+
+        this.canvas.addEventListener(
+          "touchstart",
+          (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+          },
+          { passive: false }
+        );
+
+        this.canvas.addEventListener(
+          "touchend",
+          (e) => {
+            e.preventDefault();
+            if (this.isGameOver) return;
+
+            const touch = e.changedTouches[0];
+            const touchEndX = touch.clientX;
+            const touchEndY = touch.clientY;
+
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+
+            // 判断滑动方向
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+              // 水平滑动
+              if (Math.abs(deltaX) > minSwipeDistance) {
+                if (deltaX > 0) {
+                  // 向右滑动
+                  if (this.mode === "double") {
+                    if (this.direction1 !== "left")
+                      this.nextDirection1 = "right";
+                  } else {
+                    if (this.direction !== "left") this.nextDirection = "right";
+                  }
+                } else {
+                  // 向左滑动
+                  if (this.mode === "double") {
+                    if (this.direction1 !== "right")
+                      this.nextDirection1 = "left";
+                  } else {
+                    if (this.direction !== "right") this.nextDirection = "left";
+                  }
+                }
+              }
+            } else {
+              // 垂直滑动
+              if (Math.abs(deltaY) > minSwipeDistance) {
+                if (deltaY > 0) {
+                  // 向下滑动
+                  if (this.mode === "double") {
+                    if (this.direction1 !== "up") this.nextDirection1 = "down";
+                  } else {
+                    if (this.direction !== "up") this.nextDirection = "down";
+                  }
+                } else {
+                  // 向上滑动
+                  if (this.mode === "double") {
+                    if (this.direction1 !== "down") this.nextDirection1 = "up";
+                  } else {
+                    if (this.direction !== "down") this.nextDirection = "up";
+                  }
+                }
+              }
+            }
+          },
+          { passive: false }
+        );
+      }
+
+      update() {
+        if (this.mode === "double") {
+          this.updateDoubleModeLogic();
+        } else {
+          this.updateSingleModeLogic();
+        }
+      }
+
+      updateSingleModeLogic() {
+        // 在更新当前蛇位置之前，保存当前蛇的位置作为 previousSnake
+        this.previousSnake = JSON.parse(JSON.stringify(this.snake));
+
+        // 应用待定的方向
+        this.direction = this.nextDirection;
+
+        const head = { ...this.snake[0] };
+
+        switch (this.direction) {
+          case "up":
+            head.y -= this.gridSize;
+            break;
+          case "down":
+            head.y += this.gridSize;
+            break;
+          case "left":
+            head.x -= this.gridSize;
+            break;
+          case "right":
+            head.x += this.gridSize;
+            break;
+        }
+
+        if (
+          head.x < 0 ||
+          head.x >= this.canvas.width ||
+          head.y < 0 ||
+          head.y >= this.canvas.height ||
+          this.snake.some(
+            (segment) => segment.x === head.x && segment.y === head.y
+          )
+        ) {
+          this.gameOver();
+          return;
+        }
+
+        this.snake.unshift(head);
+
+        if (head.x === this.food.x && head.y === this.food.y) {
+          this.score += 10;
+          const scoreElement = document.getElementById("snake-score");
+          if (scoreElement) scoreElement.textContent = this.score.toString();
+          this.food = this.generateFood();
+          // 速度调整影响逻辑更新间隔
+          this.logicSpeed = Math.max(50, this.logicSpeed - 2);
+          // 重新设置 setInterval 以应用新的速度
+          clearInterval(this.logicInterval);
+          this.logicInterval = setInterval(() => {
+            if (!this.isGameOver) {
+              this.update();
+              this.lastLogicUpdateTime = Date.now(); // 更新逻辑时间戳
+            }
+          }, this.logicSpeed);
+        } else {
+          this.snake.pop();
+        }
+      }
+
+      updateDoubleModeLogic() {
+        // 在更新当前蛇位置之前，保存当前蛇的位置作为 previousSnake
         this.previousSnake1 = JSON.parse(JSON.stringify(this.snake1));
         this.previousSnake2 = JSON.parse(JSON.stringify(this.snake2));
-      } else {
-        // 单人模式
-        this.snake = [{ x: 200, y: 200 }];
-        this.direction = "right";
-        this.nextDirection = "right"; // 防止快速按键
-        this.score = 0;
-        // 存储上一帧的蛇位置，用于插值
-        this.previousSnake = JSON.parse(JSON.stringify(this.snake));
-      }
 
-      this.food = this.generateFood();
-      this.logicInterval = null; // 用于逻辑更新的 setInterval
-      this.animationFrameId = null; // 用于渲染的 requestAnimationFrame
-      this.logicSpeed = 150; // 逻辑更新速度 (毫秒)，即蛇移动一格所需时间
-      this.lastLogicUpdateTime = 0; // 上次逻辑更新的时间戳
-      this.isGameOver = false;
+        // 应用待定的方向
+        this.direction1 = this.nextDirection1;
+        this.direction2 = this.nextDirection2;
 
-      this.bindControls();
-    }
+        // 更新玩家1
+        const head1 = { ...this.snake1[0] };
+        switch (this.direction1) {
+          case "up":
+            head1.y -= this.gridSize;
+            break;
+          case "down":
+            head1.y += this.gridSize;
+            break;
+          case "left":
+            head1.x -= this.gridSize;
+            break;
+          case "right":
+            head1.x += this.gridSize;
+            break;
+        }
 
-    generateFood() {
-      let x, y;
-      let attempts = 0;
-      const maxAttempts = 100;
+        // 更新玩家2
+        const head2 = { ...this.snake2[0] };
+        switch (this.direction2) {
+          case "up":
+            head2.y -= this.gridSize;
+            break;
+          case "down":
+            head2.y += this.gridSize;
+            break;
+          case "left":
+            head2.x -= this.gridSize;
+            break;
+          case "right":
+            head2.x += this.gridSize;
+            break;
+        }
 
-      do {
-        x =
-          Math.floor(Math.random() * (this.canvas.width / this.gridSize)) *
-          this.gridSize;
-        y =
-          Math.floor(Math.random() * (this.canvas.height / this.gridSize)) *
-          this.gridSize;
-        attempts++;
-      } while (this.isFoodOnSnake(x, y) && attempts < maxAttempts);
-
-      return { x, y };
-    }
-
-    isFoodOnSnake(x, y) {
-      if (this.mode === "double") {
-        return (
-          this.snake1.some((segment) => segment.x === x && segment.y === y) ||
-          this.snake2.some((segment) => segment.x === x && segment.y === y)
+        // 检查碰撞
+        const player1Dead = this.checkCollision(
+          head1,
+          this.snake1,
+          this.snake2
         );
-      } else {
-        return this.snake.some((segment) => segment.x === x && segment.y === y);
-      }
-    }
+        const player2Dead = this.checkCollision(
+          head2,
+          this.snake2,
+          this.snake1
+        );
 
-    bindControls() {
-      document.addEventListener("keydown", (e) => {
-        if (this.isGameOver) return; // 游戏结束时不响应按键
+        if (player1Dead && player2Dead) {
+          this.gameOver("平局！");
+          return;
+        } else if (player1Dead) {
+          this.gameOver("玩家2获胜！");
+          return;
+        } else if (player2Dead) {
+          this.gameOver("玩家1获胜！");
+          return;
+        }
+
+        // 移动蛇
+        this.snake1.unshift(head1);
+        this.snake2.unshift(head2);
+
+        // 检查食物
+        let foodEaten = false;
+        if (head1.x === this.food.x && head1.y === this.food.y) {
+          this.score1 += 10;
+          foodEaten = true;
+        } else {
+          this.snake1.pop();
+        }
+
+        if (head2.x === this.food.x && head2.y === this.food.y) {
+          this.score2 += 10;
+          foodEaten = true;
+        } else {
+          this.snake2.pop();
+        }
+
+        if (foodEaten) {
+          this.food = this.generateFood();
+          const scoreElement = document.getElementById("snake-score");
+          if (scoreElement)
+            scoreElement.textContent = `玩家1: ${this.score1} | 玩家2: ${this.score2}`;
+        }
+      }
+
+      checkCollision(head, ownSnake, otherSnake) {
+        // 检查边界碰撞
+        if (
+          head.x < 0 ||
+          head.x >= this.canvas.width ||
+          head.y < 0 ||
+          head.y >= this.canvas.height
+        ) {
+          return true;
+        }
+
+        // 检查自身碰撞
+        // 注意：这里需要从第二个段开始检查，因为头部总是会和它自己重叠
+        if (
+          ownSnake
+            .slice(1)
+            .some((segment) => segment.x === head.x && segment.y === head.y)
+        ) {
+          return true;
+        }
+
+        // 检查与对方蛇的碰撞
+        if (
+          otherSnake.some(
+            (segment) => segment.x === head.x && segment.y === head.y
+          )
+        ) {
+          return true;
+        }
+
+        return false;
+      }
+
+      // 渲染函数，由 requestAnimationFrame 调用
+      render() {
+        if (this.isGameOver) {
+          cancelAnimationFrame(this.animationFrameId);
+          return;
+        }
+
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         const currentTime = Date.now();
-
-        const keys = [
-          "ArrowUp",
-          "ArrowDown",
-          "ArrowLeft",
-          "ArrowRight",
-          "w",
-          "W",
-          "s",
-          "S",
-          "a",
-          "A",
-          "d",
-          "D",
-        ];
-        if (keys.includes(e.key)) {
-          e.preventDefault();
-        }
+        // 计算插值进度 (0 到 1)
+        // progress = (当前时间 - 上次逻辑更新时间) / 逻辑更新间隔
+        let progress =
+          (currentTime - this.lastLogicUpdateTime) / this.logicSpeed;
+        progress = Math.min(1, Math.max(0, progress)); // 确保进度在 0 到 1 之间
 
         if (this.mode === "double") {
-          // 双人模式控制 - 分别检查每个玩家的输入限制
-          switch (e.key) {
-            // 玩家1 (WASD) - 检查玩家1的输入限制
-            case "w":
-            case "W":
-              if (currentTime - this.lastInputTime1 < this.inputDelay) return;
-              if (this.direction1 !== "down") this.nextDirection1 = "up";
-              this.lastInputTime1 = currentTime;
-              break;
-            case "s":
-            case "S":
-              if (currentTime - this.lastInputTime1 < this.inputDelay) return;
-              if (this.direction1 !== "up") this.nextDirection1 = "down";
-              this.lastInputTime1 = currentTime;
-              break;
-            case "a":
-            case "A":
-              if (currentTime - this.lastInputTime1 < this.inputDelay) return;
-              if (this.direction1 !== "right") this.nextDirection1 = "left";
-              this.lastInputTime1 = currentTime;
-              break;
-            case "d":
-            case "D":
-              if (currentTime - this.lastInputTime1 < this.inputDelay) return;
-              if (this.direction1 !== "left") this.nextDirection1 = "right";
-              this.lastInputTime1 = currentTime;
-              break;
-            // 玩家2 (方向键) - 检查玩家2的输入限制
-            case "ArrowUp":
-              if (currentTime - this.lastInputTime2 < this.inputDelay) return;
-              if (this.direction2 !== "down") this.nextDirection2 = "up";
-              this.lastInputTime2 = currentTime;
-              break;
-            case "ArrowDown":
-              if (currentTime - this.lastInputTime2 < this.inputDelay) return;
-              if (this.direction2 !== "up") this.nextDirection2 = "down";
-              this.lastInputTime2 = currentTime;
-              break;
-            case "ArrowLeft":
-              if (currentTime - this.lastInputTime2 < this.inputDelay) return;
-              if (this.direction2 !== "right") this.nextDirection2 = "left";
-              this.lastInputTime2 = currentTime;
-              break;
-            case "ArrowRight":
-              if (currentTime - this.lastInputTime2 < this.inputDelay) return;
-              if (this.direction2 !== "left") this.nextDirection2 = "right";
-              this.lastInputTime2 = currentTime;
-              break;
-          }
+          this.drawInterpolatedSnake(
+            this.snake1,
+            this.previousSnake1,
+            progress,
+            "#2E7D32",
+            "#4CAF50"
+          ); // 玩家1 (绿色)
+          this.drawInterpolatedSnake(
+            this.snake2,
+            this.previousSnake2,
+            progress,
+            "#1565C0",
+            "#2196F3"
+          ); // 玩家2 (蓝色)
         } else {
-          // 单人模式控制 - 使用玩家1的输入限制
-          if (currentTime - this.lastInputTime1 < this.inputDelay) {
-            return; // 防止快速按键
-          }
-          this.lastInputTime1 = currentTime;
-
-          switch (e.key) {
-            case "ArrowUp":
-            case "w":
-            case "W":
-              if (this.direction !== "down") this.nextDirection = "up";
-              break;
-            case "ArrowDown":
-            case "s":
-            case "S":
-              if (this.direction !== "up") this.nextDirection = "down";
-              break;
-            case "ArrowLeft":
-            case "a":
-            case "A":
-              if (this.direction !== "right") this.nextDirection = "left";
-              break;
-            case "ArrowRight":
-            case "d":
-            case "D":
-              if (this.direction !== "left") this.nextDirection = "right";
-              break;
-          }
-        }
-      });
-
-      // 绑定按钮控制（仅单人模式）
-      if (this.mode !== "double") {
-        document.getElementById("snake-up")?.addEventListener("click", () => {
-          if (this.isGameOver) return;
-          if (this.direction !== "down") this.nextDirection = "up";
-        });
-        document.getElementById("snake-down")?.addEventListener("click", () => {
-          if (this.isGameOver) return;
-          if (this.direction !== "up") this.nextDirection = "down";
-        });
-        document.getElementById("snake-left")?.addEventListener("click", () => {
-          if (this.isGameOver) return;
-          if (this.direction !== "right") this.nextDirection = "left";
-        });
-        document
-          .getElementById("snake-right")
-          ?.addEventListener("click", () => {
-            if (this.isGameOver) return;
-            if (this.direction !== "left") this.nextDirection = "right";
-          });
-      }
-    }
-
-    update() {
-      if (this.mode === "double") {
-        this.updateDoubleModeLogic();
-      } else {
-        this.updateSingleModeLogic();
-      }
-    }
-
-    updateSingleModeLogic() {
-      // 在更新当前蛇位置之前，保存当前蛇的位置作为 previousSnake
-      this.previousSnake = JSON.parse(JSON.stringify(this.snake));
-
-      // 应用待定的方向
-      this.direction = this.nextDirection;
-
-      const head = { ...this.snake[0] };
-
-      switch (this.direction) {
-        case "up":
-          head.y -= this.gridSize;
-          break;
-        case "down":
-          head.y += this.gridSize;
-          break;
-        case "left":
-          head.x -= this.gridSize;
-          break;
-        case "right":
-          head.x += this.gridSize;
-          break;
-      }
-
-      if (
-        head.x < 0 ||
-        head.x >= this.canvas.width ||
-        head.y < 0 ||
-        head.y >= this.canvas.height ||
-        this.snake.some(
-          (segment) => segment.x === head.x && segment.y === head.y
-        )
-      ) {
-        this.gameOver();
-        return;
-      }
-
-      this.snake.unshift(head);
-
-      if (head.x === this.food.x && head.y === this.food.y) {
-        this.score += 10;
-        const scoreElement = document.getElementById("snake-score");
-        if (scoreElement) scoreElement.textContent = this.score.toString();
-        this.food = this.generateFood();
-        // 速度调整影响逻辑更新间隔
-        this.logicSpeed = Math.max(50, this.logicSpeed - 2);
-        // 重新设置 setInterval 以应用新的速度
-        clearInterval(this.logicInterval);
-        this.logicInterval = setInterval(() => {
-          if (!this.isGameOver) {
-            this.update();
-            this.lastLogicUpdateTime = Date.now(); // 更新逻辑时间戳
-          }
-        }, this.logicSpeed);
-      } else {
-        this.snake.pop();
-      }
-    }
-
-    updateDoubleModeLogic() {
-      // 在更新当前蛇位置之前，保存当前蛇的位置作为 previousSnake
-      this.previousSnake1 = JSON.parse(JSON.stringify(this.snake1));
-      this.previousSnake2 = JSON.parse(JSON.stringify(this.snake2));
-
-      // 应用待定的方向
-      this.direction1 = this.nextDirection1;
-      this.direction2 = this.nextDirection2;
-
-      // 更新玩家1
-      const head1 = { ...this.snake1[0] };
-      switch (this.direction1) {
-        case "up":
-          head1.y -= this.gridSize;
-          break;
-        case "down":
-          head1.y += this.gridSize;
-          break;
-        case "left":
-          head1.x -= this.gridSize;
-          break;
-        case "right":
-          head1.x += this.gridSize;
-          break;
-      }
-
-      // 更新玩家2
-      const head2 = { ...this.snake2[0] };
-      switch (this.direction2) {
-        case "up":
-          head2.y -= this.gridSize;
-          break;
-        case "down":
-          head2.y += this.gridSize;
-          break;
-        case "left":
-          head2.x -= this.gridSize;
-          break;
-        case "right":
-          head2.x += this.gridSize;
-          break;
-      }
-
-      // 检查碰撞
-      const player1Dead = this.checkCollision(head1, this.snake1, this.snake2);
-      const player2Dead = this.checkCollision(head2, this.snake2, this.snake1);
-
-      if (player1Dead && player2Dead) {
-        this.gameOver("平局！");
-        return;
-      } else if (player1Dead) {
-        this.gameOver("玩家2获胜！");
-        return;
-      } else if (player2Dead) {
-        this.gameOver("玩家1获胜！");
-        return;
-      }
-
-      // 移动蛇
-      this.snake1.unshift(head1);
-      this.snake2.unshift(head2);
-
-      // 检查食物
-      let foodEaten = false;
-      if (head1.x === this.food.x && head1.y === this.food.y) {
-        this.score1 += 10;
-        foodEaten = true;
-      } else {
-        this.snake1.pop();
-      }
-
-      if (head2.x === this.food.x && head2.y === this.food.y) {
-        this.score2 += 10;
-        foodEaten = true;
-      } else {
-        this.snake2.pop();
-      }
-
-      if (foodEaten) {
-        this.food = this.generateFood();
-        const scoreElement = document.getElementById("snake-score");
-        if (scoreElement)
-          scoreElement.textContent = `玩家1: ${this.score1} | 玩家2: ${this.score2}`;
-      }
-    }
-
-    checkCollision(head, ownSnake, otherSnake) {
-      // 检查边界碰撞
-      if (
-        head.x < 0 ||
-        head.x >= this.canvas.width ||
-        head.y < 0 ||
-        head.y >= this.canvas.height
-      ) {
-        return true;
-      }
-
-      // 检查自身碰撞
-      // 注意：这里需要从第二个段开始检查，因为头部总是会和它自己重叠
-      if (
-        ownSnake
-          .slice(1)
-          .some((segment) => segment.x === head.x && segment.y === head.y)
-      ) {
-        return true;
-      }
-
-      // 检查与对方蛇的碰撞
-      if (
-        otherSnake.some(
-          (segment) => segment.x === head.x && segment.y === head.y
-        )
-      ) {
-        return true;
-      }
-
-      return false;
-    }
-
-    // 渲染函数，由 requestAnimationFrame 调用
-    render() {
-      if (this.isGameOver) {
-        cancelAnimationFrame(this.animationFrameId);
-        return;
-      }
-
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      const currentTime = Date.now();
-      // 计算插值进度 (0 到 1)
-      // progress = (当前时间 - 上次逻辑更新时间) / 逻辑更新间隔
-      let progress = (currentTime - this.lastLogicUpdateTime) / this.logicSpeed;
-      progress = Math.min(1, Math.max(0, progress)); // 确保进度在 0 到 1 之间
-
-      if (this.mode === "double") {
-        this.drawInterpolatedSnake(
-          this.snake1,
-          this.previousSnake1,
-          progress,
-          "#2E7D32",
-          "#4CAF50"
-        ); // 玩家1 (绿色)
-        this.drawInterpolatedSnake(
-          this.snake2,
-          this.previousSnake2,
-          progress,
-          "#1565C0",
-          "#2196F3"
-        ); // 玩家2 (蓝色)
-      } else {
-        this.drawInterpolatedSnake(
-          this.snake,
-          this.previousSnake,
-          progress,
-          "#2E7D32",
-          "#4CAF50"
-        ); // 单人模式 (绿色)
-      }
-
-      // 绘制食物 (食物不需要插值)
-      this.ctx.fillStyle = "#FF5722";
-      this.ctx.fillRect(
-        this.food.x,
-        this.food.y,
-        this.gridSize - 1,
-        this.gridSize - 1
-      );
-
-      // 请求下一帧动画
-      this.animationFrameId = requestAnimationFrame(this.render.bind(this));
-    }
-
-    // 辅助函数：绘制插值后的蛇
-    drawInterpolatedSnake(
-      snake,
-      previousSnake,
-      progress,
-      headColor,
-      bodyColor
-    ) {
-      snake.forEach((segment, index) => {
-        let interpolatedX, interpolatedY;
-
-        // 对于已经存在的蛇身段，进行插值
-        if (index < previousSnake.length) {
-          const prevSegment = previousSnake[index];
-          interpolatedX =
-            prevSegment.x + (segment.x - prevSegment.x) * progress;
-          interpolatedY =
-            prevSegment.y + (segment.y - prevSegment.y) * progress;
-        } else {
-          // 对于新增加的蛇头（吃食物后），直接绘制在当前位置
-          // 理论上也可以插值，但需要更复杂的逻辑来追踪新段的“前一个”位置
-          interpolatedX = segment.x;
-          interpolatedY = segment.y;
+          this.drawInterpolatedSnake(
+            this.snake,
+            this.previousSnake,
+            progress,
+            "#2E7D32",
+            "#4CAF50"
+          ); // 单人模式 (绿色)
         }
 
-        this.ctx.fillStyle = index === 0 ? headColor : bodyColor; // 头部和身体颜色不同
+        // 绘制食物 (食物不需要插值)
+        this.ctx.fillStyle = "#FF5722";
         this.ctx.fillRect(
-          interpolatedX,
-          interpolatedY,
+          this.food.x,
+          this.food.y,
           this.gridSize - 1,
           this.gridSize - 1
         );
-      });
-    }
 
-    gameOver(message) {
-      this.stop(); // 停止所有循环
-
-      this.isGameOver = true;
-
-      let finalMessage;
-      if (this.mode === "double") {
-        finalMessage =
-          message ||
-          `游戏结束！玩家1得分: ${this.score1}, 玩家2得分: ${this.score2}`;
-      } else {
-        finalMessage = `游戏结束！得分: ${this.score}`;
+        // 请求下一帧动画
+        this.animationFrameId = requestAnimationFrame(this.render.bind(this));
       }
 
-      // 显示游戏结束弹窗，询问是否重新开始
-      setTimeout(() => {
-        const restart = confirm(`${finalMessage}\n\n是否重新开始游戏？`);
-        if (restart) {
-          this.restart();
+      // 辅助函数：绘制插值后的蛇
+      drawInterpolatedSnake(
+        snake,
+        previousSnake,
+        progress,
+        headColor,
+        bodyColor
+      ) {
+        snake.forEach((segment, index) => {
+          let interpolatedX, interpolatedY;
+
+          // 对于已经存在的蛇身段，进行插值
+          if (index < previousSnake.length) {
+            const prevSegment = previousSnake[index];
+            interpolatedX =
+              prevSegment.x + (segment.x - prevSegment.x) * progress;
+            interpolatedY =
+              prevSegment.y + (segment.y - prevSegment.y) * progress;
+          } else {
+            // 对于新增加的蛇头（吃食物后），直接绘制在当前位置
+            // 理论上也可以插值，但需要更复杂的逻辑来追踪新段的“前一个”位置
+            interpolatedX = segment.x;
+            interpolatedY = segment.y;
+          }
+
+          this.ctx.fillStyle = index === 0 ? headColor : bodyColor; // 头部和身体颜色不同
+          this.ctx.fillRect(
+            interpolatedX,
+            interpolatedY,
+            this.gridSize - 1,
+            this.gridSize - 1
+          );
+        });
+      }
+
+      gameOver(message) {
+        this.stop(); // 停止所有循环
+
+        this.isGameOver = true;
+
+        let finalMessage;
+        if (this.mode === "double") {
+          finalMessage =
+            message ||
+            `游戏结束！玩家1得分: ${this.score1}, 玩家2得分: ${this.score2}`;
         } else {
-          // 返回模式选择
-          this.backToModeSelection();
+          finalMessage = `游戏结束！得分: ${this.score}`;
         }
-      }, 100);
-    }
 
-    restart() {
-      // 重置游戏状态
-      this.isGameOver = false;
-      this.stop(); // 确保停止所有旧的循环
-
-      if (this.mode === "double") {
-        this.snake1 = [{ x: 100, y: 200 }];
-        this.snake2 = [{ x: 500, y: 200 }];
-        this.direction1 = "right";
-        this.direction2 = "left";
-        this.nextDirection1 = "right";
-        this.nextDirection2 = "left";
-        this.score1 = 0;
-        this.score2 = 0;
-        this.previousSnake1 = JSON.parse(JSON.stringify(this.snake1));
-        this.previousSnake2 = JSON.parse(JSON.stringify(this.snake2));
-        const scoreElement = document.getElementById("snake-score");
-        if (scoreElement) scoreElement.textContent = "玩家1: 0 | 玩家2: 0";
-      } else {
-        this.snake = [{ x: 200, y: 200 }];
-        this.direction = "right";
-        this.nextDirection = "right";
-        this.score = 0;
-        this.previousSnake = JSON.parse(JSON.stringify(this.snake));
-        const scoreElement = document.getElementById("snake-score");
-        if (scoreElement) scoreElement.textContent = "0";
+        // 显示游戏结束弹窗，询问是否重新开始
+        setTimeout(() => {
+          const restart = confirm(`${finalMessage}\n\n是否重新开始游戏？`);
+          if (restart) {
+            this.restart();
+          } else {
+            // 返回模式选择
+            this.backToModeSelection();
+          }
+        }, 100);
       }
 
-      this.food = this.generateFood();
-      this.logicSpeed = 150;
-      this.start();
-    }
+      restart() {
+        // 重置游戏状态
+        this.isGameOver = false;
+        this.stop(); // 确保停止所有旧的循环
 
-    backToModeSelection() {
-      this.stop();
-      document.getElementById("snake-game-area")?.classList.add("hidden");
-      document
-        .getElementById("snake-mode-selection")
-        ?.classList.remove("hidden");
-    }
-
-    start() {
-      this.lastLogicUpdateTime = Date.now(); // 记录首次逻辑更新时间
-      this.logicInterval = setInterval(() => {
-        if (!this.isGameOver) {
-          this.update(); // 执行逻辑更新
-          this.lastLogicUpdateTime = Date.now(); // 更新逻辑更新时间戳
+        if (this.mode === "double") {
+          this.snake1 = [{ x: 100, y: 200 }];
+          this.snake2 = [{ x: 500, y: 200 }];
+          this.direction1 = "right";
+          this.direction2 = "left";
+          this.nextDirection1 = "right";
+          this.nextDirection2 = "left";
+          this.score1 = 0;
+          this.score2 = 0;
+          this.previousSnake1 = JSON.parse(JSON.stringify(this.snake1));
+          this.previousSnake2 = JSON.parse(JSON.stringify(this.snake2));
+          const scoreElement = document.getElementById("snake-score");
+          if (scoreElement) scoreElement.textContent = "玩家1: 0 | 玩家2: 0";
+        } else {
+          this.snake = [{ x: 200, y: 200 }];
+          this.direction = "right";
+          this.nextDirection = "right";
+          this.score = 0;
+          this.previousSnake = JSON.parse(JSON.stringify(this.snake));
+          const scoreElement = document.getElementById("snake-score");
+          if (scoreElement) scoreElement.textContent = "0";
         }
-      }, this.logicSpeed);
 
-      // 启动渲染循环
-      this.animationFrameId = requestAnimationFrame(this.render.bind(this));
-    }
-
-    stop() {
-      if (this.logicInterval) {
-        clearInterval(this.logicInterval);
-        this.logicInterval = null;
+        this.food = this.generateFood();
+        this.logicSpeed = 150;
+        this.start();
       }
-      if (this.animationFrameId) {
-        cancelAnimationFrame(this.animationFrameId);
-        this.animationFrameId = null;
+
+      backToModeSelection() {
+        this.stop();
+        document.getElementById("snake-game-area")?.classList.add("hidden");
+        document
+          .getElementById("snake-mode-selection")
+          ?.classList.remove("hidden");
+      }
+
+      start() {
+        this.lastLogicUpdateTime = Date.now(); // 记录首次逻辑更新时间
+        this.logicInterval = setInterval(() => {
+          if (!this.isGameOver) {
+            this.update(); // 执行逻辑更新
+            this.lastLogicUpdateTime = Date.now(); // 更新逻辑更新时间戳
+          }
+        }, this.logicSpeed);
+
+        // 启动渲染循环
+        this.animationFrameId = requestAnimationFrame(this.render.bind(this));
+      }
+
+      stop() {
+        if (this.logicInterval) {
+          clearInterval(this.logicInterval);
+          this.logicInterval = null;
+        }
+        if (this.animationFrameId) {
+          cancelAnimationFrame(this.animationFrameId);
+          this.animationFrameId = null;
+        }
       }
     }
-  }
 
-  // 五子棋游戏类
-  class GomokuGame {
-    constructor(canvas, mode) {
-      this.canvas = canvas;
-      this.ctx = canvas.getContext("2d");
-      this.mode = mode;
-      this.boardSize = 15;
-      this.cellSize = Math.floor(
-        (Math.min(canvas.width, canvas.height) - 40) / this.boardSize
-      );
-      this.board = Array(this.boardSize)
-        .fill(null)
-        .map(() => Array(this.boardSize).fill(null));
-      this.currentPlayer = "black";
-      this.gameOver = false;
-
-      this.drawBoard();
-      this.bindEvents();
-    }
-
-    drawBoard() {
-      // 清空画布
-      this.ctx.fillStyle = "#F4A460";
-      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-      this.ctx.strokeStyle = "#000";
-      this.ctx.lineWidth = 1;
-
-      const margin = 20; // 边距
-
-      // 绘制横线
-      for (let i = 0; i < this.boardSize; i++) {
-        this.ctx.beginPath();
-        this.ctx.moveTo(margin, margin + i * this.cellSize);
-        this.ctx.lineTo(
-          margin + (this.boardSize - 1) * this.cellSize,
-          margin + i * this.cellSize
+    // 五子棋游戏类
+    class GomokuGame {
+      constructor(canvas, mode) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext("2d");
+        this.mode = mode;
+        this.boardSize = 15;
+        this.cellSize = Math.floor(
+          (Math.min(canvas.width, canvas.height) - 40) / this.boardSize
         );
+        this.board = Array(this.boardSize)
+          .fill(null)
+          .map(() => Array(this.boardSize).fill(null));
+        this.currentPlayer = "black";
+        this.gameOver = false;
+        this.aiThinking = false; // AI思考状态标记
+
+        this.drawBoard();
+        this.bindEvents();
+      }
+
+      drawBoard() {
+        // 清空画布
+        this.ctx.fillStyle = "#F4A460";
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        this.ctx.strokeStyle = "#000";
+        this.ctx.lineWidth = 1;
+
+        const margin = 20; // 边距
+
+        // 绘制横线
+        for (let i = 0; i < this.boardSize; i++) {
+          this.ctx.beginPath();
+          this.ctx.moveTo(margin, margin + i * this.cellSize);
+          this.ctx.lineTo(
+            margin + (this.boardSize - 1) * this.cellSize,
+            margin + i * this.cellSize
+          );
+          this.ctx.stroke();
+        }
+
+        // 绘制竖线
+        for (let i = 0; i < this.boardSize; i++) {
+          this.ctx.beginPath();
+          this.ctx.moveTo(margin + i * this.cellSize, margin);
+          this.ctx.lineTo(
+            margin + i * this.cellSize,
+            margin + (this.boardSize - 1) * this.cellSize
+          );
+          this.ctx.stroke();
+        }
+
+        // 绘制星位
+        const stars = [3, 7, 11];
+        for (let i of stars) {
+          for (let j of stars) {
+            this.drawStar(i, j, margin);
+          }
+        }
+      }
+
+      drawStar(x, y, margin) {
+        this.ctx.fillStyle = "#000";
+        this.ctx.beginPath();
+        this.ctx.arc(
+          margin + x * this.cellSize,
+          margin + y * this.cellSize,
+          3,
+          0,
+          2 * Math.PI
+        );
+        this.ctx.fill();
+      }
+
+      drawStar(x, y) {
+        this.ctx.fillStyle = "#000";
+        this.ctx.beginPath();
+        this.ctx.arc(
+          (x + 1) * this.cellSize,
+          (y + 1) * this.cellSize,
+          2,
+          0,
+          2 * Math.PI
+        );
+        this.ctx.fill();
+      }
+
+      drawPiece(x, y, color) {
+        const margin = 20;
+        const centerX = margin + x * this.cellSize;
+        const centerY = margin + y * this.cellSize;
+        const radius = this.cellSize * 0.4;
+
+        this.ctx.fillStyle = color;
+        this.ctx.beginPath();
+        this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        this.ctx.fill();
+
+        this.ctx.strokeStyle = color === "black" ? "#333" : "#666";
+        this.ctx.lineWidth = 2;
         this.ctx.stroke();
       }
 
-      // 绘制竖线
-      for (let i = 0; i < this.boardSize; i++) {
-        this.ctx.beginPath();
-        this.ctx.moveTo(margin + i * this.cellSize, margin);
-        this.ctx.lineTo(
-          margin + i * this.cellSize,
-          margin + (this.boardSize - 1) * this.cellSize
+      bindEvents() {
+        // 处理点击和触屏事件的通用函数
+        const handleInteraction = (clientX, clientY) => {
+          if (this.gameOver) return;
+
+          // 单人模式下，如果当前是白子回合（AI回合）或AI正在思考，禁止玩家操作
+          if (
+            this.mode === "single" &&
+            (this.currentPlayer === "white" || this.aiThinking)
+          ) {
+            console.log("AI回合，请等待AI下棋");
+            return;
+          }
+
+          const rect = this.canvas.getBoundingClientRect();
+          const margin = 20;
+
+          // 考虑Canvas的缩放比例
+          const scaleX = this.canvas.width / rect.width;
+          const scaleY = this.canvas.height / rect.height;
+
+          const x = Math.round(
+            ((clientX - rect.left) * scaleX - margin) / this.cellSize
+          );
+          const y = Math.round(
+            ((clientY - rect.top) * scaleY - margin) / this.cellSize
+          );
+
+          if (
+            x >= 0 &&
+            x < this.boardSize &&
+            y >= 0 &&
+            y < this.boardSize &&
+            !this.board[y][x]
+          ) {
+            this.makeMove(x, y);
+          }
+        };
+
+        // 鼠标点击事件
+        this.canvas.addEventListener("click", (e) => {
+          handleInteraction(e.clientX, e.clientY);
+        });
+
+        // 触屏事件支持
+        this.canvas.addEventListener(
+          "touchstart",
+          (e) => {
+            e.preventDefault(); // 防止页面滚动
+            if (e.touches.length === 1) {
+              const touch = e.touches[0];
+              // 添加触屏反馈
+              this.showTouchFeedback(touch.clientX, touch.clientY);
+              handleInteraction(touch.clientX, touch.clientY);
+            }
+          },
+          { passive: false }
         );
-        this.ctx.stroke();
+
+        // 防止触屏时的上下文菜单
+        this.canvas.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+        });
+
+        document
+          .getElementById("gomoku-restart")
+          ?.addEventListener("click", () => {
+            this.restart();
+          });
       }
 
-      // 绘制星位
-      const stars = [3, 7, 11];
-      for (let i of stars) {
-        for (let j of stars) {
-          this.drawStar(i, j, margin);
-        }
-      }
-    }
-
-    drawStar(x, y, margin) {
-      this.ctx.fillStyle = "#000";
-      this.ctx.beginPath();
-      this.ctx.arc(
-        margin + x * this.cellSize,
-        margin + y * this.cellSize,
-        3,
-        0,
-        2 * Math.PI
-      );
-      this.ctx.fill();
-    }
-
-    drawStar(x, y) {
-      this.ctx.fillStyle = "#000";
-      this.ctx.beginPath();
-      this.ctx.arc(
-        (x + 1) * this.cellSize,
-        (y + 1) * this.cellSize,
-        2,
-        0,
-        2 * Math.PI
-      );
-      this.ctx.fill();
-    }
-
-    drawPiece(x, y, color) {
-      const margin = 20;
-      const centerX = margin + x * this.cellSize;
-      const centerY = margin + y * this.cellSize;
-      const radius = this.cellSize * 0.4;
-
-      this.ctx.fillStyle = color;
-      this.ctx.beginPath();
-      this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-      this.ctx.fill();
-
-      this.ctx.strokeStyle = color === "black" ? "#333" : "#666";
-      this.ctx.lineWidth = 2;
-      this.ctx.stroke();
-    }
-
-    bindEvents() {
-      this.canvas.addEventListener("click", (e) => {
-        if (this.gameOver) return;
-
+      // 显示触屏反馈
+      showTouchFeedback(clientX, clientY) {
         const rect = this.canvas.getBoundingClientRect();
         const margin = 20;
-        const x = Math.round((e.clientX - rect.left - margin) / this.cellSize);
-        const y = Math.round((e.clientY - rect.top - margin) / this.cellSize);
+
+        // 考虑Canvas的缩放比例
+        const scaleX = this.canvas.width / rect.width;
+        const scaleY = this.canvas.height / rect.height;
+
+        const x = Math.round(
+          ((clientX - rect.left) * scaleX - margin) / this.cellSize
+        );
+        const y = Math.round(
+          ((clientY - rect.top) * scaleY - margin) / this.cellSize
+        );
 
         if (
           x >= 0 &&
@@ -1575,514 +2288,562 @@ import Layout from "@/components/Layout.astro";
           y < this.boardSize &&
           !this.board[y][x]
         ) {
-          this.makeMove(x, y);
+          // 绘制临时的半透明圆圈作为反馈
+          const canvasX = margin + x * this.cellSize;
+          const canvasY = margin + y * this.cellSize;
+
+          this.ctx.save();
+          this.ctx.globalAlpha = 0.3;
+          this.ctx.fillStyle = this.currentPlayer === "black" ? "#000" : "#fff";
+          this.ctx.beginPath();
+          this.ctx.arc(canvasX, canvasY, this.cellSize / 2 - 2, 0, 2 * Math.PI);
+          this.ctx.fill();
+          this.ctx.restore();
+
+          // 200ms后清除反馈
+          setTimeout(() => {
+            this.drawBoard();
+            this.redrawAllPieces();
+          }, 200);
         }
-      });
-
-      document
-        .getElementById("gomoku-restart")
-        ?.addEventListener("click", () => {
-          this.restart();
-        });
-    }
-
-    makeMove(x, y) {
-      this.board[y][x] = this.currentPlayer;
-      this.drawPiece(x, y, this.currentPlayer);
-
-      if (this.checkWin(x, y)) {
-        this.gameOver = true;
-        setTimeout(() => {
-          alert(`${this.currentPlayer === "black" ? "黑子" : "白子"}获胜！`);
-        }, 100);
-        return;
       }
 
-      this.currentPlayer = this.currentPlayer === "black" ? "white" : "black";
-      const currentPlayerElement = document.getElementById("current-player");
-      if (currentPlayerElement) {
-        currentPlayerElement.textContent =
-          this.currentPlayer === "black" ? "黑子" : "白子";
-      }
-
-      if (this.mode === "single" && this.currentPlayer === "white") {
-        setTimeout(() => {
-          this.makeAIMove();
-        }, 500);
-      }
-    }
-
-    makeAIMove() {
-      // 基于C语言AI逻辑的智能AI
-      const scoreBoard = Array(this.boardSize)
-        .fill(null)
-        .map(() => Array(this.boardSize).fill(0));
-
-      // 评估每个空位的分数
-      for (let y = 0; y < this.boardSize; y++) {
-        for (let x = 0; x < this.boardSize; x++) {
-          if (!this.board[y][x]) {
-            scoreBoard[y][x] = this.evaluatePosition(x, y);
+      // 重新绘制所有棋子
+      redrawAllPieces() {
+        for (let y = 0; y < this.boardSize; y++) {
+          for (let x = 0; x < this.boardSize; x++) {
+            if (this.board[y][x]) {
+              this.drawPiece(x, y, this.board[y][x]);
+            }
           }
         }
       }
 
-      // 找到最高分的位置
-      let maxScore = -1;
-      let bestMoves = [];
-
-      for (let y = 0; y < this.boardSize; y++) {
-        for (let x = 0; x < this.boardSize; x++) {
-          if (!this.board[y][x] && scoreBoard[y][x] > maxScore) {
-            maxScore = scoreBoard[y][x];
-            bestMoves = [[x, y]];
-          } else if (!this.board[y][x] && scoreBoard[y][x] === maxScore) {
-            bestMoves.push([x, y]);
-          }
-        }
-      }
-
-      if (bestMoves.length > 0) {
-        const [x, y] = bestMoves[Math.floor(Math.random() * bestMoves.length)];
-        this.makeMove(x, y);
-      }
-    }
-
-    // 评估位置分数的核心函数
-    evaluatePosition(x, y) {
-      let score = 0;
-
-      // 基础中心位置加分
-      const centerX = Math.floor(this.boardSize / 2);
-      const centerY = Math.floor(this.boardSize / 2);
-      const distanceFromCenter = Math.abs(x - centerX) + Math.abs(y - centerY);
-      score += Math.max(0, 10 - distanceFromCenter);
-
-      // 检查四个方向：水平、垂直、主对角线、副对角线
-      const directions = [
-        [1, 0], // 水平
-        [0, 1], // 垂直
-        [1, 1], // 主对角线
-        [1, -1], // 副对角线
-      ];
-
-      for (const [dx, dy] of directions) {
-        // 检查AI(白子)的机会
-        score += this.evaluateDirection(x, y, dx, dy, "white");
-        // 检查玩家(黑子)的威胁并防守
-        score += this.evaluateDirection(x, y, dx, dy, "black") * 1.1; // 防守稍微重要一些
-      }
-
-      return score;
-    }
-
-    // 评估特定方向的分数
-    evaluateDirection(x, y, dx, dy, player) {
-      let score = 0;
-
-      // 检查该位置在这个方向上的棋型
-      const line = this.getLine(x, y, dx, dy, 9); // 获取9个位置的线段
-      const centerIndex = 4; // 中心位置索引
-
-      // 模拟在此位置下子
-      line[centerIndex] = player;
-
-      // 检查各种棋型并给分
-      score += this.checkPatterns(line, centerIndex, player);
-
-      return score;
-    }
-
-    // 获取指定方向的线段
-    getLine(x, y, dx, dy, length) {
-      const line = new Array(length).fill(null);
-      const startIndex = Math.floor(length / 2);
-
-      for (let i = 0; i < length; i++) {
-        const offset = i - startIndex;
-        const nx = x + offset * dx;
-        const ny = y + offset * dy;
-
-        if (nx >= 0 && nx < this.boardSize && ny >= 0 && ny < this.boardSize) {
-          line[i] = this.board[ny][nx];
-        } else {
-          line[i] = "boundary"; // 边界标记
-        }
-      }
-
-      return line;
-    }
-
-    // 检查棋型模式并给分
-    checkPatterns(line, centerIndex, player) {
-      let score = 0;
-      const opponent = player === "black" ? "white" : "black";
-
-      // 转换为字符串便于模式匹配
-      const lineStr = line
-        .map((cell) => {
-          if (cell === player) return "O";
-          if (cell === opponent) return "X";
-          if (cell === null) return "-";
-          return "B"; // boundary
-        })
-        .join("");
-
-      // 五连 - 必胜
-      if (lineStr.includes("OOOOO")) {
-        score += 100000;
-      }
-
-      // 活四 - 两端都能成五
-      if (lineStr.includes("-OOOO-")) {
-        score += 10000;
-      }
-
-      // 冲四 - 一端能成五
-      if (
-        lineStr.includes("XOOOO-") ||
-        lineStr.includes("-OOOOX") ||
-        lineStr.includes("BOOOO-") ||
-        lineStr.includes("-OOOOB")
-      ) {
-        score += 1000;
-      }
-
-      // 活三 - 两端都能成五的三子
-      if (lineStr.includes("-OOO-") || lineStr.includes("--OOO--")) {
-        score += 1000;
-      }
-
-      // 眠三 - 一端被堵的三子
-      if (
-        lineStr.includes("XOOO-") ||
-        lineStr.includes("-OOOX") ||
-        lineStr.includes("BOOO-") ||
-        lineStr.includes("-OOOB")
-      ) {
-        score += 100;
-      }
-
-      // 活二 - 两端都能发展的二子
-      if (lineStr.includes("-OO-") || lineStr.includes("--OO--")) {
-        score += 100;
-      }
-
-      // 眠二 - 一端被堵的二子
-      if (
-        lineStr.includes("XOO-") ||
-        lineStr.includes("-OOX") ||
-        lineStr.includes("BOO-") ||
-        lineStr.includes("-OOB")
-      ) {
-        score += 10;
-      }
-
-      // 活一 - 单子周围有空间
-      if (lineStr.includes("-O-")) {
-        score += 10;
-      }
-
-      // 特殊防守模式 - 防止对方形成危险棋型
-      if (player === "black") {
-        // 当我们在评估防守黑子时
-        // 防四连
-        if (lineStr.includes("-XXXX-")) {
-          score += 9000; // 高优先级防守
-        }
-        if (lineStr.includes("BXXXX-") || lineStr.includes("-XXXXB")) {
-          score += 5000;
-        }
-
-        // 防活三
-        if (lineStr.includes("-XXX-")) {
-          score += 3000;
-        }
-
-        // 防跳活三
-        if (lineStr.includes("-XX-X-") || lineStr.includes("-X-XX-")) {
-          score += 2000;
-        }
-      }
-
-      return score;
-    }
-
-    checkWin(x, y) {
-      const directions = [
-        [
-          [0, 1],
-          [0, -1],
-        ],
-        [
-          [1, 0],
-          [-1, 0],
-        ],
-        [
-          [1, 1],
-          [-1, -1],
-        ],
-        [
-          [1, -1],
-          [-1, 1],
-        ],
-      ];
-
-      const player = this.board[y][x];
-
-      for (const [dir1, dir2] of directions) {
-        let count = 1;
-
-        for (let i = 1; i <= 4; i++) {
-          const newX = x + dir1[0] * i;
-          const newY = y + dir1[1] * i;
-          if (
-            newX < 0 ||
-            newX >= this.boardSize ||
-            newY < 0 ||
-            newY >= this.boardSize ||
-            this.board[newY][newX] !== player
-          )
-            break;
-          count++;
-        }
-
-        for (let i = 1; i <= 4; i++) {
-          const newX = x + dir2[0] * i;
-          const newY = y + dir2[1] * i;
-          if (
-            newX < 0 ||
-            newX >= this.boardSize ||
-            newY < 0 ||
-            newY >= this.boardSize ||
-            this.board[newY][newX] !== player
-          )
-            break;
-          count++;
-        }
-
-        if (count >= 5) return true;
-      }
-
-      return false;
-    }
-
-    restart() {
-      this.board = Array(this.boardSize)
-        .fill(null)
-        .map(() => Array(this.boardSize).fill(null));
-      this.currentPlayer = "black";
-      this.gameOver = false;
-      const currentPlayerElement = document.getElementById("current-player");
-      if (currentPlayerElement) {
-        currentPlayerElement.textContent = "黑子";
-      }
-      this.drawBoard();
-    }
-
-    start() {
-      // 游戏已经开始，不需要额外操作
-    }
-
-    stop() {
-      this.gameOver = true;
-    }
-  }
-
-  // 初始化游戏功能
-  function initializeGames() {
-    // 贪吃蛇模式选择
-    document.getElementById("snake-single")?.addEventListener("click", () => {
-      startSnakeGame("single");
-    });
-
-    document.getElementById("snake-double")?.addEventListener("click", () => {
-      startSnakeGame("double");
-    });
-
-    document
-      .getElementById("snake-challenge")
-      ?.addEventListener("click", () => {
-        startSnakeGame("challenge");
-      });
-
-    // 五子棋模式选择
-    document.getElementById("gomoku-single")?.addEventListener("click", () => {
-      startGomokuGame("single");
-    });
-
-    document.getElementById("gomoku-double")?.addEventListener("click", () => {
-      startGomokuGame("double");
-    });
-
-    // 游戏内返回按钮
-    document.getElementById("snake-back")?.addEventListener("click", () => {
-      stopCurrentGame();
-      document.getElementById("snake-game-area")?.classList.add("hidden");
-      document
-        .getElementById("snake-mode-selection")
-        ?.classList.remove("hidden");
-    });
-
-    document.getElementById("gomoku-back")?.addEventListener("click", () => {
-      stopCurrentGame();
-      document.getElementById("gomoku-game-area")?.classList.add("hidden");
-      document
-        .getElementById("gomoku-mode-selection")
-        ?.classList.remove("hidden");
-    });
-  }
-
-  function startSnakeGame(mode) {
-    stopCurrentGame();
-
-    // 隐藏模式选择，显示游戏区域
-    document.getElementById("snake-mode-selection")?.classList.add("hidden");
-    const gameArea = document.getElementById("snake-game-area");
-    const canvas = document.getElementById("snake-canvas");
-
-    if (gameArea && canvas) {
-      gameArea.classList.remove("hidden");
-
-      // 设置控制说明和分数显示
-      const scoreElement = document.getElementById("snake-score");
-      const controlInfo = document.getElementById("snake-control-info");
-      const buttonsArea = document.getElementById("snake-buttons");
-
-      if (mode === "double") {
-        if (scoreElement) scoreElement.textContent = "玩家1: 0 | 玩家2: 0";
-        if (controlInfo)
-          controlInfo.innerHTML =
-            "🎮 玩家1: WASD键控制 (绿蛇) | 玩家2: 方向键控制 (蓝蛇)";
-        if (buttonsArea) buttonsArea.style.display = "none"; // 隐藏按钮控制
-      } else {
-        if (scoreElement) scoreElement.textContent = "0";
-        if (controlInfo)
-          controlInfo.innerHTML = "🎮 使用 WASD 或方向键控制，或点击下方按钮";
-        if (buttonsArea) buttonsArea.style.display = "flex"; // 显示按钮控制
-      }
-
-      currentGame = new SnakeGame(canvas, mode);
-      currentGame.start();
-    }
-  }
-
-  function startGomokuGame(mode) {
-    stopCurrentGame();
-
-    // 隐藏模式选择，显示游戏区域
-    document.getElementById("gomoku-mode-selection")?.classList.add("hidden");
-    const gameArea = document.getElementById("gomoku-game-area");
-    const canvas = document.getElementById("gomoku-canvas");
-
-    if (gameArea && canvas) {
-      gameArea.classList.remove("hidden");
-      // 重置玩家显示
-      const currentPlayerElement = document.getElementById("current-player");
-      if (currentPlayerElement) currentPlayerElement.textContent = "黑子";
-
-      currentGame = new GomokuGame(canvas, mode);
-      currentGame.start();
-    }
-  }
-
-  function stopCurrentGame() {
-    if (currentGame) {
-      currentGame.stop();
-      currentGame = null;
-    }
-  }
-
-  // 初始化爬虫功能
-  function initializeScrapers() {
-    const vegetableForm = document.getElementById("vegetable-form");
-    const vegetableResults = document.getElementById("vegetable-results");
-    const fetchWeatherButton = document.getElementById("fetch-weather");
-    const weatherResults = document.getElementById("weather-results");
-    const provinceIdInput = document.getElementById("province-id");
-
-    const pauseVegetableButton = document.getElementById("pause-vegetable");
-    const resumeVegetableButton = document.getElementById("resume-vegetable");
-    const pauseWeatherButton = document.getElementById("pause-weather");
-    const resumeWeatherButton = document.getElementById("resume-weather");
-
-    // 蔬菜价格爬取
-    vegetableForm?.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      vegetableResults.innerHTML =
-        '<p class="text-gray-500 dark:text-gray-400 text-center loading">🔄 正在爬取蔬菜价格数据...</p>';
-      hideButton(vegetableForm.querySelector('button[type="submit"]'));
-      showButton(pauseVegetableButton);
-      hideButton(resumeVegetableButton);
-
-      isVegetablePaused = false;
-      vegetableAbortController = new AbortController();
-      const signal = vegetableAbortController.signal;
-
-      currentVegetablePage = parseInt(
-        document.getElementById("start-page").value
-      );
-      const endPage = parseInt(document.getElementById("end-page").value);
-
-      let allVegetableData = [];
-
-      const scrapeVegetablePage = async (page) => {
-        if (isVegetablePaused) return;
-        if (signal.aborted) {
-          vegetableResults.innerHTML =
-            '<p class="text-red-500 text-center">蔬菜爬取已取消</p>';
-          hideButton(pauseVegetableButton);
-          showButton(vegetableForm.querySelector('button[type="submit"]'));
+      makeMove(x, y) {
+        this.board[y][x] = this.currentPlayer;
+        this.drawPiece(x, y, this.currentPlayer);
+
+        if (this.checkWin(x, y)) {
+          this.gameOver = true;
+          setTimeout(() => {
+            alert(`${this.currentPlayer === "black" ? "黑子" : "白子"}获胜！`);
+          }, 100);
           return;
         }
 
-        try {
-          const response = await fetch("/api/vegetable-scraper", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ startPage: page, endPage: page }),
-            signal: signal,
-          });
+        this.currentPlayer = this.currentPlayer === "black" ? "white" : "black";
+        const currentPlayerElement = document.getElementById("current-player");
+        if (currentPlayerElement) {
+          currentPlayerElement.textContent =
+            this.currentPlayer === "black" ? "黑子" : "白子";
+        }
 
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.details || "Unknown error");
+        if (this.mode === "single" && this.currentPlayer === "white") {
+          // 设置AI思考状态
+          this.aiThinking = true;
+
+          // 更新UI显示AI正在思考
+          const currentPlayerElement =
+            document.getElementById("current-player");
+          if (currentPlayerElement) {
+            currentPlayerElement.textContent = "AI思考中...";
           }
 
-          const result = await response.json();
-          return result.data;
-        } catch (error) {
-          if (error.name === "AbortError") {
-            vegetableResults.innerHTML =
-              '<p class="text-yellow-500 text-center">蔬菜爬取已暂停</p>';
-            return null;
-          } else {
-            console.error("Error fetching vegetable data:", error);
-            vegetableResults.innerHTML = `<p class="text-red-500 text-center">获取蔬菜数据出错: ${error.message}</p>`;
-            hideButton(pauseVegetableButton);
-            hideButton(resumeVegetableButton);
-            showButton(vegetableForm.querySelector('button[type="submit"]'));
-            throw error;
+          setTimeout(() => {
+            this.makeAIMove();
+            this.aiThinking = false; // AI思考完成
+
+            // 恢复UI显示
+            if (currentPlayerElement) {
+              currentPlayerElement.textContent =
+                this.currentPlayer === "black" ? "黑子" : "白子";
+            }
+          }, 800); // 增加思考时间，让用户感受到AI在思考
+        }
+      }
+
+      makeAIMove() {
+        // 基于C语言AI逻辑的智能AI
+        const scoreBoard = Array(this.boardSize)
+          .fill(null)
+          .map(() => Array(this.boardSize).fill(0));
+
+        // 评估每个空位的分数
+        for (let y = 0; y < this.boardSize; y++) {
+          for (let x = 0; x < this.boardSize; x++) {
+            if (!this.board[y][x]) {
+              scoreBoard[y][x] = this.evaluatePosition(x, y);
+            }
           }
         }
-      };
 
-      const runVegetableScraping = async () => {
-        while (currentVegetablePage <= endPage && !isVegetablePaused) {
-          const data = await scrapeVegetablePage(currentVegetablePage);
-          if (data === null) {
-            break;
+        // 找到最高分的位置
+        let maxScore = -1;
+        let bestMoves = [];
+
+        for (let y = 0; y < this.boardSize; y++) {
+          for (let x = 0; x < this.boardSize; x++) {
+            if (!this.board[y][x] && scoreBoard[y][x] > maxScore) {
+              maxScore = scoreBoard[y][x];
+              bestMoves = [[x, y]];
+            } else if (!this.board[y][x] && scoreBoard[y][x] === maxScore) {
+              bestMoves.push([x, y]);
+            }
           }
-          allVegetableData = allVegetableData.concat(data);
-          currentVegetablePage++;
+        }
 
-          if (allVegetableData.length > 0) {
-            let html = `<div class='mb-4'><h3 class='text-xl font-bold text-gray-800 dark:text-gray-200 mb-2'>🥬 爬取结果 (共 ${allVegetableData.length} 条)</h3></div>`;
-            html += "<div class='space-y-3'>";
-            allVegetableData.forEach((item, index) => {
-              html += `
+        if (bestMoves.length > 0) {
+          const [x, y] =
+            bestMoves[Math.floor(Math.random() * bestMoves.length)];
+          this.makeMove(x, y);
+        }
+      }
+
+      // 评估位置分数的核心函数
+      evaluatePosition(x, y) {
+        let score = 0;
+
+        // 基础中心位置加分
+        const centerX = Math.floor(this.boardSize / 2);
+        const centerY = Math.floor(this.boardSize / 2);
+        const distanceFromCenter =
+          Math.abs(x - centerX) + Math.abs(y - centerY);
+        score += Math.max(0, 10 - distanceFromCenter);
+
+        // 检查四个方向：水平、垂直、主对角线、副对角线
+        const directions = [
+          [1, 0], // 水平
+          [0, 1], // 垂直
+          [1, 1], // 主对角线
+          [1, -1], // 副对角线
+        ];
+
+        for (const [dx, dy] of directions) {
+          // 检查AI(白子)的机会
+          score += this.evaluateDirection(x, y, dx, dy, "white");
+          // 检查玩家(黑子)的威胁并防守
+          score += this.evaluateDirection(x, y, dx, dy, "black") * 1.1; // 防守稍微重要一些
+        }
+
+        return score;
+      }
+
+      // 评估特定方向的分数
+      evaluateDirection(x, y, dx, dy, player) {
+        let score = 0;
+
+        // 检查该位置在这个方向上的棋型
+        const line = this.getLine(x, y, dx, dy, 9); // 获取9个位置的线段
+        const centerIndex = 4; // 中心位置索引
+
+        // 模拟在此位置下子
+        line[centerIndex] = player;
+
+        // 检查各种棋型并给分
+        score += this.checkPatterns(line, player);
+
+        return score;
+      }
+
+      // 获取指定方向的线段
+      getLine(x, y, dx, dy, length) {
+        const line = new Array(length).fill(null);
+        const startIndex = Math.floor(length / 2);
+
+        for (let i = 0; i < length; i++) {
+          const offset = i - startIndex;
+          const nx = x + offset * dx;
+          const ny = y + offset * dy;
+
+          if (
+            nx >= 0 &&
+            nx < this.boardSize &&
+            ny >= 0 &&
+            ny < this.boardSize
+          ) {
+            line[i] = this.board[ny][nx];
+          } else {
+            line[i] = "boundary"; // 边界标记
+          }
+        }
+
+        return line;
+      }
+
+      // 检查棋型模式并给分
+      checkPatterns(line, player) {
+        let score = 0;
+        const opponent = player === "black" ? "white" : "black";
+
+        // 转换为字符串便于模式匹配
+        const lineStr = line
+          .map((cell) => {
+            if (cell === player) return "O";
+            if (cell === opponent) return "X";
+            if (cell === null) return "-";
+            return "B"; // boundary
+          })
+          .join("");
+
+        // 五连 - 必胜
+        if (lineStr.includes("OOOOO")) {
+          score += 100000;
+        }
+
+        // 活四 - 两端都能成五
+        if (lineStr.includes("-OOOO-")) {
+          score += 10000;
+        }
+
+        // 冲四 - 一端能成五
+        if (
+          lineStr.includes("XOOOO-") ||
+          lineStr.includes("-OOOOX") ||
+          lineStr.includes("BOOOO-") ||
+          lineStr.includes("-OOOOB")
+        ) {
+          score += 1000;
+        }
+
+        // 活三 - 两端都能成五的三子
+        if (lineStr.includes("-OOO-") || lineStr.includes("--OOO--")) {
+          score += 1000;
+        }
+
+        // 眠三 - 一端被堵的三子
+        if (
+          lineStr.includes("XOOO-") ||
+          lineStr.includes("-OOOX") ||
+          lineStr.includes("BOOO-") ||
+          lineStr.includes("-OOOB")
+        ) {
+          score += 100;
+        }
+
+        // 活二 - 两端都能发展的二子
+        if (lineStr.includes("-OO-") || lineStr.includes("--OO--")) {
+          score += 100;
+        }
+
+        // 眠二 - 一端被堵的二子
+        if (
+          lineStr.includes("XOO-") ||
+          lineStr.includes("-OOX") ||
+          lineStr.includes("BOO-") ||
+          lineStr.includes("-OOB")
+        ) {
+          score += 10;
+        }
+
+        // 活一 - 单子周围有空间
+        if (lineStr.includes("-O-")) {
+          score += 10;
+        }
+
+        // 特殊防守模式 - 防止对方形成危险棋型
+        if (player === "black") {
+          // 当我们在评估防守黑子时
+          // 防四连
+          if (lineStr.includes("-XXXX-")) {
+            score += 9000; // 高优先级防守
+          }
+          if (lineStr.includes("BXXXX-") || lineStr.includes("-XXXXB")) {
+            score += 5000;
+          }
+
+          // 防活三
+          if (lineStr.includes("-XXX-")) {
+            score += 3000;
+          }
+
+          // 防跳活三
+          if (lineStr.includes("-XX-X-") || lineStr.includes("-X-XX-")) {
+            score += 2000;
+          }
+        }
+
+        return score;
+      }
+
+      checkWin(x, y) {
+        const directions = [
+          [
+            [0, 1],
+            [0, -1],
+          ],
+          [
+            [1, 0],
+            [-1, 0],
+          ],
+          [
+            [1, 1],
+            [-1, -1],
+          ],
+          [
+            [1, -1],
+            [-1, 1],
+          ],
+        ];
+
+        const player = this.board[y][x];
+
+        for (const [dir1, dir2] of directions) {
+          let count = 1;
+
+          for (let i = 1; i <= 4; i++) {
+            const newX = x + dir1[0] * i;
+            const newY = y + dir1[1] * i;
+            if (
+              newX < 0 ||
+              newX >= this.boardSize ||
+              newY < 0 ||
+              newY >= this.boardSize ||
+              this.board[newY][newX] !== player
+            )
+              break;
+            count++;
+          }
+
+          for (let i = 1; i <= 4; i++) {
+            const newX = x + dir2[0] * i;
+            const newY = y + dir2[1] * i;
+            if (
+              newX < 0 ||
+              newX >= this.boardSize ||
+              newY < 0 ||
+              newY >= this.boardSize ||
+              this.board[newY][newX] !== player
+            )
+              break;
+            count++;
+          }
+
+          if (count >= 5) return true;
+        }
+
+        return false;
+      }
+
+      restart() {
+        this.board = Array(this.boardSize)
+          .fill(null)
+          .map(() => Array(this.boardSize).fill(null));
+        this.currentPlayer = "black";
+        this.gameOver = false;
+        const currentPlayerElement = document.getElementById("current-player");
+        if (currentPlayerElement) {
+          currentPlayerElement.textContent = "黑子";
+        }
+        this.drawBoard();
+      }
+
+      start() {
+        // 游戏已经开始，不需要额外操作
+      }
+
+      stop() {
+        this.gameOver = true;
+      }
+    }
+
+    // 初始化游戏功能
+    var initializeGames = function () {
+      // 贪吃蛇模式选择
+      document.getElementById("snake-single")?.addEventListener("click", () => {
+        startSnakeGame("single");
+      });
+
+      document.getElementById("snake-double")?.addEventListener("click", () => {
+        startSnakeGame("double");
+      });
+
+      document
+        .getElementById("snake-challenge")
+        ?.addEventListener("click", () => {
+          startSnakeGame("challenge");
+        });
+
+      // 五子棋模式选择
+      document
+        .getElementById("gomoku-single")
+        ?.addEventListener("click", () => {
+          startGomokuGame("single");
+        });
+
+      document
+        .getElementById("gomoku-double")
+        ?.addEventListener("click", () => {
+          startGomokuGame("double");
+        });
+
+      // 游戏内返回按钮
+      document.getElementById("snake-back")?.addEventListener("click", () => {
+        stopCurrentGame();
+        document.getElementById("snake-game-area")?.classList.add("hidden");
+        document
+          .getElementById("snake-mode-selection")
+          ?.classList.remove("hidden");
+      });
+
+      document.getElementById("gomoku-back")?.addEventListener("click", () => {
+        stopCurrentGame();
+        document.getElementById("gomoku-game-area")?.classList.add("hidden");
+        document
+          .getElementById("gomoku-mode-selection")
+          ?.classList.remove("hidden");
+      });
+    };
+
+    var startSnakeGame = function (mode) {
+      stopCurrentGame();
+
+      // 隐藏模式选择，显示游戏区域
+      document.getElementById("snake-mode-selection")?.classList.add("hidden");
+      const gameArea = document.getElementById("snake-game-area");
+      const canvas = document.getElementById("snake-canvas");
+
+      if (gameArea && canvas) {
+        gameArea.classList.remove("hidden");
+
+        // 设置控制说明和分数显示
+        const scoreElement = document.getElementById("snake-score");
+        const controlInfo = document.getElementById("snake-control-info");
+        const buttonsArea = document.getElementById("snake-buttons");
+
+        if (mode === "double") {
+          if (scoreElement) scoreElement.textContent = "玩家1: 0 | 玩家2: 0";
+          if (controlInfo)
+            controlInfo.innerHTML =
+              "🎮 玩家1: WASD键控制 (绿蛇) | 玩家2: 方向键控制 (蓝蛇)";
+          if (buttonsArea) buttonsArea.style.display = "none"; // 隐藏按钮控制
+        } else {
+          if (scoreElement) scoreElement.textContent = "0";
+          if (controlInfo)
+            controlInfo.innerHTML = "🎮 使用 WASD 或方向键控制，或点击下方按钮";
+          if (buttonsArea) buttonsArea.style.display = "flex"; // 显示按钮控制
+        }
+
+        currentGame = new SnakeGame(canvas, mode);
+        currentGame.start();
+      }
+    };
+
+    var startGomokuGame = function (mode) {
+      stopCurrentGame();
+
+      // 隐藏模式选择，显示游戏区域
+      document.getElementById("gomoku-mode-selection")?.classList.add("hidden");
+      const gameArea = document.getElementById("gomoku-game-area");
+      const canvas = document.getElementById("gomoku-canvas");
+
+      if (gameArea && canvas) {
+        gameArea.classList.remove("hidden");
+        // 重置玩家显示
+        const currentPlayerElement = document.getElementById("current-player");
+        if (currentPlayerElement) currentPlayerElement.textContent = "黑子";
+
+        currentGame = new GomokuGame(canvas, mode);
+        currentGame.start();
+      }
+    };
+
+    var stopCurrentGame = function () {
+      if (currentGame) {
+        currentGame.stop();
+        currentGame = null;
+      }
+    };
+
+    // 初始化爬虫功能
+    var initializeScrapers = function () {
+      const vegetableForm = document.getElementById("vegetable-form");
+      const vegetableResults = document.getElementById("vegetable-results");
+      const fetchWeatherButton = document.getElementById("fetch-weather");
+      const weatherResults = document.getElementById("weather-results");
+      const provinceIdInput = document.getElementById("province-id");
+
+      const pauseVegetableButton = document.getElementById("pause-vegetable");
+      const resumeVegetableButton = document.getElementById("resume-vegetable");
+      const pauseWeatherButton = document.getElementById("pause-weather");
+      const resumeWeatherButton = document.getElementById("resume-weather");
+
+      // 蔬菜价格爬取
+      vegetableForm?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        vegetableResults.innerHTML =
+          '<p class="text-gray-500 dark:text-gray-400 text-center loading">🔄 正在爬取蔬菜价格数据...</p>';
+        hideButton(vegetableForm.querySelector('button[type="submit"]'));
+        showButton(pauseVegetableButton);
+        hideButton(resumeVegetableButton);
+
+        isVegetablePaused = false;
+        vegetableAbortController = new AbortController();
+        const signal = vegetableAbortController.signal;
+
+        currentVegetablePage = parseInt(
+          document.getElementById("start-page").value
+        );
+        const endPage = parseInt(document.getElementById("end-page").value);
+
+        let allVegetableData = [];
+
+        const scrapeVegetablePage = async (page) => {
+          if (isVegetablePaused) return;
+          if (signal.aborted) {
+            vegetableResults.innerHTML =
+              '<p class="text-red-500 text-center">蔬菜爬取已取消</p>';
+            hideButton(pauseVegetableButton);
+            showButton(vegetableForm.querySelector('button[type="submit"]'));
+            return;
+          }
+
+          try {
+            const response = await fetch("/api/vegetable-scraper", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ startPage: page, endPage: page }),
+              signal: signal,
+            });
+
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.details || "Unknown error");
+            }
+
+            const result = await response.json();
+            return result.data;
+          } catch (error) {
+            if (error.name === "AbortError") {
+              vegetableResults.innerHTML =
+                '<p class="text-yellow-500 text-center">蔬菜爬取已暂停</p>';
+              return null;
+            } else {
+              console.error("Error fetching vegetable data:", error);
+              vegetableResults.innerHTML = `<p class="text-red-500 text-center">获取蔬菜数据出错: ${error.message}</p>`;
+              hideButton(pauseVegetableButton);
+              hideButton(resumeVegetableButton);
+              showButton(vegetableForm.querySelector('button[type="submit"]'));
+              throw error;
+            }
+          }
+        };
+
+        const runVegetableScraping = async () => {
+          while (currentVegetablePage <= endPage && !isVegetablePaused) {
+            const data = await scrapeVegetablePage(currentVegetablePage);
+            if (data === null) {
+              break;
+            }
+            allVegetableData = allVegetableData.concat(data);
+            currentVegetablePage++;
+
+            if (allVegetableData.length > 0) {
+              let html = `<div class='mb-4'><h3 class='text-xl font-bold text-gray-800 dark:text-gray-200 mb-2'>🥬 爬取结果 (共 ${allVegetableData.length} 条)</h3></div>`;
+              html += "<div class='space-y-3'>";
+              allVegetableData.forEach((item, index) => {
+                html += `
                 <div class='p-4 bg-white dark:bg-gray-600 rounded-lg border border-gray-200 dark:border-gray-500 hover:shadow-md transition-shadow'>
                   <div class='flex items-start justify-between'>
                     <div class='flex-1'>
@@ -2101,132 +2862,155 @@ import Layout from "@/components/Layout.astro";
                   </div>
                 </div>
               `;
-            });
-            html += "</div>";
-            vegetableResults.innerHTML = html;
-          } else {
-            vegetableResults.innerHTML =
-              "<div class='text-center py-8'><div class='text-4xl mb-2'>🤷‍♂️</div><p class='text-gray-500'>未找到蔬菜数据</p></div>";
+              });
+              html += "</div>";
+              vegetableResults.innerHTML = html;
+            } else {
+              vegetableResults.innerHTML =
+                "<div class='text-center py-8'><div class='text-4xl mb-2'>🤷‍♂️</div><p class='text-gray-500'>未找到蔬菜数据</p></div>";
+            }
+            await new Promise((resolve) => setTimeout(resolve, 1000));
           }
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          if (!isVegetablePaused) {
+            hideButton(pauseVegetableButton);
+            hideButton(resumeVegetableButton);
+            showButton(vegetableForm.querySelector('button[type="submit"]'));
+          }
+        };
+
+        runVegetableScraping();
+      });
+
+      // 天气数据爬取
+      fetchWeatherButton?.addEventListener("click", async () => {
+        weatherResults.innerHTML =
+          '<p class="text-gray-500 dark:text-gray-400 text-center loading">🌤️ 正在获取天气数据...</p>';
+        hideButton(fetchWeatherButton);
+        showButton(pauseWeatherButton);
+        hideButton(resumeWeatherButton);
+
+        isWeatherPaused = false;
+        weatherAbortController = new AbortController();
+        const signal = weatherAbortController.signal;
+
+        const provinceId = provinceIdInput.value.trim();
+        let url = "/api/weather-scraper";
+        if (provinceId) {
+          url += `?provinceId=${encodeURIComponent(provinceId)}`;
         }
 
-        if (!isVegetablePaused) {
-          hideButton(pauseVegetableButton);
-          hideButton(resumeVegetableButton);
-          showButton(vegetableForm.querySelector('button[type="submit"]'));
-        }
-      };
+        try {
+          const response = await fetch(url, { signal: signal });
 
-      runVegetableScraping();
-    });
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.details || "Unknown error");
+          }
 
-    // 天气数据爬取
-    fetchWeatherButton?.addEventListener("click", async () => {
-      weatherResults.innerHTML =
-        '<p class="text-gray-500 dark:text-gray-400 text-center loading">🌤️ 正在获取天气数据...</p>';
-      hideButton(fetchWeatherButton);
-      showButton(pauseWeatherButton);
-      hideButton(resumeWeatherButton);
+          const result = await response.json();
+          const weatherData = result.data;
 
-      isWeatherPaused = false;
-      weatherAbortController = new AbortController();
-      const signal = weatherAbortController.signal;
-
-      const provinceId = provinceIdInput.value.trim();
-      let url = "/api/weather-scraper";
-      if (provinceId) {
-        url += `?provinceId=${encodeURIComponent(provinceId)}`;
-      }
-
-      try {
-        const response = await fetch(url, { signal: signal });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.details || "Unknown error");
-        }
-
-        const result = await response.json();
-        const weatherData = result.data;
-
-        if (weatherData.length > 0) {
-          let html = `<div class='mb-4'><h3 class='text-xl font-bold text-gray-800 dark:text-gray-200 mb-2'>🌤️ 天气结果 (共 ${weatherData.length} 个城市)</h3></div>`;
-          html += '<div class="weather-list">';
-          weatherData.forEach((item, index) => {
-            html += `
+          if (weatherData.length > 0) {
+            let html = `<div class='mb-4'><h3 class='text-xl font-bold text-gray-800 dark:text-gray-200 mb-2'>🌤️ 天气结果 (共 ${weatherData.length} 个城市)</h3></div>`;
+            html += '<div class="weather-list">';
+            weatherData.forEach((item, index) => {
+              html += `
               <div class="weather-card">
                 <div class="weather-city">${item.cityName}</div>
                 <div class="weather-info">${item.weatherInfo}</div>
                 <div class="text-xs text-gray-400 mt-1">#${index + 1}</div>
               </div>
             `;
-          });
-          html += "</div>";
-          weatherResults.innerHTML = html;
-        } else {
-          weatherResults.innerHTML =
-            "<div class='text-center py-8'><div class='text-4xl mb-2'>🌧️</div><p class='text-gray-500'>未找到天气数据</p></div>";
+            });
+            html += "</div>";
+            weatherResults.innerHTML = html;
+          } else {
+            weatherResults.innerHTML =
+              "<div class='text-center py-8'><div class='text-4xl mb-2'>🌧️</div><p class='text-gray-500'>未找到天气数据</p></div>";
+          }
+        } catch (error) {
+          if (error.name === "AbortError") {
+            weatherResults.innerHTML =
+              '<p class="text-yellow-500 text-center">天气爬取已暂停</p>';
+          } else {
+            console.error("Error fetching weather data:", error);
+            weatherResults.innerHTML = `<p class="text-red-500 text-center">获取天气数据出错: ${error.message}</p>`;
+          }
         }
-      } catch (error) {
-        if (error.name === "AbortError") {
+        hideButton(pauseWeatherButton);
+        hideButton(resumeWeatherButton);
+        showButton(fetchWeatherButton);
+      });
+
+      // 暂停和继续按钮
+      pauseVegetableButton?.addEventListener("click", () => {
+        if (vegetableAbortController) {
+          vegetableAbortController.abort();
+          isVegetablePaused = true;
+          hideButton(pauseVegetableButton);
+          showButton(resumeVegetableButton);
+          vegetableResults.innerHTML =
+            '<p class="text-yellow-500 text-center">蔬菜爬取已暂停</p>';
+        }
+      });
+
+      resumeVegetableButton?.addEventListener("click", () => {
+        isVegetablePaused = false;
+        hideButton(resumeVegetableButton);
+        showButton(pauseVegetableButton);
+        document.getElementById("start-page").value = currentVegetablePage;
+        vegetableForm.dispatchEvent(new Event("submit"));
+      });
+
+      pauseWeatherButton?.addEventListener("click", () => {
+        if (weatherAbortController) {
+          weatherAbortController.abort();
+          isWeatherPaused = true;
+          hideButton(pauseWeatherButton);
+          showButton(resumeWeatherButton);
           weatherResults.innerHTML =
             '<p class="text-yellow-500 text-center">天气爬取已暂停</p>';
-        } else {
-          console.error("Error fetching weather data:", error);
-          weatherResults.innerHTML = `<p class="text-red-500 text-center">获取天气数据出错: ${error.message}</p>`;
         }
+      });
+
+      resumeWeatherButton?.addEventListener("click", () => {
+        isWeatherPaused = false;
+        hideButton(resumeWeatherButton);
+        showButton(pauseWeatherButton);
+        fetchWeatherButton.click();
+      });
+    };
+
+    // 辅助函数
+    var showButton = function (button) {
+      if (button) button.style.display = "inline-block";
+    };
+
+    var hideButton = function (button) {
+      if (button) button.style.display = "none";
+    };
+  } // 结束函数声明检查
+
+  // 监听Swup页面切换事件
+  if (typeof window !== "undefined") {
+    // 等待Swup加载完成
+    const waitForSwup = () => {
+      if (window.swup) {
+        // 监听页面完全加载完成事件
+        window.swup.hooks.on("page:view", () => {
+          if (window.location.pathname === "/tools") {
+            // 重置初始化状态并重新初始化
+            if (window.toolsPageReady) {
+              window.toolsPageReady.initialized = false;
+            }
+            setTimeout(initializeToolsPage, 200);
+          }
+        });
+      } else {
+        setTimeout(waitForSwup, 100);
       }
-      hideButton(pauseWeatherButton);
-      hideButton(resumeWeatherButton);
-      showButton(fetchWeatherButton);
-    });
-
-    // 暂停和继续按钮
-    pauseVegetableButton?.addEventListener("click", () => {
-      if (vegetableAbortController) {
-        vegetableAbortController.abort();
-        isVegetablePaused = true;
-        hideButton(pauseVegetableButton);
-        showButton(resumeVegetableButton);
-        vegetableResults.innerHTML =
-          '<p class="text-yellow-500 text-center">蔬菜爬取已暂停</p>';
-      }
-    });
-
-    resumeVegetableButton?.addEventListener("click", () => {
-      isVegetablePaused = false;
-      hideButton(resumeVegetableButton);
-      showButton(pauseVegetableButton);
-      document.getElementById("start-page").value = currentVegetablePage;
-      vegetableForm.dispatchEvent(new Event("submit"));
-    });
-
-    pauseWeatherButton?.addEventListener("click", () => {
-      if (weatherAbortController) {
-        weatherAbortController.abort();
-        isWeatherPaused = true;
-        hideButton(pauseWeatherButton);
-        showButton(resumeWeatherButton);
-        weatherResults.innerHTML =
-          '<p class="text-yellow-500 text-center">天气爬取已暂停</p>';
-      }
-    });
-
-    resumeWeatherButton?.addEventListener("click", () => {
-      isWeatherPaused = false;
-      hideButton(resumeWeatherButton);
-      showButton(pauseWeatherButton);
-      fetchWeatherButton.click();
-    });
-  }
-
-  // 辅助函数
-  function showButton(button) {
-    if (button) button.style.display = "inline-block";
-  }
-
-  function hideButton(button) {
-    if (button) button.style.display = "none";
+    };
+    waitForSwup();
   }
 </script>

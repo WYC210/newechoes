@@ -2,6 +2,7 @@
 import Layout from "@/components/Layout.astro";
 import { Countdown } from "@/components/Countdown";
 import WorldHeatmap from "@/components/WorldHeatmap";
+import TechStack from "@/components/TechStack";
 const VISITED_PLACES = [
   "中国-北京",
   "中国-天津",
@@ -12,35 +13,43 @@ const VISITED_PLACES = [
 ];
 ---
 
-<Layout 
+<Layout
   title="关于我"
   description="展示我的旅行足迹和一些有趣的个人信息"
   skipSrTitle={false}
 >
-  <div class="container mx-auto px-4 py-8">
-    <section class="mb-16">
-      <h2 class="text-3xl font-semibold text-center mb-6">距离退休还有</h2>
-      <div
-        class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-xl"
-      >
-        <Countdown
-          client:load
-          targetDate={"2070-04-06"}
-        />
-      </div>
-    </section>
+  <div class="min-h-screen py-12">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <!-- Retirement Clock at Top -->
+      <section class="mb-16">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg text-center"
+        >
+          <div class="text-4xl mb-4">⏰</div>
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            距离退休还有
+          </h2>
+          <Countdown client:load targetDate={"2070-04-06"} />
+        </div>
+      </section>
 
-    <section class="mb-16">
-      <h2 class="text-3xl font-semibold text-center mb-6">我的旅行足迹</h2>
-      <div
-        class="mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl"
-      >
-        <WorldHeatmap
-          client:only="react"
-          visitedPlaces={VISITED_PLACES}
-        />
-      </div>
-    </section>
+      <!-- Tech Stack Section -->
+      <section class="mb-20">
+        <TechStack client:load />
+      </section>
+
+      <!-- Travel Map -->
+      <section>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+          <div class="text-center mb-6">
+            <div class="text-4xl mb-4">🗺️</div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              我的旅行足迹
+            </h2>
+          </div>
+          <WorldHeatmap client:only="react" visitedPlaces={VISITED_PLACES} />
+        </div>
+      </section>
+    </div>
   </div>
 </Layout>
-
