@@ -1,5 +1,6 @@
 ---
 import Layout from "@/components/Layout.astro";
+import TypewriterEffect from "@/components/TypewriterEffect";
 import { SITE_TITLE } from "@/consts";
 ---
 
@@ -14,84 +15,15 @@ import { SITE_TITLE } from "@/consts";
       <p
         class="text-xl md:text-2xl text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto leading-relaxed"
       >
-        <span id="typewriter-text" class="typewriter"></span>
+        <TypewriterEffect
+          text="在AI时代重新定义思考"
+          typingSpeed={200}
+          deletingSpeed={80}
+          pauseTime={2000}
+          startDelay={1000}
+          client:only="react"
+        />
       </p>
     </div>
   </div>
 </Layout>
-
-<style>
-  .typewriter {
-    position: relative;
-  }
-
-  .typewriter::after {
-    content: "|";
-    position: absolute;
-    right: -2px;
-    animation: blink 1s infinite;
-    color: currentColor;
-  }
-
-  @keyframes blink {
-    0%,
-    50% {
-      opacity: 1;
-    }
-    51%,
-    100% {
-      opacity: 0;
-    }
-  }
-</style>
-
-<script>
-  // 循环打字机效果
-  function typeWriter() {
-    const text = "在AI时代重新定义思考";
-    const element = document.getElementById("typewriter-text");
-
-    if (!element) return;
-
-    let i = 0;
-    let isDeleting = false;
-
-    function typeLoop() {
-      if (!isDeleting && i < text.length) {
-        // 打字阶段
-        if (element) element.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeLoop, 150); // 打字速度
-      } else if (!isDeleting && i === text.length) {
-        // 打字完成，等待一段时间后开始删除
-        setTimeout(() => {
-          isDeleting = true;
-          typeLoop();
-        }, 2000); // 停留2秒
-      } else if (isDeleting && i > 0) {
-        // 删除阶段
-        if (element) element.textContent = text.substring(0, i - 1);
-        i--;
-        setTimeout(typeLoop, 100); // 删除速度
-      } else if (isDeleting && i === 0) {
-        // 删除完成，等待一段时间后重新开始打字
-        isDeleting = false;
-        setTimeout(typeLoop, 1000); // 等待1秒重新开始
-      }
-    }
-
-    // 初始化
-    element.textContent = "";
-    setTimeout(typeLoop, 500); // 延迟开始
-  }
-
-  // 页面加载完成后启动打字机效果
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", typeWriter);
-  } else {
-    typeWriter();
-  }
-
-  // 支持页面切换后重新触发效果
-  document.addEventListener("astro:page-load", typeWriter);
-</script>

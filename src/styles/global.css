@@ -250,3 +250,24 @@
 [data-theme='dark'] .article-card-read-more {
   color: var(--color-primary-400);
 }
+
+/* 打字机效果样式 */
+.typewriter-container {
+  position: relative;
+}
+
+.typewriter-cursor {
+  position: absolute;
+  right: -2px;
+  animation: typewriter-blink 1s infinite;
+  color: currentColor;
+}
+
+@keyframes typewriter-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
