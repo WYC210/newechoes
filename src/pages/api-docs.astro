@@ -1,0 +1,237 @@
+---
+import Layout from "@/components/Layout.astro";
+import { readFileSync } from "fs";
+import { join } from "path";
+
+// 读取API文档内容
+let apiContent = "";
+try {
+  const apiPath = join(process.cwd(), "API_TOOLS_README.md");
+  apiContent = readFileSync(apiPath, "utf-8");
+} catch (error) {
+  console.error("无法读取API文档:", error);
+  apiContent = "# API文档\n\n文档加载失败，请稍后重试。";
+}
+
+// 简单的Markdown转HTML函数
+function markdownToHtml(markdown: string): string {
+  return (
+    markdown
+      // 标题
+      .replace(
+        /^### (.*$)/gim,
+        '<h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-3">$1</h3>'
+      )
+      .replace(
+        /^## (.*$)/gim,
+        '<h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mt-8 mb-4">$1</h2>'
+      )
+      .replace(
+        /^# (.*$)/gim,
+        '<h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 mt-8 mb-6">$1</h1>'
+      )
+      // 代码块
+      .replace(
+        /```json\n([\s\S]*?)\n```/g,
+        '<pre class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 overflow-x-auto mb-4"><code class="language-json text-sm">$1</code></pre>'
+      )
+      .replace(
+        /```\n([\s\S]*?)\n```/g,
+        '<pre class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 overflow-x-auto mb-4"><code class="text-sm">$1</code></pre>'
+      )
+      // 行内代码
+      .replace(
+        /`([^`]+)`/g,
+        '<code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">$1</code>'
+      )
+      // 粗体
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+      // 链接
+      .replace(
+        /\[([^\]]+)\]\(([^)]+)\)/g,
+        '<a href="$2" class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">$1</a>'
+      )
+      // 列表
+      .replace(/^- (.*$)/gim, '<li class="ml-4 mb-1">• $1</li>')
+      // 段落
+      .replace(/\n\n/g, '</p><p class="mb-4">')
+      // 分隔线
+      .replace(
+        /^---$/gim,
+        '<hr class="border-gray-300 dark:border-gray-600 my-8">'
+      )
+      // 包装段落
+      .replace(/^([^<\n].*)$/gim, '<p class="mb-4">$1</p>')
+      // 清理多余的段落标签
+      .replace(/<p class="mb-4"><\/p>/g, "")
+      .replace(/<p class="mb-4">(<h[1-6])/g, "$1")
+      .replace(/(<\/h[1-6]>)<\/p>/g, "$1")
+  );
+}
+
+const htmlContent = markdownToHtml(apiContent);
+---
+
+<Layout
+  title="API接口文档"
+  description="完整的API接口文档 - 包含所有可用的API工具接口说明"
+  skipSrTitle={false}
+>
+  <div
+    class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800"
+  >
+    <div class="container mx-auto px-4 py-8">
+      <!-- 页面标题 -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+          📖 API接口文档
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">
+          完整的API工具接口说明和使用示例
+        </p>
+        <div class="flex justify-center gap-4">
+          <a
+            href="/tools"
+            class="inline-flex items-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+          >
+            🔧 返回工具中心
+          </a>
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+          >
+            📚 GitHub文档
+          </a>
+        </div>
+      </div>
+
+      <!-- 文档内容 -->
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+          <!-- 目录导航
+          <div class="mb-8 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <h2
+              class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3"
+            >
+              📋 快速导航
+            </h2>
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-sm"
+            >
+              <a
+                href="#ip-地址归属地查询接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >🌍 IP归属地查询</a
+              >
+              <a
+                href="#whois-查询接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >🔍 WHOIS查询</a
+              >
+              <a
+                href="#端口扫描接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >🔌 端口扫描</a
+              >
+              <a
+                href="#公网-ip-查询接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >📍 公网IP查询</a
+              >
+              <a
+                href="#手机号码归属地查询接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >📱 手机号归属地</a
+              >
+              <a
+                href="#域名-icp-备案信息查询接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >📋 ICP备案查询</a
+              >
+              <a
+                href="#域名-dns-解析查询接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >🌐 DNS解析查询</a
+              >
+              <a
+                href="#每日新闻摘要图片生成接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >📰 每日新闻图片</a
+              >
+              <a
+                href="#程序员历史事件查询接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >👨‍💻 程序员历史</a
+              >
+              <a
+                href="#实时天气信息查询接口"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+                >🌤️ 实时天气1</a
+              >
+            </div>
+          </div> -->
+
+          <!-- API文档内容 -->
+          <div class="prose prose-lg max-w-none dark:prose-invert">
+            <div set:html={htmlContent} />
+          </div>
+
+          <!-- 底部链接 -->
+          <div
+            class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-600 text-center"
+          >
+            <div class="flex justify-center gap-4 mb-4">
+              <a
+                href="/tools"
+                class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm"
+              >
+                🔧 使用API工具
+              </a>
+              <button
+                onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                class="inline-flex items-center px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm"
+              >
+                ⬆️ 返回顶部
+              </button>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              最后更新: {new Date().toLocaleDateString("zh-CN")}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* 自定义样式 */
+    .prose h1,
+    .prose h2,
+    .prose h3 {
+      scroll-margin-top: 2rem;
+    }
+
+    .prose pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .prose code {
+      font-family: "Consolas", "Monaco", "Courier New", monospace;
+    }
+
+    /* 响应式表格 */
+    .prose table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    /* 链接样式 */
+    .prose a {
+      word-break: break-all;
+    }
+  </style>
+</Layout>
