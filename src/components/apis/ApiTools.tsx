@@ -20,7 +20,8 @@ type ApiToolType =
   | 'json-format'
   | 'web-to-markdown'
   | 'github-accelerate'
-  | 'ascii-art';
+  | 'ascii-art'
+  | 'vegetable-prices'
 
 // API配置
 interface ApiConfig {
@@ -165,6 +166,14 @@ const apiConfigs: ApiConfig[] = [
     inputPlaceholder: '请输入要转换的文本',
     inputRequired: true,
     tags: ['ASCII艺术', '文本转换', '艺术字体']
+  },
+  {
+    id: 'vegetable-prices',
+    name: '蔬菜价格查询',
+    icon: '🥬',
+    description: '查询北京地区蔬菜批发市场价格信息',
+    inputRequired: false,
+    tags: ['蔬菜价格', '市场行情', '批发价格']
   }
 ];
 
@@ -177,10 +186,12 @@ const ApiTools: React.FC<ApiToolsProps> = ({ onBack }) => {
   const [ipApiSource, setIpApiSource] = useState<'auto' | 'ipinfo' | 'pconline'>('auto');
   const [portScanType, setPortScanType] = useState<'common' | 'custom'>('common');
   const [customPorts, setCustomPorts] = useState('80,443,8080,3306,3389');
-  const [jsonInput, setJsonInput] = useState('');
   const [portProtocol, setPortProtocol] = useState<'tcp' | 'udp'>('tcp');
   const [githubNode, setGithubNode] = useState('ghproxy.com');
   const [asciiFont, setAsciiFont] = useState('3D Diagonal');
+  const [vegetablePage, setVegetablePage] = useState(1);
+  const [vegetableLimit, setVegetableLimit] = useState(20);
+  const [vegetableMarket, setVegetableMarket] = useState('');
 
   // 重置状态
   const resetState = () => {
@@ -190,10 +201,12 @@ const ApiTools: React.FC<ApiToolsProps> = ({ onBack }) => {
     setIpApiSource('auto');
     setPortScanType('common');
     setCustomPorts('80,443,8080,3306,3389');
-    setJsonInput('');
     setPortProtocol('tcp');
     setGithubNode('ghproxy.com');
     setAsciiFont('3D Diagonal');
+    setVegetablePage(1);
+    setVegetableLimit(20);
+    setVegetableMarket('');
   };
 
   // 选择工具
@@ -225,7 +238,8 @@ const ApiTools: React.FC<ApiToolsProps> = ({ onBack }) => {
       'json-format': 'https://uapis.cn/api/v1/convert/json',
       'web-to-markdown': `https://uapis.cn/api/v1/web/tomarkdown?url=${encodeURIComponent(input || '')}`,
       'github-accelerate': '', // 客户端处理
-      'ascii-art': `https://uapis.cn/api/v1/text/ascii?text=${encodeURIComponent(input || '')}&font=${asciiFont}`
+      'ascii-art': `https://uapis.cn/api/v1/text/ascii?text=${encodeURIComponent(input || '')}&font=${asciiFont}`,
+      'vegetable-prices': `/api/vegetable-prices?page=${vegetablePage}&limit=${vegetableLimit}&market=${encodeURIComponent(vegetableMarket)}`
     };
     return baseUrls[toolId];
   };
@@ -298,7 +312,7 @@ const ApiTools: React.FC<ApiToolsProps> = ({ onBack }) => {
         });
       } else if (selectedTool === 'ascii-art') {
         // ASCII艺术字生成
-        const result = await generateAsciiArt(inputValue.trim(), asciiFont);
+        const result = generateAsciiArt(inputValue.trim(), asciiFont);
         setResult({
           text: inputValue.trim(),
           font: asciiFont,
@@ -324,6 +338,18 @@ const ApiTools: React.FC<ApiToolsProps> = ({ onBack }) => {
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || `HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        setResult(data);
+      } else if (selectedTool === 'vegetable-prices') {
+        // 蔬菜价格查询
+        const apiUrl = buildApiUrl(selectedTool);
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || errorData.error || `HTTP ${response.status}`);
         }
 
         const data = await response.json();
@@ -571,17 +597,6 @@ const ApiTools: React.FC<ApiToolsProps> = ({ onBack }) => {
             </div>
           ))}
         </div>
-
-        <div className="mt-6 text-center">
-          <a
-            href="/api-docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm"
-          >
-            📖 API接口文档
-          </a>
-        </div>
       </div>
     );
   }
@@ -804,34 +819,102 @@ const ApiTools: React.FC<ApiToolsProps> = ({ onBack }) => {
             </div>
           )}
 
+        </div>
+      )}
 
-          {/* JSON格式化输入框 */}
-          {selectedTool === 'json-format' && (
-            <div className="mt-3">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                JSON字符串
-              </label>
-              <textarea
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="请粘贴需要格式化的JSON字符串..."
-                rows={6}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white font-mono text-sm"
-              />
-            </div>
-          )}
-
-          {/* 网页转Markdown限时提示 */}
-          {selectedTool === 'web-to-markdown' && (
-            <div className="bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-700 rounded-lg p-3">
-              <div className="flex items-start">
-                <div className="text-yellow-600 dark:text-yellow-400 mr-2 mt-0.5">⚠️</div>
-                <div className="text-sm text-yellow-800 dark:text-yellow-200">
-                  <strong>限时免费接口：</strong>此API目前处于限时免费阶段，如果请求失败说明接口已被关闭。该接口能够智能提取网页内容并转换为高质量的Markdown格式。
-                </div>
+      {/* 蔬菜价格查询参数 (特殊处理，因为这个工具不需要输入但需要参数设置) */}
+      {selectedTool === 'vegetable-prices' && (
+        <div className="mb-6">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              查询参数
+            </label>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                  页数
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="10"
+                  value={vegetablePage}
+                  onChange={(e) => setVegetablePage(parseInt(e.target.value) || 1)}
+                  className="w-full px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                  每页数量
+                </label>
+                <select
+                  value={vegetableLimit}
+                  onChange={(e) => setVegetableLimit(parseInt(e.target.value))}
+                  className="w-full px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                  市场筛选 (可选)
+                </label>
+                <select
+                  value={vegetableMarket}
+                  onChange={(e) => setVegetableMarket(e.target.value)}
+                  className="w-full px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
+                >
+                  <option value="">全部市场</option>
+                  <option value="新发地">新发地批发市场</option>
+                  <option value="大洋路">大洋路农产品批发市场</option>
+                  <option value="岳各庄">岳各庄批发市场</option>
+                  <option value="锦绣大地">锦绣大地农产品批发市场</option>
+                  <option value="水屯">水屯农副产品批发市场</option>
+                  <option value="八里桥">八里桥农产品批发市场</option>
+                  <option value="城北回龙观">城北回龙观农产品批发市场</option>
+                  <option value="京深海鲜">京深海鲜批发市场</option>
+                  <option value="顺义石门">顺义石门农产品批发市场</option>
+                  <option value="昌平水屯">昌平水屯农副产品批发市场</option>
+                  <option value="通州八里桥">通州八里桥农产品批发市场</option>
+                  <option value="朝阳大洋路">朝阳大洋路农副产品批发市场</option>
+                  <option value="海淀清河">海淀清河农产品批发市场</option>
+                  <option value="丰台新发地">丰台新发地农产品批发市场</option>
+                  <option value="房山良乡">房山良乡农产品批发市场</option>
+                </select>
               </div>
             </div>
-          )}
+          </div>
+        </div>
+      )}
+
+      {/* JSON格式化输入框 */}
+      {selectedTool === 'json-format' && (
+        <div className="mt-3">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            JSON字符串
+          </label>
+          <textarea
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="请粘贴需要格式化的JSON字符串..."
+            rows={6}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white font-mono text-sm"
+          />
+        </div>
+      )}
+
+      {/* 网页转Markdown限时提示 */}
+      {selectedTool === 'web-to-markdown' && (
+        <div className="bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-700 rounded-lg p-3">
+          <div className="flex items-start">
+            <div className="text-yellow-600 dark:text-yellow-400 mr-2 mt-0.5">⚠️</div>
+            <div className="text-sm text-yellow-800 dark:text-yellow-200">
+              <strong>限时免费接口：</strong>此API目前处于限时免费阶段，如果请求失败说明接口已被关闭。该接口能够智能提取网页内容并转换为高质量的Markdown格式。
+            </div>
+          </div>
         </div>
       )}
 
@@ -918,8 +1001,91 @@ const ApiTools: React.FC<ApiToolsProps> = ({ onBack }) => {
                 </button>
               </div>
             )}
+            {/* 蔬菜价格查询结果特殊显示 */}
+            {selectedTool === 'vegetable-prices' && result.success && (
+              <div className="space-y-4">
+                {/* 统计信息 */}
+                {result.statistics && (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                    <div className="bg-blue-50 dark:bg-blue-900 p-3 rounded-lg text-center">
+                      <div className="text-lg font-bold text-blue-600 dark:text-blue-400">{result.data.length}</div>
+                      <div className="text-xs text-blue-800 dark:text-blue-300">记录数</div>
+                    </div>
+                    <div className="bg-green-50 dark:bg-green-900 p-3 rounded-lg text-center">
+                      <div className="text-lg font-bold text-green-600 dark:text-green-400">¥{result.statistics.averagePrice}</div>
+                      <div className="text-xs text-green-800 dark:text-green-300">平均价格</div>
+                    </div>
+                    <div className="bg-purple-50 dark:bg-purple-900 p-3 rounded-lg text-center">
+                      <div className="text-lg font-bold text-purple-600 dark:text-purple-400">{result.statistics.vegetableTypes}</div>
+                      <div className="text-xs text-purple-800 dark:text-purple-300">蔬菜种类</div>
+                    </div>
+                    <div className="bg-orange-50 dark:bg-orange-900 p-3 rounded-lg text-center">
+                      <div className="text-lg font-bold text-orange-600 dark:text-orange-400">{result.statistics.markets}</div>
+                      <div className="text-xs text-orange-800 dark:text-orange-300">市场数量</div>
+                    </div>
+                  </div>
+                )}
+                
+                {/* 数据表格 */}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm border-collapse">
+                    <thead className="bg-gray-100 dark:bg-gray-800">
+                      <tr>
+                        <th className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-left">蔬菜名称</th>
+                        <th className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-left">价格</th>
+                        <th className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-left">单位</th>
+                        <th className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-left">市场</th>
+                        <th className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-left">日期</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {result.data.map((item: any, index: number) => (
+                        <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-600">
+                          <td className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-gray-800 dark:text-gray-200">{item.name}</td>
+                          <td className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-green-600 dark:text-green-400 font-semibold">¥{item.price}</td>
+                          <td className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-gray-600 dark:text-gray-400">{item.unit}</td>
+                          <td className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-gray-600 dark:text-gray-400 text-xs">{item.market}</td>
+                          <td className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-gray-600 dark:text-gray-400 text-xs">{item.date}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                
+                {/* 分页信息 */}
+                {result.pagination && (
+                  <div className="text-xs text-gray-600 dark:text-gray-400 text-center">
+                    第 {result.pagination.page} 页，每页 {result.pagination.limit} 条，共 {result.pagination.total} 条记录
+                  </div>
+                )}
+                
+                {/* 导出按钮 */}
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      const csvContent = [
+                        '蔬菜名称,价格,单位,市场,日期',
+                        ...result.data.map((item: any) => `${item.name},${item.price},${item.unit},${item.market},${item.date}`)
+                      ].join('\n');
+                      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                      const link = document.createElement('a');
+                      const url = URL.createObjectURL(blob);
+                      link.setAttribute('href', url);
+                      link.setAttribute('download', `蔬菜价格数据_${new Date().toLocaleDateString()}.csv`);
+                      link.style.visibility = 'hidden';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}
+                    className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded"
+                  >
+                    导出CSV
+                  </button>
+                </div>
+              </div>
+            )}
             {/* 默认JSON显示 */}
-            {(!result.success || (selectedTool !== 'github-accelerate' && selectedTool !== 'ascii-art')) && (
+            {(!result.success || (selectedTool !== 'github-accelerate' && selectedTool !== 'ascii-art' && selectedTool !== 'vegetable-prices')) && (
               <pre className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
                 {formatJson(result)}
               </pre>

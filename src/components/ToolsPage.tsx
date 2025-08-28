@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import SnakeGame from './games/SnakeGame';
 import GomokuGame from './games/GomokuGame';
-import VegetableScraper from './scrapers/VegetableScraper';
-import WeatherScraper from './scrapers/WeatherScraper';
 import ApiTools from './apis/ApiTools';
 
 interface ToolsPageProps {
   className?: string;
 }
 
-type TabType = 'games' | 'scrapers' | 'apis';
+type TabType = 'games' | 'apis';
 type GameType = 'snake' | 'gomoku';
 type GameMode = 'single' | 'double' | 'challenge' | 'ai' | 'pvp';
-type ScraperType = 'vegetable' | 'weather';
 
 const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
   const [activeTab, setActiveTab] = useState<TabType>('games');
   const [currentGame, setCurrentGame] = useState<GameType | null>(null);
   const [gameMode, setGameMode] = useState<GameMode | null>(null);
-  const [currentScraper, setCurrentScraper] = useState<ScraperType | null>(null);
   const [showApiTools, setShowApiTools] = useState(false);
 
   // 重置到列表视图
   const resetToListView = () => {
     setCurrentGame(null);
     setGameMode(null);
-    setCurrentScraper(null);
     setShowApiTools(false);
   };
 
@@ -46,10 +41,6 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
     setGameMode(mode);
   };
 
-  // 显示爬虫
-  const showScraper = (scraperType: ScraperType) => {
-    setCurrentScraper(scraperType);
-  };
 
   // 显示API工具
   const showApiToolsPage = () => {
@@ -65,7 +56,7 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
             🛠️ 工具中心
           </h1>
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 px-2 sm:px-4">
-            选择你需要的工具 - 游戏娱乐、爬虫演示或API工具
+            选择你需要的工具 - 游戏娱乐或API工具
           </p>
 
         </div>
@@ -82,16 +73,6 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
               }`}
             >
               🎮 游戏娱乐
-            </button>
-            <button
-              onClick={() => switchTab('scrapers')}
-              className={`flex-1 px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3 rounded-lg font-semibold transition-all duration-300 text-xs sm:text-sm md:text-base ${
-                activeTab === 'scrapers'
-                  ? 'bg-primary-500 text-white shadow-lg'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
-              }`}
-            >
-              🕷️ 爬虫演示
             </button>
             <button
               onClick={() => switchTab('apis')}
@@ -274,87 +255,6 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
             </div>
           )}
 
-          {/* 爬虫演示区域 */}
-          {activeTab === 'scrapers' && (
-            <div className="section-content">
-              {!currentScraper ? (
-                /* 爬虫列表 */
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* 蔬菜价格爬虫卡片 */}
-                  <div
-                    className="scraper-card bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-primary-500 hover:-translate-y-1"
-                    onClick={() => showScraper('vegetable')}
-                  >
-                    <div className="text-center">
-                      <div className="text-6xl mb-4">🥬</div>
-                      <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
-                        蔬菜价格
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400 mb-4">
-                        实时获取北京地区蔬菜价格信息
-                      </p>
-                      <div className="flex flex-wrap gap-2 justify-center">
-                        <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs">
-                          实时数据
-                        </span>
-                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs">
-                          分页爬取
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 天气数据爬虫卡片 */}
-                  <div
-                    className="scraper-card bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-primary-500 hover:-translate-y-1"
-                    onClick={() => showScraper('weather')}
-                  >
-                    <div className="text-center">
-                      <div className="text-6xl mb-4">🌤️</div>
-                      <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
-                        天气数据
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400 mb-4">
-                        获取指定省份的天气信息
-                      </p>
-                      <div className="flex flex-wrap gap-2 justify-center">
-                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs">
-                          省份筛选
-                        </span>
-                        <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-xs">
-                          实时天气
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 更多爬虫占位符 */}
-                  <div className="scraper-card bg-gray-100 dark:bg-gray-700 rounded-xl shadow-lg border border-gray-200 dark:border-gray-600 p-6 cursor-not-allowed opacity-50">
-                    <div className="text-center">
-                      <div className="text-6xl mb-4">🕷️</div>
-                      <h3 className="text-2xl font-bold text-gray-600 dark:text-gray-400 mb-2">
-                        更多爬虫
-                      </h3>
-                      <p className="text-gray-500 dark:text-gray-500 mb-4">敬请期待...</p>
-                      <span className="px-2 py-1 bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400 rounded-full text-xs">
-                        即将推出
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                /* 爬虫界面 */
-                <>
-                  {currentScraper === 'vegetable' && (
-                    <VegetableScraper onBack={resetToListView} />
-                  )}
-                  {currentScraper === 'weather' && (
-                    <WeatherScraper onBack={resetToListView} />
-                  )}
-                </>
-              )}
-            </div>
-          )}
 
           {/* API工具区域 */}
           {activeTab === 'apis' && (
@@ -403,27 +303,6 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
                         即将推出
                       </span>
                     </div>
-                  </div>
-
-                  {/* API文档卡片 */}
-                  <div className="api-card bg-primary-50 dark:bg-primary-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-primary-500 hover:-translate-y-1">
-                    <a href="/api-docs" target="_blank" rel="noopener noreferrer" className="block text-center">
-                      <div className="text-6xl mb-4">📖</div>
-                      <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
-                        API文档
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400 mb-4">
-                        查看完整的API接口文档
-                      </p>
-                      <div className="flex flex-wrap gap-2 justify-center">
-                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs">
-                          接口说明
-                        </span>
-                        <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs">
-                          示例代码
-                        </span>
-                      </div>
-                    </a>
                   </div>
                 </div>
               )}

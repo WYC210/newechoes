@@ -75,7 +75,7 @@ export default function TechStack() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center">
+    <div className="bg-[#0f172a] rounded-xl p-8 shadow-lg text-center">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">技术栈</h1>
         <p className="text-gray-600 dark:text-gray-400">我熟练掌握的技术</p>
