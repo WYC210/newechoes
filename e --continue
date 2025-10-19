@@ -1,0 +1,357 @@
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex de28578..547a251 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -27,4 +27,6 @@[m [mpnpm-debug.log*[m
+ **/target/*[m
+ **/pkg/*[m
+ [m
+[31m-.vercel[m
+[32m+[m
+[32m+[m[32m.cloude[m
+[41m+[m
+[1mdiff --git a/pnpm-lock.yaml b/pnpm-lock.yaml[m
+[1mindex cd331b0..75250d1 100644[m
+[1m--- a/pnpm-lock.yaml[m
+[1m+++ b/pnpm-lock.yaml[m
+[36m@@ -74,6 +74,12 @@[m [mimporters:[m
+       react-masonry-css:[m
+         specifier: ^1.0.16[m
+         version: 1.0.16(react@19.1.0)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m      sharp:[m
+[32m+[m[32m        specifier: ^0.34.3[m
+[32m+[m[32m        version: 0.34.3[m
+[32m+[m
+       swup:[m
+         specifier: ^4.8.2[m
+         version: 4.8.2[m
+[36m@@ -264,154 +270,362 @@[m [mpackages:[m
+     resolution: {integrity: sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow==}[m
+ [m
+   '@emnapi/runtime@1.4.3':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     resolution: {integrity: sha512-pBPWdu6MLKROBX05wSNKcNb++m5Er+KQ9QkB+WVM+pW2Kx9hoSrVTnu3BdkI5eBLZoKu/J6mW/B6i6bJB2ytXQ==}[m
+ [m
+   '@esbuild/aix-ppc64@0.25.5':[m
+     resolution: {integrity: sha512-9o3TMmpmftaCMepOdA5k/yDw8SfInyzWWTjYTFCX3kPSDJMROQTb8jg+h9Cnwnmm1vOzvxN7gIfB5V2ewpjtGA==}[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m=======[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-pBPWdu6MLKROBX05wSNKcNb++m5Er+KQ9QkB+WVM+pW2Kx9hoSrVTnu3BdkI5eBLZoKu/J6mW/B6i6bJB2ytXQ==, tarball: https://registry.npmmirror.com/@emnapi/runtime/-/runtime-1.4.3.tgz}[m
+[32m+[m
+[32m+[m[32m  '@emnapi/runtime@1.4.5':[m
+[32m+[m[32m    resolution: {integrity: sha512-++LApOtY0pEEz1zrd9vy1/zXVaVJJ/EbAF3u0fXIzPJEDtnITsBGbbK0EkM72amhl/R5b+5xx0Y/QhcVOpuulg==, tarball: https://registry.npmmirror.com/@emnapi/runtime/-/runtime-1.4.5.tgz}[m
+[32m+[m
+[32m+[m[32m  '@esbuild/aix-ppc64@0.25.5':[m
+[32m+[m[32m    resolution: {integrity: sha512-9o3TMmpmftaCMepOdA5k/yDw8SfInyzWWTjYTFCX3kPSDJMROQTb8jg+h9Cnwnmm1vOzvxN7gIfB5V2ewpjtGA==, tarball: https://registry.npmmirror.com/@esbuild/aix-ppc64/-/aix-ppc64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [ppc64][m
+     os: [aix][m
+ [m
+   '@esbuild/android-arm64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-VGzGhj4lJO+TVGV1v8ntCZWJktV7SGCs3Pn1GRWI1SBFtRALoomm8k5E9Pmwg3HOAal2VDc2F9+PM/rEY6oIDg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-VGzGhj4lJO+TVGV1v8ntCZWJktV7SGCs3Pn1GRWI1SBFtRALoomm8k5E9Pmwg3HOAal2VDc2F9+PM/rEY6oIDg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-VGzGhj4lJO+TVGV1v8ntCZWJktV7SGCs3Pn1GRWI1SBFtRALoomm8k5E9Pmwg3HOAal2VDc2F9+PM/rEY6oIDg==, tarball: https://registry.npmmirror.com/@esbuild/android-arm64/-/android-arm64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [arm64][m
+     os: [android][m
+ [m
+   '@esbuild/android-arm@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-AdJKSPeEHgi7/ZhuIPtcQKr5RQdo6OO2IL87JkianiMYMPbCtot9fxPbrMiBADOWWm3T2si9stAiVsGbTQFkbA==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-AdJKSPeEHgi7/ZhuIPtcQKr5RQdo6OO2IL87JkianiMYMPbCtot9fxPbrMiBADOWWm3T2si9stAiVsGbTQFkbA==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-AdJKSPeEHgi7/ZhuIPtcQKr5RQdo6OO2IL87JkianiMYMPbCtot9fxPbrMiBADOWWm3T2si9stAiVsGbTQFkbA==, tarball: https://registry.npmmirror.com/@esbuild/android-arm/-/android-arm-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [arm][m
+     os: [android][m
+ [m
+   '@esbuild/android-x64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-D2GyJT1kjvO//drbRT3Hib9XPwQeWd9vZoBJn+bu/lVsOZ13cqNdDeqIF/xQ5/VmWvMduP6AmXvylO/PIc2isw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-D2GyJT1kjvO//drbRT3Hib9XPwQeWd9vZoBJn+bu/lVsOZ13cqNdDeqIF/xQ5/VmWvMduP6AmXvylO/PIc2isw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-D2GyJT1kjvO//drbRT3Hib9XPwQeWd9vZoBJn+bu/lVsOZ13cqNdDeqIF/xQ5/VmWvMduP6AmXvylO/PIc2isw==, tarball: https://registry.npmmirror.com/@esbuild/android-x64/-/android-x64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [x64][m
+     os: [android][m
+ [m
+   '@esbuild/darwin-arm64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-GtaBgammVvdF7aPIgH2jxMDdivezgFu6iKpmT+48+F8Hhg5J/sfnDieg0aeG/jfSvkYQU2/pceFPDKlqZzwnfQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-GtaBgammVvdF7aPIgH2jxMDdivezgFu6iKpmT+48+F8Hhg5J/sfnDieg0aeG/jfSvkYQU2/pceFPDKlqZzwnfQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-GtaBgammVvdF7aPIgH2jxMDdivezgFu6iKpmT+48+F8Hhg5J/sfnDieg0aeG/jfSvkYQU2/pceFPDKlqZzwnfQ==, tarball: https://registry.npmmirror.com/@esbuild/darwin-arm64/-/darwin-arm64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [arm64][m
+     os: [darwin][m
+ [m
+   '@esbuild/darwin-x64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-1iT4FVL0dJ76/q1wd7XDsXrSW+oLoquptvh4CLR4kITDtqi2e/xwXwdCVH8hVHU43wgJdsq7Gxuzcs6Iq/7bxQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-1iT4FVL0dJ76/q1wd7XDsXrSW+oLoquptvh4CLR4kITDtqi2e/xwXwdCVH8hVHU43wgJdsq7Gxuzcs6Iq/7bxQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-1iT4FVL0dJ76/q1wd7XDsXrSW+oLoquptvh4CLR4kITDtqi2e/xwXwdCVH8hVHU43wgJdsq7Gxuzcs6Iq/7bxQ==, tarball: https://registry.npmmirror.com/@esbuild/darwin-x64/-/darwin-x64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [x64][m
+     os: [darwin][m
+ [m
+   '@esbuild/freebsd-arm64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-nk4tGP3JThz4La38Uy/gzyXtpkPW8zSAmoUhK9xKKXdBCzKODMc2adkB2+8om9BDYugz+uGV7sLmpTYzvmz6Sw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-nk4tGP3JThz4La38Uy/gzyXtpkPW8zSAmoUhK9xKKXdBCzKODMc2adkB2+8om9BDYugz+uGV7sLmpTYzvmz6Sw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-nk4tGP3JThz4La38Uy/gzyXtpkPW8zSAmoUhK9xKKXdBCzKODMc2adkB2+8om9BDYugz+uGV7sLmpTYzvmz6Sw==, tarball: https://registry.npmmirror.com/@esbuild/freebsd-arm64/-/freebsd-arm64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [arm64][m
+     os: [freebsd][m
+ [m
+   '@esbuild/freebsd-x64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-PrikaNjiXdR2laW6OIjlbeuCPrPaAl0IwPIaRv+SMV8CiM8i2LqVUHFC1+8eORgWyY7yhQY+2U2fA55mBzReaw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-PrikaNjiXdR2laW6OIjlbeuCPrPaAl0IwPIaRv+SMV8CiM8i2LqVUHFC1+8eORgWyY7yhQY+2U2fA55mBzReaw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-PrikaNjiXdR2laW6OIjlbeuCPrPaAl0IwPIaRv+SMV8CiM8i2LqVUHFC1+8eORgWyY7yhQY+2U2fA55mBzReaw==, tarball: https://registry.npmmirror.com/@esbuild/freebsd-x64/-/freebsd-x64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [x64][m
+     os: [freebsd][m
+ [m
+   '@esbuild/linux-arm64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-Z9kfb1v6ZlGbWj8EJk9T6czVEjjq2ntSYLY2cw6pAZl4oKtfgQuS4HOq41M/BcoLPzrUbNd+R4BXFyH//nHxVg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-Z9kfb1v6ZlGbWj8EJk9T6czVEjjq2ntSYLY2cw6pAZl4oKtfgQuS4HOq41M/BcoLPzrUbNd+R4BXFyH//nHxVg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-Z9kfb1v6ZlGbWj8EJk9T6czVEjjq2ntSYLY2cw6pAZl4oKtfgQuS4HOq41M/BcoLPzrUbNd+R4BXFyH//nHxVg==, tarball: https://registry.npmmirror.com/@esbuild/linux-arm64/-/linux-arm64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [arm64][m
+     os: [linux][m
+ [m
+   '@esbuild/linux-arm@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-cPzojwW2okgh7ZlRpcBEtsX7WBuqbLrNXqLU89GxWbNt6uIg78ET82qifUy3W6OVww6ZWobWub5oqZOVtwolfw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-cPzojwW2okgh7ZlRpcBEtsX7WBuqbLrNXqLU89GxWbNt6uIg78ET82qifUy3W6OVww6ZWobWub5oqZOVtwolfw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-cPzojwW2okgh7ZlRpcBEtsX7WBuqbLrNXqLU89GxWbNt6uIg78ET82qifUy3W6OVww6ZWobWub5oqZOVtwolfw==, tarball: https://registry.npmmirror.com/@esbuild/linux-arm/-/linux-arm-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [arm][m
+     os: [linux][m
+ [m
+   '@esbuild/linux-ia32@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-sQ7l00M8bSv36GLV95BVAdhJ2QsIbCuCjh/uYrWiMQSUuV+LpXwIqhgJDcvMTj+VsQmqAHL2yYaasENvJ7CDKA==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-sQ7l00M8bSv36GLV95BVAdhJ2QsIbCuCjh/uYrWiMQSUuV+LpXwIqhgJDcvMTj+VsQmqAHL2yYaasENvJ7CDKA==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-sQ7l00M8bSv36GLV95BVAdhJ2QsIbCuCjh/uYrWiMQSUuV+LpXwIqhgJDcvMTj+VsQmqAHL2yYaasENvJ7CDKA==, tarball: https://registry.npmmirror.com/@esbuild/linux-ia32/-/linux-ia32-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [ia32][m
+     os: [linux][m
+ [m
+   '@esbuild/linux-loong64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-0ur7ae16hDUC4OL5iEnDb0tZHDxYmuQyhKhsPBV8f99f6Z9KQM02g33f93rNH5A30agMS46u2HP6qTdEt6Q1kg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-0ur7ae16hDUC4OL5iEnDb0tZHDxYmuQyhKhsPBV8f99f6Z9KQM02g33f93rNH5A30agMS46u2HP6qTdEt6Q1kg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-0ur7ae16hDUC4OL5iEnDb0tZHDxYmuQyhKhsPBV8f99f6Z9KQM02g33f93rNH5A30agMS46u2HP6qTdEt6Q1kg==, tarball: https://registry.npmmirror.com/@esbuild/linux-loong64/-/linux-loong64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [loong64][m
+     os: [linux][m
+ [m
+   '@esbuild/linux-mips64el@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-kB/66P1OsHO5zLz0i6X0RxlQ+3cu0mkxS3TKFvkb5lin6uwZ/ttOkP3Z8lfR9mJOBk14ZwZ9182SIIWFGNmqmg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-kB/66P1OsHO5zLz0i6X0RxlQ+3cu0mkxS3TKFvkb5lin6uwZ/ttOkP3Z8lfR9mJOBk14ZwZ9182SIIWFGNmqmg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-kB/66P1OsHO5zLz0i6X0RxlQ+3cu0mkxS3TKFvkb5lin6uwZ/ttOkP3Z8lfR9mJOBk14ZwZ9182SIIWFGNmqmg==, tarball: https://registry.npmmirror.com/@esbuild/linux-mips64el/-/linux-mips64el-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [mips64el][m
+     os: [linux][m
+ [m
+   '@esbuild/linux-ppc64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-UZCmJ7r9X2fe2D6jBmkLBMQetXPXIsZjQJCjgwpVDz+YMcS6oFR27alkgGv3Oqkv07bxdvw7fyB71/olceJhkQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-UZCmJ7r9X2fe2D6jBmkLBMQetXPXIsZjQJCjgwpVDz+YMcS6oFR27alkgGv3Oqkv07bxdvw7fyB71/olceJhkQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-UZCmJ7r9X2fe2D6jBmkLBMQetXPXIsZjQJCjgwpVDz+YMcS6oFR27alkgGv3Oqkv07bxdvw7fyB71/olceJhkQ==, tarball: https://registry.npmmirror.com/@esbuild/linux-ppc64/-/linux-ppc64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [ppc64][m
+     os: [linux][m
+ [m
+   '@esbuild/linux-riscv64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-kTxwu4mLyeOlsVIFPfQo+fQJAV9mh24xL+y+Bm6ej067sYANjyEw1dNHmvoqxJUCMnkBdKpvOn0Ahql6+4VyeA==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-kTxwu4mLyeOlsVIFPfQo+fQJAV9mh24xL+y+Bm6ej067sYANjyEw1dNHmvoqxJUCMnkBdKpvOn0Ahql6+4VyeA==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-kTxwu4mLyeOlsVIFPfQo+fQJAV9mh24xL+y+Bm6ej067sYANjyEw1dNHmvoqxJUCMnkBdKpvOn0Ahql6+4VyeA==, tarball: https://registry.npmmirror.com/@esbuild/linux-riscv64/-/linux-riscv64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [riscv64][m
+     os: [linux][m
+ [m
+   '@esbuild/linux-s390x@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-K2dSKTKfmdh78uJ3NcWFiqyRrimfdinS5ErLSn3vluHNeHVnBAFWC8a4X5N+7FgVE1EjXS1QDZbpqZBjfrqMTQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-K2dSKTKfmdh78uJ3NcWFiqyRrimfdinS5ErLSn3vluHNeHVnBAFWC8a4X5N+7FgVE1EjXS1QDZbpqZBjfrqMTQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-K2dSKTKfmdh78uJ3NcWFiqyRrimfdinS5ErLSn3vluHNeHVnBAFWC8a4X5N+7FgVE1EjXS1QDZbpqZBjfrqMTQ==, tarball: https://registry.npmmirror.com/@esbuild/linux-s390x/-/linux-s390x-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [s390x][m
+     os: [linux][m
+ [m
+   '@esbuild/linux-x64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-uhj8N2obKTE6pSZ+aMUbqq+1nXxNjZIIjCjGLfsWvVpy7gKCOL6rsY1MhRh9zLtUtAI7vpgLMK6DxjO8Qm9lJw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-uhj8N2obKTE6pSZ+aMUbqq+1nXxNjZIIjCjGLfsWvVpy7gKCOL6rsY1MhRh9zLtUtAI7vpgLMK6DxjO8Qm9lJw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-uhj8N2obKTE6pSZ+aMUbqq+1nXxNjZIIjCjGLfsWvVpy7gKCOL6rsY1MhRh9zLtUtAI7vpgLMK6DxjO8Qm9lJw==, tarball: https://registry.npmmirror.com/@esbuild/linux-x64/-/linux-x64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [x64][m
+     os: [linux][m
+ [m
+   '@esbuild/netbsd-arm64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-pwHtMP9viAy1oHPvgxtOv+OkduK5ugofNTVDilIzBLpoWAM16r7b/mxBvfpuQDpRQFMfuVr5aLcn4yveGvBZvw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-pwHtMP9viAy1oHPvgxtOv+OkduK5ugofNTVDilIzBLpoWAM16r7b/mxBvfpuQDpRQFMfuVr5aLcn4yveGvBZvw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-pwHtMP9viAy1oHPvgxtOv+OkduK5ugofNTVDilIzBLpoWAM16r7b/mxBvfpuQDpRQFMfuVr5aLcn4yveGvBZvw==, tarball: https://registry.npmmirror.com/@esbuild/netbsd-arm64/-/netbsd-arm64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [arm64][m
+     os: [netbsd][m
+ [m
+   '@esbuild/netbsd-x64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-WOb5fKrvVTRMfWFNCroYWWklbnXH0Q5rZppjq0vQIdlsQKuw6mdSihwSo4RV/YdQ5UCKKvBy7/0ZZYLBZKIbwQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-WOb5fKrvVTRMfWFNCroYWWklbnXH0Q5rZppjq0vQIdlsQKuw6mdSihwSo4RV/YdQ5UCKKvBy7/0ZZYLBZKIbwQ==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-WOb5fKrvVTRMfWFNCroYWWklbnXH0Q5rZppjq0vQIdlsQKuw6mdSihwSo4RV/YdQ5UCKKvBy7/0ZZYLBZKIbwQ==, tarball: https://registry.npmmirror.com/@esbuild/netbsd-x64/-/netbsd-x64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [x64][m
+     os: [netbsd][m
+ [m
+   '@esbuild/openbsd-arm64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-7A208+uQKgTxHd0G0uqZO8UjK2R0DDb4fDmERtARjSHWxqMTye4Erz4zZafx7Di9Cv+lNHYuncAkiGFySoD+Mw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-7A208+uQKgTxHd0G0uqZO8UjK2R0DDb4fDmERtARjSHWxqMTye4Erz4zZafx7Di9Cv+lNHYuncAkiGFySoD+Mw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-7A208+uQKgTxHd0G0uqZO8UjK2R0DDb4fDmERtARjSHWxqMTye4Erz4zZafx7Di9Cv+lNHYuncAkiGFySoD+Mw==, tarball: https://registry.npmmirror.com/@esbuild/openbsd-arm64/-/openbsd-arm64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [arm64][m
+     os: [openbsd][m
+ [m
+   '@esbuild/openbsd-x64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-G4hE405ErTWraiZ8UiSoesH8DaCsMm0Cay4fsFWOOUcz8b8rC6uCvnagr+gnioEjWn0wC+o1/TAHt+It+MpIMg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-G4hE405ErTWraiZ8UiSoesH8DaCsMm0Cay4fsFWOOUcz8b8rC6uCvnagr+gnioEjWn0wC+o1/TAHt+It+MpIMg==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-G4hE405ErTWraiZ8UiSoesH8DaCsMm0Cay4fsFWOOUcz8b8rC6uCvnagr+gnioEjWn0wC+o1/TAHt+It+MpIMg==, tarball: https://registry.npmmirror.com/@esbuild/openbsd-x64/-/openbsd-x64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [x64][m
+     os: [openbsd][m
+ [m
+   '@esbuild/sunos-x64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-l+azKShMy7FxzY0Rj4RCt5VD/q8mG/e+mDivgspo+yL8zW7qEwctQ6YqKX34DTEleFAvCIUviCFX1SDZRSyMQA==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-l+azKShMy7FxzY0Rj4RCt5VD/q8mG/e+mDivgspo+yL8zW7qEwctQ6YqKX34DTEleFAvCIUviCFX1SDZRSyMQA==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m    resolution: {integrity: sha512-l+azKShMy7FxzY0Rj4RCt5VD/q8mG/e+mDivgspo+yL8zW7qEwctQ6YqKX34DTEleFAvCIUviCFX1SDZRSyMQA==, tarball: https://registry.npmmirror.com/@esbuild/sunos-x64/-/sunos-x64-0.25.5.tgz}[m
+[32m+[m[32m>>>>>>> e5e3ec3 (修复贪吃蛇移动)[m
+[32m+[m[32m>>>>>>> 52ae3b3 (修复贪吃蛇移动)[m
+     engines: {node: '>=18'}[m
+     cpu: [x64][m
+     os: [sunos][m
+ [m
+   '@esbuild/win32-arm64@0.25.5':[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m    resolution: {integrity: sha512-O2S7SNZzdcFG7eFKgvwUEZ2VG9D/sn/eIiz8XRZ1Q/DO5a3s76Xv0mdBzVM5j5R639lXQmPmSo0iRpHqUUrsxw==}[m
+[32m+[m[32m=======[m
+[32m+[m[32m<<<<<<< HEAD[m
+     resolution: {integrity: sha512-O2S7SNZzdcFG7eFKgvwUEZ2VG9D/sn/eIiz8XRZ1Q/DO5a3s76Xv0mdBz

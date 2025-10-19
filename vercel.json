@@ -2,6 +2,7 @@
   "version": 2,
   "buildCommand": "pnpm build",
   "installCommand": "pnpm install --no-frozen-lockfile",
+
   "framework": "astro",
   "outputDirectory": "dist",
   "public": false,
@@ -9,3 +10,5 @@
     "silent": true
   }
 }
+
+

@@ -170,7 +170,7 @@ const GitProjectCollection: React.FC<GitProjectCollectionProps> = ({
         setIsPageChanging(false);
       }
     }
-  }, [platform, username, organization, token, perPage, url, projects.length]);
+  }, [platform, username, organization, token, perPage, url]);
   
   useEffect(() => {
     // 设置组件已挂载标志
@@ -191,15 +191,13 @@ const GitProjectCollection: React.FC<GitProjectCollectionProps> = ({
     if (isPageChanging) return;
     
     setIsPageChanging(true);
+    setLoading(true);
     
     // 更新分页状态
     setPagination(prev => ({
       ...prev,
       current: page
     }));
-    
-    // 不清空当前项目列表，但显示加载状态
-    setLoading(true);
     
     fetchData(page);
   }, [fetchData, isPageChanging]);
