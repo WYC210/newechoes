@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import SnakeGame from './games/SnakeGame';
 import GomokuGame from './games/GomokuGame';
 import ApiTools from './apis/ApiTools';
+import UtilityTools from './utils/UtilityTools';
+import DeveloperTools from './devtools/DeveloperTools';
 
 interface ToolsPageProps {
   className?: string;
 }
 
-type TabType = 'games' | 'apis';
+type TabType = 'games' | 'apis' | 'utils';
 type GameType = 'snake' | 'gomoku';
 type GameMode = 'single' | 'double' | 'challenge' | 'ai' | 'pvp';
 
@@ -16,12 +18,16 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
   const [currentGame, setCurrentGame] = useState<GameType | null>(null);
   const [gameMode, setGameMode] = useState<GameMode | null>(null);
   const [showApiTools, setShowApiTools] = useState(false);
+  const [showUtilityTools, setShowUtilityTools] = useState(false);
+  const [showDeveloperTools, setShowDeveloperTools] = useState(false);
 
   // 重置到列表视图
   const resetToListView = () => {
     setCurrentGame(null);
     setGameMode(null);
     setShowApiTools(false);
+    setShowUtilityTools(false);
+    setShowDeveloperTools(false);
   };
 
   // 切换标签
@@ -47,6 +53,11 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
     setShowApiTools(true);
   };
 
+  // 显示实用工具
+  const showUtilityToolsPage = () => {
+    setShowUtilityTools(true);
+  };
+
   return (
     <div className={`min-h-screen bg-gray-50 dark:bg-gray-900 no-zoom ${className}`}>
       <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 md:py-8">
@@ -56,7 +67,7 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
             🛠️ 工具中心
           </h1>
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 px-2 sm:px-4">
-            选择你需要的工具 - 游戏娱乐或API工具
+            选择你需要的工具 - 游戏娱乐、API工具、实用工具或开发者工具
           </p>
 
         </div>
@@ -66,23 +77,30 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-1 sm:p-1.5 md:p-2 flex space-x-1 sm:space-x-1.5 md:space-x-2 w-full max-w-2xl">
             <button
               onClick={() => switchTab('games')}
-              className={`flex-1 px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3 rounded-lg font-semibold transition-all duration-300 text-xs sm:text-sm md:text-base ${
-                activeTab === 'games'
-                  ? 'bg-primary-500 text-white shadow-lg'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
-              }`}
+              className={`flex-1 px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3 rounded-lg font-semibold transition-all duration-300 text-xs sm:text-sm md:text-base ${activeTab === 'games'
+                ? 'bg-primary-500 text-white shadow-lg'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                }`}
             >
               🎮 游戏娱乐
             </button>
             <button
               onClick={() => switchTab('apis')}
-              className={`flex-1 px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3 rounded-lg font-semibold transition-all duration-300 text-xs sm:text-sm md:text-base ${
-                activeTab === 'apis'
-                  ? 'bg-primary-500 text-white shadow-lg'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
-              }`}
+              className={`flex-1 px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3 rounded-lg font-semibold transition-all duration-300 text-xs sm:text-sm md:text-base ${activeTab === 'apis'
+                ? 'bg-primary-500 text-white shadow-lg'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                }`}
             >
               🔧 API工具
+            </button>
+            <button
+              onClick={() => switchTab('utils')}
+              className={`flex-1 px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3 rounded-lg font-semibold transition-all duration-300 text-xs sm:text-sm md:text-base ${activeTab === 'utils'
+                ? 'bg-primary-500 text-white shadow-lg'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                }`}
+            >
+              🛠️ 实用工具
             </button>
           </div>
         </div>
@@ -308,6 +326,76 @@ const ToolsPage: React.FC<ToolsPageProps> = ({ className = '' }) => {
               )}
             </div>
           )}
+
+          {/* 实用工具区域 */}
+          {activeTab === 'utils' && (
+            <div className="section-content">
+              {showUtilityTools ? (
+                <UtilityTools onBack={resetToListView} />
+              ) : showDeveloperTools ? (
+                <DeveloperTools onBack={resetToListView} />
+              ) : (
+                /* 实用工具列表 */
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* 实用工具集卡片 */}
+                  <div
+                    className="utility-card bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-primary-500 hover:-translate-y-1"
+                    onClick={showUtilityToolsPage}
+                  >
+                    <div className="text-center">
+                      <div className="text-6xl mb-4">🛠️</div>
+                      <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                        实用工具集
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400 mb-4">
+                        包含11种实用的前端工具
+                      </p>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-xs">
+                          代码高亮
+                        </span>
+                        <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs">
+                          图片处理
+                        </span>
+                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs">
+                          格式转换
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 开发者工具集卡片 */}
+                  <div
+                    className="devtool-card bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-primary-500 hover:-translate-y-1"
+                    onClick={() => setShowDeveloperTools(true)}
+                  >
+                    <div className="text-center">
+                      <div className="text-6xl mb-4">💻</div>
+                      <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                        开发者工具集
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400 mb-4">
+                        包含6种实用的开发者工具
+                      </p>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs">
+                          Base64
+                        </span>
+                        <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs">
+                          时间戳
+                        </span>
+                        <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-xs">
+                          JWT解析
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+
         </div>
       </div>
     </div>
