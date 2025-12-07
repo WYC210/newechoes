@@ -13,11 +13,11 @@ type DataGridXLInstance = {
 };
 
 function debounce<T extends (...args: any[]) => any>(fn: T, delay: number): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout | undefined;
-  return (...args: Parameters<T>) => {
-    if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => fn(...args), delay);
-  };
+    let timeout: NodeJS.Timeout | undefined;
+    return (...args: Parameters<T>) => {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => fn(...args), delay);
+    };
 }
 
 const loadDataGridXLScript = () =>
@@ -27,7 +27,7 @@ const loadDataGridXLScript = () =>
             return;
         }
         const script = document.createElement('script');
-        script.src = 'https://code.datagridxl.com/datagridxl.js';
+        script.src = '/js/datagridxl.js';
         script.async = true;
         script.onload = () => resolve();
         script.onerror = () => reject(new Error('load_failed'));
@@ -322,119 +322,118 @@ const TableConverter: React.FC = () => {
                 )}
 
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark p-6 shadow-sm flex flex-col gap-4">
-                    <div className="flex flex-wrap gap-4 items-center">
-                        <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                            行数
-                            <input
-                                type="number"
-                                min={1}
-                                max={20}
-                                value={rows}
-                                onChange={(e) => handleRowsChange(Number(e.target.value))}
-                                className="w-20 rounded-md border border-gray-300 dark:border-gray-700 bg-transparent px-3 py-1 text-sm"
-                            />
-                        </label>
-                        <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                            列数
-                            <input
-                                type="number"
-                                min={1}
-                                max={12}
-                                value={cols}
-                                onChange={(e) => handleColsChange(Number(e.target.value))}
-                                className="w-20 rounded-md border border-gray-300 dark:border-gray-700 bg-transparent px-3 py-1 text-sm"
-                            />
-                        </label>
-                        <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                            <input
-                                type="checkbox"
-                                checked={useHeader}
-                                onChange={(e) => setUseHeader(e.target.checked)}
-                                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                            />
-                            第一行作为表头
-                        </label>
-                        <button
-                            onClick={clearTable}
-                            className="ml-auto text-sm font-medium text-primary hover:underline"
-                        >
-                            清空表格
-                        </button>
+                    <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark p-6 shadow-sm flex flex-col gap-4">
+                        <div className="flex flex-wrap gap-4 items-center">
+                            <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                行数
+                                <input
+                                    type="number"
+                                    min={1}
+                                    max={20}
+                                    value={rows}
+                                    onChange={(e) => handleRowsChange(Number(e.target.value))}
+                                    className="w-20 rounded-md border border-gray-300 dark:border-gray-700 bg-transparent px-3 py-1 text-sm"
+                                />
+                            </label>
+                            <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                列数
+                                <input
+                                    type="number"
+                                    min={1}
+                                    max={12}
+                                    value={cols}
+                                    onChange={(e) => handleColsChange(Number(e.target.value))}
+                                    className="w-20 rounded-md border border-gray-300 dark:border-gray-700 bg-transparent px-3 py-1 text-sm"
+                                />
+                            </label>
+                            <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                <input
+                                    type="checkbox"
+                                    checked={useHeader}
+                                    onChange={(e) => setUseHeader(e.target.checked)}
+                                    className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                />
+                                第一行作为表头
+                            </label>
+                            <button
+                                onClick={clearTable}
+                                className="ml-auto text-sm font-medium text-primary hover:underline"
+                            >
+                                清空表格
+                            </button>
+                        </div>
+
+                        <div className="relative rounded-lg border border-dashed border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/30 min-h-[360px]">
+                            <div ref={gridContainerRef} className="h-[360px] w-full overflow-hidden rounded-lg" />
+                            {gridStatus !== 'ready' && (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg bg-white/80 dark:bg-gray-900/80 text-sm text-gray-600 dark:text-gray-300">
+                                    {gridStatus === 'loading' ? (
+                                        <>
+                                            <div className="spinner" />
+                                            <p>正在加载 DataGridXL...</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p>DataGridXL 加载失败，请检查网络后重试。</p>
+                                            <button
+                                                onClick={retryGrid}
+                                                className="text-primary font-semibold"
+                                            >
+                                                重新加载
+                                            </button>
+                                        </>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="relative rounded-lg border border-dashed border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/30 min-h-[360px]">
-                        <div ref={gridContainerRef} className="h-[360px] w-full overflow-hidden rounded-lg" />
-                        {gridStatus !== 'ready' && (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg bg-white/80 dark:bg-gray-900/80 text-sm text-gray-600 dark:text-gray-300">
-                                {gridStatus === 'loading' ? (
-                                    <>
-                                        <div className="spinner" />
-                                        <p>正在加载 DataGridXL...</p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <p>DataGridXL 加载失败，请检查网络后重试。</p>
-                                        <button
-                                            onClick={retryGrid}
-                                            className="text-primary font-semibold"
-                                        >
-                                            重新加载
-                                        </button>
-                                    </>
-                                )}
+                    <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark p-6 shadow-sm flex flex-col gap-4">
+                        <div className="flex items-center rounded-lg bg-gray-100 dark:bg-white/5 p-1.5">
+                            {(['markdown', 'latex', 'word'] as TableFormat[]).map(format => (
+                                <button
+                                    key={format}
+                                    onClick={() => setActiveFormat(format)}
+                                    className={`flex-1 rounded-md px-3 py-2 text-sm font-semibold capitalize transition-all ${activeFormat === format
+                                            ? 'bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-gray-50'
+                                            : 'text-gray-500 dark:text-gray-400'
+                                        }`}
+                                >
+                                    {format}
+                                </button>
+                            ))}
+                        </div>
+
+                        <textarea
+                            value={formattedOutput}
+                            readOnly
+                            className="min-h-[320px] flex-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 px-4 py-3 text-sm font-mono text-gray-800 dark:text-gray-100"
+                        />
+
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                支持直接复制或下载为 {activeFormat === 'markdown' ? '.md' : activeFormat === 'latex' ? '.tex' : '.doc'} 文件。
+                            </p>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={handleCopy}
+                                    className="flex items-center gap-1 rounded-lg border border-gray-300 dark:border-gray-700 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                                >
+                                    <span className="material-symbols-outlined text-base">content_copy</span>
+                                    <span>{copySuccess ? '已复制!' : '复制'}</span>
+                                </button>
+                                <button
+                                    onClick={handleDownload}
+                                    className="flex items-center gap-1 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow hover:opacity-90"
+                                    style={{ backgroundColor: '#607AFB' }}
+                                >
+                                    <span className="material-symbols-outlined text-base">download</span>
+                                    下载
+                                </button>
                             </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark p-6 shadow-sm flex flex-col gap-4">
-                    <div className="flex items-center rounded-lg bg-gray-100 dark:bg-white/5 p-1.5">
-                        {(['markdown', 'latex', 'word'] as TableFormat[]).map(format => (
-                            <button
-                                key={format}
-                                onClick={() => setActiveFormat(format)}
-                                className={`flex-1 rounded-md px-3 py-2 text-sm font-semibold capitalize transition-all ${
-                                    activeFormat === format
-                                        ? 'bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-gray-50'
-                                        : 'text-gray-500 dark:text-gray-400'
-                                }`}
-                            >
-                                {format}
-                            </button>
-                        ))}
-                    </div>
-
-                    <textarea
-                        value={formattedOutput}
-                        readOnly
-                        className="min-h-[320px] flex-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 px-4 py-3 text-sm font-mono text-gray-800 dark:text-gray-100"
-                    />
-
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                            支持直接复制或下载为 {activeFormat === 'markdown' ? '.md' : activeFormat === 'latex' ? '.tex' : '.doc'} 文件。
-                        </p>
-                        <div className="flex gap-3">
-                            <button
-                                onClick={handleCopy}
-                                className="flex items-center gap-1 rounded-lg border border-gray-300 dark:border-gray-700 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                            >
-                                <span className="material-symbols-outlined text-base">content_copy</span>
-                                <span>{copySuccess ? '已复制!' : '复制'}</span>
-                            </button>
-                            <button
-                                onClick={handleDownload}
-                                className="flex items-center gap-1 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow hover:opacity-90"
-                                style={{ backgroundColor: '#607AFB' }}
-                            >
-                                <span className="material-symbols-outlined text-base">download</span>
-                                下载
-                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     );

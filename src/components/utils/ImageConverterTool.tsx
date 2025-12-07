@@ -108,7 +108,7 @@ const ImageConverterTool: React.FC = () => {
                 const gif = new window.GIF({
                     workers: 2,
                     quality: settings.quality,
-                    workerScript: '/gif.worker.js',
+                    workerScript: '/js/gif.worker.js',
                     width: frames[0].dims.width,
                     height: frames[0].dims.height,
                     transparent: 'rgba(0,0,0,0)',
@@ -192,7 +192,7 @@ const ImageConverterTool: React.FC = () => {
                     const gif = new window.GIF({
                         workers: 2,
                         quality: settings.quality,
-                        workerScript: '/gif.worker.js',
+                        workerScript: '/js/gif.worker.js',
                         width: img.width,
                         height: img.height,
                         transparent: 'rgba(0,0,0,0)',
@@ -422,17 +422,17 @@ const ImageConverterTool: React.FC = () => {
                                             step="1"
                                             value={
                                                 gifQuality === 'lowest' ? 0 :
-                                                gifQuality === 'low' ? 1 :
-                                                gifQuality === 'medium' ? 2 :
-                                                gifQuality === 'high' ? 3 : 4
+                                                    gifQuality === 'low' ? 1 :
+                                                        gifQuality === 'medium' ? 2 :
+                                                            gifQuality === 'high' ? 3 : 4
                                             }
                                             onChange={(e) => {
                                                 const val = parseInt(e.target.value);
                                                 setGifQuality(
                                                     val === 0 ? 'lowest' :
-                                                    val === 1 ? 'low' :
-                                                    val === 2 ? 'medium' :
-                                                    val === 3 ? 'high' : 'highest'
+                                                        val === 1 ? 'low' :
+                                                            val === 2 ? 'medium' :
+                                                                val === 3 ? 'high' : 'highest'
                                                 );
                                             }}
                                             className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary"
