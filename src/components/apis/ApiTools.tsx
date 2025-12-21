@@ -263,9 +263,13 @@ const ApiTools: React.FC<ApiToolsProps> = ({ onBack }) => {
 
     try {
       // 对于IP查询，使用我们自己的API端点
-      if (selectedTool === 'ip-location') {
+      if (selectedTool === 'ip-location' || selectedTool === 'my-ip') {
+        const ipQuery =
+          selectedTool === 'ip-location'
+            ? `ip=${encodeURIComponent(inputValue.trim())}`
+            : 'ip=auto';
         const sourceParam = ipApiSource !== 'auto' ? `&source=${ipApiSource}` : '';
-        const response = await fetch(`/api/ip-location?ip=${encodeURIComponent(inputValue.trim())}${sourceParam}`);
+        const response = await fetch(`/api/ip-location?${ipQuery}${sourceParam}`);
 
         if (!response.ok) {
           const errorData = await response.json();
