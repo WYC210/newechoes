@@ -1,19 +1,20 @@
 ---
-title: "输出Hello word"
+title: "输出 Hello World"
 date: 2024-10-06T19:08:00Z
 tags: ["c++"]
 ---
 
-#define \_CRT_SECURE_NO_WARNINGS
-#include <iostream>//编译预处理命令
-using namespace std; //使用命名空间
+# 输出 Hello World
 
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello World" << std::endl;
+    return 0;
+}
 ```
-int main(){
-	cout << "Hello word" << endl ;
-//不换行
-cout << "HELLO WORD " ;
-int a;
-cin << a;
-	}
-```
+
+## 输出不换行
+
+使用 `std::cout << "Hello World";` 不会自动换行。

@@ -3,11 +3,20 @@ title: "range"
 date: 2024-10-06T19:08:00Z
 tags: ["python"]
 ---
+# range 用法
+
+`range` 生成一个整数序列，左闭右开（不包含 `stop`）。
+
+## 形式
+
+- `range(stop)`
+- `range(start, stop)`
+- `range(start, stop, step)`
+
+## 示例
+
 ```python
-range(num1 , num2)
-获得从num1到num2的数【不包含num2】
-range(num1 ,num2 , step)
-获得从num1到num2的数【不包含num2】，step为步长
-range(num)
-range(10)--获得从1-9
+list(range(5))
+list(range(1, 5))
+list(range(1, 10, 2))
 ```

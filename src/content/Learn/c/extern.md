@@ -4,36 +4,59 @@ date: 2024-10-06T19:08:00Z
 tags: ["c"]
 ---
 
-extern 是调用外部文件的命令
-基本用法：
+# extern 用法
+
+`extern` 用于声明在其他文件中定义的变量或函数。
+
+## 示例：函数声明与定义
+
+**add.h**
 
 ```c
-//源文件
+#ifndef ADD_H
+#define ADD_H
+
+int add(int x, int y);
+
+#endif
+```
+
+**add.c**
+
+```c
+#include "add.h"
+
+int add(int x, int y) {
+    return x + y;
+}
+```
+
+**main.c**
+
+```c
 #include <stdio.h>
-#include "try12.h"int main(){
-    int a ;
-    int b ;
-    printf("输入你想要求和的两个数");
-    scanf("%d%d" , &a , &b );
-    int z = Add(a,b);
-    printf("计算的结果为： " ,  z);
-    ststem("pause");
+#include "add.h"
+
+int main(void) {
+    int a = 2;
+    int b = 3;
+    printf("%d\n", add(a, b));
+    return 0;
 }
-
-
 ```
 
-//被调用文件
+## 示例：全局变量声明
+
+**counter.h**
 
 ```c
-extern int Add( int x , int y){
-
-    int z = x+y ;
-
-    return z;
-}
+extern int counter;
 ```
 
-**特别注意，被调用文件的文件后缀不是.c 格式，是.h 格式**
+**counter.c**
+
+```c
+int counter = 0;
+```
 
 
